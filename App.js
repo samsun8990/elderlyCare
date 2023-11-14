@@ -2,7 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,SafeAreaView,Dimensions } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import StartPage from './components/Pages/StartPage/StartPage';
+// import StartPage from './components/Pages/StartPage/StartPage';
+import ElderProfile from './components/Profile/Elder/ElderProfile'
 
 
 
@@ -18,11 +19,15 @@ export default function App() {
           screenOptions={{
             headerStyle: { backgroundColor: "lightblue", color: "white" },
           }}
-          initialRouteName="StartPage"
+          initialRouteName="ElderProfile"
         >
-          <Stack.Screen
+          {/* <Stack.Screen
             name="StartPage"
             component={StartPage}
+          />  */}
+           <Stack.Screen
+            name="StartPage"
+            component={ElderProfile}
           /> 
         
         </Stack.Navigator>
@@ -36,7 +41,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgray",
+    backgroundColor: "lightblue",
     justifyContent: "space-between",
     width: windowWidth,
     height: windowHeight,
