@@ -6,6 +6,7 @@ const ElderProfile = () => {
     <View>
       <Text>ElderProfile</Text>
       <Text>ElderProfile</Text>
+      <Text>ElderProfile</Text>
     </View>
   )
 }
