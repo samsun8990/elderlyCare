@@ -5,6 +5,7 @@ const ElderProfile = () => {
   return (
     <View>
       <Text>ElderProfile</Text>
+      <Text>ElderProfile</Text>
     </View>
   )
 }
