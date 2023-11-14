@@ -1,16 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const ElderProfile = () => {
+const EditProfileV = () => {
   return (
     <View>
-      <Text>ElderProfile</Text>
-      <Text>ElderProfile</Text>
-      <Text>ElderProfile</Text>
+      <Text>EditProfileV</Text>
     </View>
   )
 }
 
-export default ElderProfile
+export default EditProfileV
 
 const styles = StyleSheet.create({})
