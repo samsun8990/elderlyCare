@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import StartPage from './components/Pages/StartPage/StartPage';
 import ElderProfile from './components/Profile/Elder/ElderProfile'
+import { FontAwesome,AntDesign,Ionicons} from 'react-native-vector-icons';
 
 
 
@@ -17,7 +18,7 @@ export default function App() {
     <NavigationContainer>
         <Stack.Navigator 
           screenOptions={{
-            headerStyle: { backgroundColor: "lightblue", color: "white" },
+            headerStyle: { backgroundColor: "#DDEBEF", color: "white" },
           }}
           initialRouteName="ElderProfile"
         >
@@ -26,9 +27,17 @@ export default function App() {
             component={StartPage}
           />  */}
            <Stack.Screen
-            name="StartPage"
+            name="Elder Profile"
             component={ElderProfile}
-          /> 
+            options={({ navigation }) => ({  // Pass the navigation prop to options
+              headerLeft: () => (
+                <FontAwesome
+                  name="chevron-left"
+                  size={24}
+                  onPress={() => navigation.navigate('Home')}  // Use navigation.navigate to go to Login
+                />
+              ),
+            })} />
         
         </Stack.Navigator>
       </NavigationContainer> 
@@ -41,7 +50,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
+    backgroundColor: "#DDEBEF",
     justifyContent: "space-between",
     width: windowWidth,
     height: windowHeight,
