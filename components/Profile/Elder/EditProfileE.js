@@ -5,7 +5,6 @@ const EditProfileE = () => {
   return (
     <View>
       <Text>EditProfileE</Text>
-      <Text>EditProfileE</Text>
     </View>
   )
 }
