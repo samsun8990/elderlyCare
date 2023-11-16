@@ -20,7 +20,7 @@ const StackNavigator = () => (
       component={Home}
       options={({ navigation }) => ({
         headerTitle: "",
-        cardOverlay:false,
+        // cardOverlay:false,
         headerLeft: ()=><Image source={require("../../assets/logo/Elderly-Care.png")} style={{width:110,height:20,marginLeft:15}}resizeMode="cover"/>, // Optional, if you want to hide the back button
         headerRight: () => (
           <React.Fragment>
