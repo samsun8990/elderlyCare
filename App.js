@@ -3,10 +3,10 @@ import { StyleSheet, Text, View,SafeAreaView,Dimensions } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import StartPage from './components/Pages/StartPage/StartPage';
-import ElderProfile from './components/Profile/Elder/ElderProfile'
 import { FontAwesome,AntDesign,Ionicons} from 'react-native-vector-icons';
 
-
+import ElderProfile from './components/Profile/Elder/ElderProfile'
+// import EditProfileE from './components/Profile/Elder/EditProfileE';
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -38,7 +38,19 @@ export default function App() {
                 />
               ),
             })} />
-        
+            {/* <Stack.Screen
+            name="Edit Profile Elder"
+            component={EditProfileE}
+            options={({ navigation }) => ({  // Pass the navigation prop to options
+              headerLeft: () => (
+                <FontAwesome
+                  name="chevron-left"
+                  size={24}
+                  onPress={() => navigation.navigate('Home')}  // Use navigation.navigate to go to Login
+                />
+              ),
+            })} />
+         */}
         </Stack.Navigator>
       </NavigationContainer> 
 

@@ -1,56 +1,128 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image } from 'react-native';
-import React from 'react'
-import * as ImagePicker from 'expo-image-picker'
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { Button, Icon } from '@rneui/themed';
+import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
+import { Divider } from 'react-native-elements';
 
-const pickImage = async () => {
-    const [image, setImage] = useState(null)
-    let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-    });
-    if (!result.canceled) {
-        console.log(result)
-        setImage(result.assets[0].uri);
-    }
-};
 
 const ElderProfile = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles = { justifyContent: 'center', alignItems: 'center', padding: 20 }}>
-                <Image source={require('../../../assets/profile.png')} style={{ alignItems: 'center', width: 100, height: 100, borderRadius: 50 }} />
-                <Text></Text>
+            <View style={styles.profileContainer}>
+                <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
                 <Text>Joined Date: 12 Aug 2022</Text>
-                <Text></Text>
                 <Text>Name</Text>
-                <Text></Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} >
                     <Icon name="edit" color="white" />
                     Edit
                 </Button>
             </View>
-            <View style={styles = { flex:1, alignItems: 'left', padding: 20 }}>
-                <Text></Text>
-                <Text style={styles={fontSize:20}}>Personal Details</Text>
+            <View style={styles.personalDetailsContainer}>
+                <Text style={styles.sectionTitle}>Personal Details</Text>
+                <View style={styles.divider} />
+                <View style={styles.detailRow}>
+                    <Icon name="mail" color="black" size={20} style={styles.icon} />
+                    <Text>Email</Text>
+                </View>
+                <View style={styles.detailRow}>
+                    <Icon name="lock" color="black" size={20} style={styles.icon} />
+                    <Text>Password</Text>
+                    <Button size={"sm"} radius={5} type="outline" color={"#1B5B7D"} >
+                        Change
+                    </Button>
+                </View>
+                <View style={styles.detailRow}>
+                    <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
+                    <Text>Date of Birth</Text>
+                </View>
+                <View style={styles.detailRow}>
+                    <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
+                    <Text>Phone Number</Text>
+                </View>
             </View>
-
-
+            <View style={styles.cardContainer}>
+                <Text style={styles.sectionTitle}>Dashboard</Text>
+                <Divider style={styles.divider} />
+                <View style={styles.dashboardButtons}>
+                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}>
+                        Payments
+                    </Button>
+                    <Button size={"md"} radius={20} type="solid" color={"#FFD699"}>
+                        Chat History
+                    </Button>
+                    <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}>
+                        Health Info
+                    </Button>
+                </View>
+            </View>
+            <View style={styles.accountContainer}>
+                <Text style={styles.sectionTitle}>My Account</Text>
+                <Divider style={styles.divider} />
+                {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
+                <Text style={styles = { fontSize: 16 }}>
+                    <Icon size={30} name="logout" color="#1B5B7D" /> Logout
+                </Text>
+                {/* </Button> */}
+            </View>
         </SafeAreaView>
-    )
-}
+    );
+};
 
-export default ElderProfile
+export default ElderProfile;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#DDEBEF",
         justifyContent: 'space-between'
-
+    },
+    profileContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        gap: 5
+    },
+    profileImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+    },
+    personalDetailsContainer: {
+        flex: 1,
+        alignItems: 'left',
+        padding: 20,
+    },
+    cardContainer: {
+        flex: 1,
+        alignItems: 'left',
+        padding: 10,
+    },
+    accountContainer: {
+        flex: 1,
+        alignItems: 'left',
+        padding: 20,
+    },
+    sectionTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    dashboardButtons: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 5
+    },
+    divider: {
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        marginVertical: 3,
+    },       
+    detailRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    icon: {
+        marginRight: 10,
     },
 });
-
-
-//   DDEBEF
-// 1B5B7D
