@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'r
 import React from 'react';
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
-import { Divider } from 'react-native-elements';
 
 
 const ElderProfile = () => {
@@ -20,7 +19,7 @@ const ElderProfile = () => {
             </View>
             <View style={styles.personalDetailsContainer}>
                 <Text style={styles.sectionTitle}>Personal Details</Text>
-                <View style={styles.divider} />
+                <View style={styles.line} />
                 <View style={styles.detailRow}>
                     <Icon name="mail" color="black" size={20} style={styles.icon} />
                     <Text>Email</Text>
@@ -43,7 +42,7 @@ const ElderProfile = () => {
             </View>
             <View style={styles.cardContainer}>
                 <Text style={styles.sectionTitle}>Dashboard</Text>
-                <Divider style={styles.divider} />
+                <View style={styles.line} />
                 <View style={styles.dashboardButtons}>
                     <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}>
                         Payments
@@ -58,7 +57,7 @@ const ElderProfile = () => {
             </View>
             <View style={styles.accountContainer}>
                 <Text style={styles.sectionTitle}>My Account</Text>
-                <Divider style={styles.divider} />
+                <View style={styles.line} />
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={styles = { fontSize: 16 }}>
                     <Icon size={30} name="logout" color="#1B5B7D" /> Logout
@@ -113,11 +112,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginTop: 5
     },
-    divider: {
+    line: {
         borderBottomColor: 'black',
         borderBottomWidth: 1,
-        marginVertical: 3,
-    },       
+        marginVertical: 10,
+      },      
     detailRow: {
         flexDirection: 'row',
         alignItems: 'center',

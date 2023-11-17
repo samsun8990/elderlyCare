@@ -25,6 +25,8 @@ const EditProfileE = () => {
         <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
           <Text style={styles.profileText}>Date of Birth</Text>
         </View>
+        <View style={styles.line} />
+
       </View>
       <View style={styles.dashboardButtons}>
       <Button size={"md"} radius={20} type="solid" color={"#FFD699"}>
@@ -84,6 +86,7 @@ const styles = StyleSheet.create({
   profileRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap:10
   },
   profileText: {
     fontSize: 16,
@@ -91,6 +94,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 'left',
+    
   },
   line: {
     borderBottomColor: 'black',

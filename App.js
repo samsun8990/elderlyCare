@@ -8,6 +8,8 @@ import { FontAwesome,AntDesign,Ionicons} from 'react-native-vector-icons';
 import ElderProfile from './components/Profile/Elder/ElderProfile'
 import EditProfileE from './components/Profile/Elder/EditProfileE';
 import VolunProfile from './components/Profile/Volunteer/VolunProfile';
+import EditProfileV from './components/Profile/Volunteer/EditProfileV';
+
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -19,7 +21,8 @@ export default function App() {
    
    {/* <ElderProfile/> */}
    {/* <EditProfileE/> */}
-   <VolunProfile/>
+   {/* <VolunProfile/> */}
+   <EditProfileV/>
 
     
     
