@@ -7,18 +7,19 @@ import { FontAwesome,AntDesign,Ionicons} from 'react-native-vector-icons';
 
 import ElderProfile from './components/Profile/Elder/ElderProfile'
 import EditProfileE from './components/Profile/Elder/EditProfileE';
+import VolunProfile from './components/Profile/Volunteer/VolunProfile';
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-
 export default function App() {
   return (
     
    <SafeAreaView style={styles.container}>
    
    {/* <ElderProfile/> */}
-   <EditProfileE/>
+   {/* <EditProfileE/> */}
+   <VolunProfile/>
 
     
     
