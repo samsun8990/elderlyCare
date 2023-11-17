@@ -7,7 +7,7 @@ const EditProfileE = () => {
       <View style={styles = { justifyContent: 'center', alignItems: 'center', padding: 20 }}>
         <Image source={require('../../../assets/profile.png')} style={{ alignItems: 'center', width: 100, height: 100, borderRadius: 50 }} />
         <Text></Text>
-        <Text>Joined Date: 12 Aug 2022</Text>
+        <Text>Joined Date</Text>
         <Text></Text>
         <Text>Name</Text>
         <Text></Text>
