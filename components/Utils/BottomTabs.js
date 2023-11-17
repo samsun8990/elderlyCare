@@ -8,50 +8,8 @@ import Network from "../Pages/Network/Network";
 import Chats from "../Pages/Chats/Chats";
 import Volunteers from "../Pages/Volunteers/Volunteers";
 import { FontAwesome } from "react-native-vector-icons";
-import Notification from "../Pages/Notifications/Notification";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-
-const StackNavigator = () => (
-  <Stack.Navigator screenOptions={()=>{}}>
-    <Stack.Screen
-      name="Home"
-      component={Home}
-      options={({ navigation }) => ({
-        headerTitle: "",
-        // cardOverlay:false,
-        headerLeft: ()=><Image source={require("../../assets/logo/Elderly-Care.png")} style={{width:110,height:20,marginLeft:15}}resizeMode="cover"/>, // Optional, if you want to hide the back button
-        headerRight: () => (
-          <React.Fragment>
-            <FontAwesome
-              name="bell"
-              size={24}
-              style={{ marginRight: 15 }}
-              onPress={() => navigation.navigate('Notifications')} // Navigate to notification screen
-            />
-            <FontAwesome
-              name="sign-out"
-              size={24}
-              style={{ marginRight: 15 }}
-              onPress={() => {
-                // Handle logout logic here
-              }}
-            />
-          </React.Fragment>
-        ),
-      })}
-    />
-    <Stack.Screen
-      name="Notifications"
-      component={Notification}
-      options={{
-        title: 'Notifications',
-      }}
-    />
-  </Stack.Navigator>
-);
-
 
 const BottomTabs = () => {
   return (
@@ -62,7 +20,7 @@ const BottomTabs = () => {
   >
       <Tab.Screen
         name="Home"
-        component={StackNavigator}
+        component={Home}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ focused }) => {
