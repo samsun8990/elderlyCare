@@ -4,11 +4,21 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } fro
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 
-const EditProfileE = () => {
+
+const EditProfileE = ({ navigation }) => {
+  const handleBackPress = () => {
+    // Add navigation logic here to go back
+    navigation.goBack();
+  };
   return (
     <SafeAreaView style={styles.container}>
+    <View>
+      <TouchableOpacity onPress={handleBackPress}>
+        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+      </TouchableOpacity>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Edit Profile</Text>
+      </View>
       </View>
       <View style={styles.profileSection}>
         <View style={styles.profileRow}>
@@ -120,6 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color:'#1B5B7D'
+   
   },
   textInput: {
     height: 100,
@@ -131,6 +142,16 @@ const styles = StyleSheet.create({
   dashboardButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
+},
+headerContainer: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  marginTop: 20,
+},
+headerText: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  marginLeft: 10,
 },
 });
 

@@ -9,6 +9,8 @@ import ElderProfile from './components/Profile/Elder/ElderProfile'
 import EditProfileE from './components/Profile/Elder/EditProfileE';
 import VolunProfile from './components/Profile/Volunteer/VolunProfile';
 import EditProfileV from './components/Profile/Volunteer/EditProfileV';
+import PassChangeE from './components/Profile/Elder/PassChangeE';
+import PassChangeV from './components/Profile/Volunteer/PassChangeV';
 
 
 const Stack = createNativeStackNavigator();
@@ -22,7 +24,8 @@ export default function App() {
    {/* <ElderProfile/> */}
    {/* <EditProfileE/> */}
    {/* <VolunProfile/> */}
-   <EditProfileV/>
+   {/* <EditProfileV/> */}
+   <PassChangeE/>
 
     
     
