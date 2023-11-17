@@ -14,10 +14,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          // screenOptions={{
-          //   headerStyle: { backgroundColor: "lightblue", color: "white" },
-          // }}
-          initialRouteName="Tabs"
+          // initialRouteName="Tabs"
         >
           <Stack.Screen name="StartPage" component={StartPage} />
 

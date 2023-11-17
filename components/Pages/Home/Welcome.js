@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import { Button } from '@rneui/themed'
 import { Card } from '@rneui/themed';
@@ -7,7 +7,7 @@ import { FontAwesome } from "react-native-vector-icons";
 // import styles from "./WelcomeStyle";
 
 const Welcome = () => {
-   
+
     return (
         <View>
             <View style={{ flexDirection: "row" }}>
@@ -33,18 +33,132 @@ const Welcome = () => {
                 </View>
             </View>
 
-            <View>
+            <Card>
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Suggestions</Text>
                     <TouchableOpacity>
-                        <FontAwesome name=""/>
-                        <Text style={styles.headerBtn}>Show all</Text>
+                        <FontAwesome name="arrow-right" size={20} />
                     </TouchableOpacity>
                 </View>
                 <Card.Divider />
-                <View style={styles.container}>
+                <ScrollView horizontal>
+                    <View style={styles.scrollContainer}>
+                        <View>
+                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                                style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                            <Text style={styles.item}>Lorem Lipsum</Text>
+                            <Button buttonStyle={{
+                                backgroundColor: '#1B5B7D',
+                                borderWidth: 2,
+                                borderColor: '#1B5B7D',
+                                borderRadius: 30,
+                            }}
+                                containerStyle={{
+                                    width: 90
+                                }}
+                                >Connect</Button>
+                        </View>
+                        <View>
+                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                                style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                            <Text style={styles.item}>Lorem Lipsum</Text>
+                            <Button buttonStyle={{
+                                backgroundColor: '#1B5B7D',
+                                borderWidth: 2,
+                                borderColor: '#1B5B7D',
+                                borderRadius: 30,
+                            }}
+                                containerStyle={{
+                                    width: 90
+                                }}
+                                >Connect</Button>
+                        </View>
+                        <View>
+                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                                style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                            <Text style={styles.item}>Lorem Lipsum</Text>
+                            <Button buttonStyle={{
+                                backgroundColor: '#1B5B7D',
+                                borderWidth: 2,
+                                borderColor: '#1B5B7D',
+                                borderRadius: 30,
+                            }}
+                                containerStyle={{
+                                    width: 90
+                                }}
+                                >Connect</Button>
+                        </View>
+
+
+
+                    </View>
+                </ScrollView>
+            </Card>
+            <Text></Text>
+
+            <Card>
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}>Available Volunteers</Text>
+                    <TouchableOpacity>
+                        <FontAwesome name="arrow-right" size={20} />
+                    </TouchableOpacity>
                 </View>
-            </View>
+                <Card.Divider />
+                <ScrollView horizontal>
+                    <View style={styles.scrollContainer}>
+                        <View>
+                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                                style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                            <Text style={styles.item}>Lorem Lipsum</Text>
+                            <Button buttonStyle={{
+                                backgroundColor: '#BF3A3A',
+                                borderWidth: 2,
+                                borderColor: '#BF3A3A',
+                                borderRadius: 30,
+                            }}
+                                containerStyle={{
+                                    width: 90
+                                }}
+                                >Request</Button>
+                        </View>
+                        <View>
+                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                                style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                            <Text style={styles.item}>Lorem Lipsum</Text>
+                            <Button buttonStyle={{
+                                backgroundColor: '#BF3A3A',
+                                borderWidth: 2,
+                                borderColor: '#BF3A3A',
+                                borderRadius: 30,
+                            }}
+                                containerStyle={{
+                                    width: 90
+                                }}
+                                >Request</Button>
+                        </View>
+                        <View>
+                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                                style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                            <Text style={styles.item}>Lorem Lipsum</Text>
+                            <Button buttonStyle={{
+                                backgroundColor: '#BF3A3A',
+                                borderWidth: 2,
+                                borderColor: '#BF3A3A',
+                                borderRadius: 30,
+                            }}
+                                containerStyle={{
+                                    width: 90
+                                }}
+                                >Request</Button>
+                        </View>
+
+
+
+                    </View>
+                </ScrollView>
+            </Card>
+
+            <View style={{paddingBottom:90}} />
         </View>
 
     )
@@ -58,26 +172,27 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        marginTop:24,
-      },
-      header: {
+        marginTop: 24,
+    },
+    header: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-      },
-      headerTitle: {
-        fontSize:16,
-        color: "#1B5B7D",
-        fontWeight:"bold"
-      },
-      headerBtn: {
+    },
+    headerTitle: {
         fontSize: 16,
-        color:"#1B5B7D",
-      },
-      cardsContainer: {
+        color: "#1B5B7D",
+        fontWeight: "bold",
+        margin: 3
+    },
+    headerBtn: {
+        fontSize: 16,
+        color: "#1B5B7D",
+    },
+    cardsContainer: {
         marginTop: 16,
-      },
-      welcomename: {
+    },
+    welcomename: {
         textAlign: "center",
         fontSize: 20,
         fontWeight: 'bold',
@@ -89,8 +204,20 @@ const styles = StyleSheet.create({
         fontSize: 13,
         padding: 10,
         color: "#1B5B7D"
-    
-    }
- 
+    },
+    scrollContainer: {
+        flexDirection: 'row',
+        padding: 10,
+        gap:15
+    },
+    item:{
+        textAlign:"center",
+        margin: 5,
+        fontWeight:"600"
+    },
+    bottomSpace: {
+        height: 20,
+      },
+
 
 })
