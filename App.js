@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FontAwesome,AntDesign,Ionicons} from 'react-native-vector-icons';
 
 import ElderProfile from './components/Profile/Elder/ElderProfile'
-// import EditProfileE from './components/Profile/Elder/EditProfileE';
+import EditProfileE from './components/Profile/Elder/EditProfileE';
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -14,47 +14,14 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function App() {
   return (
+    
    <SafeAreaView style={styles.container}>
-    <NavigationContainer>
-        <Stack.Navigator 
-          screenOptions={{
-            headerStyle: { backgroundColor: "#DDEBEF", color: "white" },
-          }}
-          initialRouteName="ElderProfile"
-        >
-          {/* <Stack.Screen
-            name="StartPage"
-            component={StartPage}
-          />  */}
-           <Stack.Screen
-            name="Elder Profile"
-            component={ElderProfile}
-            options={({ navigation }) => ({  // Pass the navigation prop to options
-              headerLeft: () => (
-                <FontAwesome
-                  name="chevron-left"
-                  size={24}
-                  onPress={() => navigation.navigate('Home')}  // Use navigation.navigate to go to Login
-                />
-              ),
-            })} />
-            {/* <Stack.Screen
-            name="Edit Profile Elder"
-            component={EditProfileE}
-            options={({ navigation }) => ({  // Pass the navigation prop to options
-              headerLeft: () => (
-                <FontAwesome
-                  name="chevron-left"
-                  size={24}
-                  onPress={() => navigation.navigate('Home')}  // Use navigation.navigate to go to Login
-                />
-              ),
-            })} />
-         */}
-        </Stack.Navigator>
-      </NavigationContainer> 
+   
+   {/* <ElderProfile/> */}
+   <EditProfileE/>
 
-      {/* <StatusBar style="auto" /> */}
+    
+    
    </SafeAreaView>
   );
 }
