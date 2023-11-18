@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StartPage from "./components/Pages/StartPage/StartPage";
 import BottomTabs from "./components/Utils/BottomTabs";
+import Invitations from "./components/Pages/Network/Invitations";
+import Suggestions from "./components/Pages/Network/Suggestions";
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -17,6 +19,8 @@ export default function App() {
           initialRouteName="Tabs"
         >
           <Stack.Screen name="StartPage" component={StartPage} />
+          <Stack.Screen name="Invitations" component={Invitations} />
+          <Stack.Screen name="Suggestions" component={Suggestions} />
 
           <Stack.Screen options={{ headerShown: false }} name="Tabs" component={BottomTabs} />
 
@@ -30,7 +34,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightgray",
+    backgroundColor: "#E4EDF2",
     justifyContent: "space-between",
     width: windowWidth,
     height: windowHeight,

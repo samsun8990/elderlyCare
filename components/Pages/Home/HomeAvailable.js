@@ -9,7 +9,7 @@ import { styles } from './HomeStyle';
 const HomeAvailable = () => {
   return (
     
-    <Card>
+    <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
     <View style={styles.header}>
         <Text style={styles.headerTitle}>Available Volunteers</Text>
         <TouchableOpacity>
@@ -21,7 +21,7 @@ const HomeAvailable = () => {
         <View style={styles.scrollContainer}>
             <View>
                 <Image source={require("../../../assets/images/defaultuser-img.png")}
-                    style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                    style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                 <Text style={styles.item}>Lorem Lipsum</Text>
                 <Button buttonStyle={{
                     backgroundColor: '#BF3A3A',
@@ -37,7 +37,7 @@ const HomeAvailable = () => {
             </View>
             <View>
                 <Image source={require("../../../assets/images/defaultuser-img.png")}
-                    style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                    style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                 <Text style={styles.item}>Lorem Lipsum</Text>
                 <Button buttonStyle={{
                     backgroundColor: '#BF3A3A',
@@ -53,7 +53,7 @@ const HomeAvailable = () => {
             </View>
             <View>
                 <Image source={require("../../../assets/images/defaultuser-img.png")}
-                    style={{ width: 100, height: 100, borderRadius: 50 }} resizeMode="cover" />
+                    style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                 <Text style={styles.item}>Lorem Lipsum</Text>
                 <Button buttonStyle={{
                     backgroundColor: '#BF3A3A',
