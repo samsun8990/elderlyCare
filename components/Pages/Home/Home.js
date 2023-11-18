@@ -10,8 +10,6 @@ import HomeSuggestions from './HomeSuggestions';
 import { styles } from './HomeStyle';
 
 
-const Stack = createStackNavigator();
-
 const Home = () => {
  
   const navigation = useNavigation();
@@ -21,7 +19,7 @@ const Home = () => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#E4EDF2' }}>
+    <SafeAreaView style={styles.container}>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
@@ -32,6 +30,7 @@ const Home = () => {
         >
           <Welcome/>
           <HomeSuggestions/>
+          <Text></Text>
           <HomeAvailable/>
 
           <View style={{ paddingBottom: 90 }} />

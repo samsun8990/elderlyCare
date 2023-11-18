@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-    welcome: {},
     container: {
+        // marginTop: 24,
         flex: 1, 
         backgroundColor: '#E4EDF2'
     },
@@ -11,9 +11,9 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    headerTitle: {
+    headerTitles: {
         fontSize: 18,
-        color: "#1B5B7D",
+        color: "black",
         fontWeight: "bold",
         margin: 3
     },
@@ -47,5 +47,15 @@ export const styles = StyleSheet.create({
         margin: 5,
         fontWeight: "600"
     },
+    suggestions:{
+        width:150,
+        backgroundColor:"#EBE9E9",
+        borderWidth:1,
+        borderRadius:10,
+        justifyContent:"center",
+        alignItems:"center",
+        padding:15
+        
+    }
 
 })
