@@ -14,16 +14,15 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          // initialRouteName="Tabs"
+          initialRouteName="Tabs"
         >
           <Stack.Screen name="StartPage" component={StartPage} />
 
-          <Stack.Screen  options={{headerShown: false}}  name="Tabs" component={BottomTabs}  />
+          <Stack.Screen options={{ headerShown: false }} name="Tabs" component={BottomTabs} />
 
         </Stack.Navigator>
       </NavigationContainer>
 
-      {/* <StatusBar style="auto" /> */}
     </SafeAreaView>
   );
 }
