@@ -37,7 +37,7 @@ const ElderProfile = ({ navigation }) => {
                 <View style={styles.detailRow}>
                     <Icon name="lock" color="black" size={20} style={styles.icon} />
                     <Text>Password</Text>
-                    <Button
+                    <Button 
                         containerStyle={{
                             height: 30,
                             width: 200,
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     detailRow: {
         flexDirection: 'row',
         alignItems: 'center',
-
+       
     },
     icon: {
         marginRight: 10,
@@ -146,5 +146,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 5,
-    }
+    },
 });

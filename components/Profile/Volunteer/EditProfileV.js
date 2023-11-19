@@ -4,34 +4,42 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } fro
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 
-const EditProfileV = () => {
+const EditProfileV = ({ navigation }) => {
+  const handleBackPress = () => {
+    // Add navigation logic here to go back
+    navigation.goBack();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={handleBackPress}>
+          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.headerText}>Edit Profile</Text>
       </View>
       <View style={styles.profileSection}>
         <View style={styles.profileRow}>
-        <MaterialCommunityIcons name="account" size={20} color="black" style={styles.icon} />
+          <MaterialCommunityIcons name="account" size={20} color="black" style={styles.icon} />
           <Text style={styles.profileText}>Name</Text>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
-        <AntDesign name="contacts" size={20} color="black" style={styles.icon} />
+          <AntDesign name="contacts" size={20} color="black" style={styles.icon} />
           <Text style={styles.profileText}>Phone</Text>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
-        <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
+          <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
           <Text style={styles.profileText}>Date of Birth</Text>
         </View>
         <View style={styles.line} />
 
       </View>
       <View style={styles.dashboardButtons}>
-      <Button size={"md"} radius={20} type="solid" color={"#FFD699"}>
-        Save
-      </Button>
+        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
+          Save
+        </Button>
       </View>
       <View style={styles.addSection}>
         <View style={styles.addHeader}>
@@ -54,9 +62,9 @@ const EditProfileV = () => {
         />
       </View>
       <View style={styles.dashboardButtons}>
-      <Button size={"md"} radius={20} type="solid" color={"#FFD699"}>
-        Save
-      </Button>
+        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
+          Save
+        </Button>
       </View>
     </SafeAreaView>
   )
@@ -64,29 +72,37 @@ const EditProfileV = () => {
 
 export default EditProfileV;
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#DDEBEF",
     justifyContent: 'space-between',
-    padding: 20,
+
   },
   headerContainer: {
-    alignItems: 'center',
-    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: 10,
+    marginRight: 150,
+    marginTop: 10,
+
   },
+
   headerText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#1B5B7D'
+    color: '#1B5B7D',
+
+
   },
   profileSection: {
-    marginTop: 5,
+    marginTop: 10,
   },
   profileRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap:10
+    gap: 10
   },
   profileText: {
     fontSize: 16,
@@ -94,20 +110,28 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginLeft: 'left',
-    
+    marginLeft: 50,
+
   },
   line: {
     borderBottomColor: 'black',
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.4,
     marginVertical: 10,
+    marginLeft: 60,
+    marginRight: 60
   },
   line1: {
     borderBottomColor: 'lightgrey',
     borderBottomWidth: 1,
     marginVertical: 5,
+    marginLeft: 60,
+    marginRight: 60
   },
   saveButton: {
+    alignSelf: 'center',
     marginTop: 20,
+    width: 80,
+
   },
   addSection: {
     marginTop: 10,
@@ -119,18 +143,31 @@ const styles = StyleSheet.create({
   addHeaderText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color:'#1B5B7D'
+    color: '#1B5B7D',
+    marginLeft: 60
+
   },
   textInput: {
-    height: 100,
+    height: 80,
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 10,
-    backgroundColor:'#f5f5f0'
+    marginLeft: 30,
+    marginRight: 30,
+    borderRadius: 10,
+    backgroundColor: '#ebebe0'
   },
   dashboardButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
-},
+
+
+  },
+
+  headerText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
 });
 

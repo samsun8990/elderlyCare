@@ -23,8 +23,8 @@ export default function App() {
    
    {/* <ElderProfile/> */}
    {/* <EditProfileE/> */}
-   <VolunProfile/>
-   {/* <EditProfileV/> */}
+   {/* <VolunProfile/> */}
+   <EditProfileV/>
    {/* <PassChangeE/> */}
 
     
