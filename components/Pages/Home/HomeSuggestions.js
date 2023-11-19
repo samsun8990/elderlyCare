@@ -5,13 +5,13 @@ import { Card } from '@rneui/themed';
 import { FontAwesome } from "react-native-vector-icons";
 import { styles } from './HomeStyle';
 
-const HomeSuggestions = () => {
+const HomeSuggestions = ({navigation}) => {
 
     return (
         <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Suggestions</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate("Suggestions")}>
                     <FontAwesome name="arrow-right" size={20} color="#1B5B7D" />
                 </TouchableOpacity>
             </View>
@@ -31,6 +31,7 @@ const HomeSuggestions = () => {
                             containerStyle={{
                                 width: 90
                             }}
+                            titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                         >Connect</Button>
                     </View>
                     <View>
@@ -46,6 +47,7 @@ const HomeSuggestions = () => {
                             containerStyle={{
                                 width: 90
                             }}
+                            titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                         >Connect</Button>
                     </View>
                     <View>
@@ -61,6 +63,7 @@ const HomeSuggestions = () => {
                             containerStyle={{
                                 width: 90
                             }}
+                            titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                         >Connect</Button>
                     </View>
                 </View>

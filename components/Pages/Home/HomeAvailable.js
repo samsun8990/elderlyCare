@@ -33,6 +33,7 @@ const HomeAvailable = () => {
                         width: 90,
                         height: 45
                     }}
+                    titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                 >Request</Button>
             </View>
             <View>
@@ -49,6 +50,7 @@ const HomeAvailable = () => {
                         width: 90,
                         height: 45
                     }}
+                    titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                 >Request</Button>
             </View>
             <View>
@@ -65,6 +67,7 @@ const HomeAvailable = () => {
                         width: 90,
                         height: 45
                     }}
+                    titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                 >Request</Button>
             </View>
 

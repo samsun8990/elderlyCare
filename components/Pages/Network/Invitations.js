@@ -8,6 +8,7 @@ import { styles } from './NetworkStyle.js';
 
 
 const Invitations = () => {
+  const navigation = useNavigation();
   return (
     <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
       <Card.Title>All(20)</Card.Title>

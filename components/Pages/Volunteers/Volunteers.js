@@ -7,6 +7,8 @@ import { Card, Button } from '@rneui/themed';
 import { styles } from './VolunteerStyles.js';
 import { Picker } from '@react-native-picker/picker'
 import { Dropdown } from 'react-native-element-dropdown';
+import AvailableVolunteers from './AvailableVolunteers';
+import RequestedVolunteers from './RequestedVolunteers';
 
 const Volunteers = () => {
   const navigation = useNavigation();
@@ -23,12 +25,14 @@ const Volunteers = () => {
     navigation.setOptions(headerOptions);
   }, [navigation]);
 
+  const [viewAllChoice,setViewAllChoice] = useState(false)
+
 
   return (
     <View>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
-          <FontAwesome name="search" size={20} color="black" style={{ fontSize: 18, padding: 5 }}>
+          <FontAwesome name="search" size={20} style={{ fontSize: 15, padding: 5, color:"grey", top:5 }}>
             Search volunteers</FontAwesome>
         </View>
         <View style={styles.dropdown}>
@@ -41,82 +45,23 @@ const Volunteers = () => {
             selectedTextStyle={{ fontSize: 30 }}
             onChange={item => setValue(item.value)}
             value={value}
-            style={{ fontSize: 18, padding: 5 }}
+            style={{ fontSize: 18, padding: 5,color:"grey", }}
           />
         </View>
       </View>
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-        <Button buttonStyle={styles.viewallbtn}>View All</Button>
-        <Button buttonStyle={styles.viewrequested}>View Requested</Button>
+        <Button buttonStyle={styles.viewallbtn} titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true)}}>View All</Button>
+        <Button buttonStyle={styles.viewrequested} titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>setViewAllChoice(!viewAllChoice)}>View Requested</Button>
       </View>
-      <Card style={{}}>
-        <Card.Title>View Available Volunteers</Card.Title>
-        <Card.Divider />
-        <ScrollView>
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <View style={{ flexDirection: "row", gap: 10 }}>
-              <Image source={require("../../../assets/images/defaultuser-img.png")}
-                style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
-              <View>
-                <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
-                <Text style={{ color: "#847F7F" }}>Country</Text>
-              </View>
-            </View>
 
-            <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-              <Button buttonStyle={{
-                backgroundColor: '#BF3A3A',
-                borderWidth: 2,
-                borderColor: '#BF3A3A',
-                borderRadius: 30,
+      {
+        viewAllChoice
+        ?
+        <AvailableVolunteers/>
+        :
+        <RequestedVolunteers/>
+      }
 
-              }}
-                size="md"
-                containerStyle={{
-                  width: 120,
-                  height: 35,
-                }}
-                titleStyle={{
-                  fontSize: 16,
-                  padding: 10
-                }}
-              >Request</Button>
-            </View>
-          </View>
-          <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-            <View style={{ flexDirection: "row", gap: 10 }}>
-              <Image source={require("../../../assets/images/defaultuser-img.png")}
-                style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
-              <View>
-                <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
-                <Text style={{ color: "#847F7F" }}>Country</Text>
-              </View>
-            </View>
-
-            <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-              <Button buttonStyle={{
-                backgroundColor: '#BF3A3A',
-                borderWidth: 2,
-                borderColor: '#BF3A3A',
-                borderRadius: 30,
-
-              }}
-                size="md"
-                containerStyle={{
-                  width: 120,
-                  height: 35,
-                }}
-                titleStyle={{
-                  fontSize: 16,
-                  padding: 10
-                }}
-              >Reuest</Button>
-            </View>
-          </View>
-
-        </ScrollView>
-
-      </Card>
 
     </View>
   )

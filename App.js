@@ -6,6 +6,8 @@ import StartPage from "./components/Pages/StartPage/StartPage";
 import BottomTabs from "./components/Utils/BottomTabs";
 import Invitations from "./components/Pages/Network/Invitations";
 import Suggestions from "./components/Pages/Network/Suggestions";
+import FeedbackPage from "./components/Pages/Volunteers/FeedbackPage";
+import RequestPage from "./components/Pages/Volunteers/RequestPage";
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -18,11 +20,16 @@ export default function App() {
         <Stack.Navigator
           initialRouteName="Tabs"
         >
+        
+
+          <Stack.Screen options={{ headerShown: false }} name="Tabs" component={BottomTabs} />
+
           <Stack.Screen name="StartPage" component={StartPage} />
           <Stack.Screen name="Invitations" component={Invitations} />
           <Stack.Screen name="Suggestions" component={Suggestions} />
-
-          <Stack.Screen options={{ headerShown: false }} name="Tabs" component={BottomTabs} />
+          <Stack.Screen name="RequestedVolunteers" component={Suggestions} />
+          <Stack.Screen name="Feedback" component={FeedbackPage} options={{title:"Give Feedback"}}/>
+          <Stack.Screen name="RequestPage" component={RequestPage} />
 
         </Stack.Navigator>
       </NavigationContainer>

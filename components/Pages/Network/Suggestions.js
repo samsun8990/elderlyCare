@@ -6,7 +6,8 @@ import { headerOptions } from '../../Utils/Common';
 import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 
-const Suggestions = ({ navigation }) => {
+const Suggestions = () => {
+  const navigation = useNavigation();
   return (
     <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
       <Card.Title>People You May Know</Card.Title>

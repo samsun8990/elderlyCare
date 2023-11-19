@@ -85,10 +85,8 @@ const Network = () => {
                                     width: 120,
                                     height: 35,
                                 }}
-                                titleStyle={{
-                                    fontSize: 12,
-                                    padding: 10
-                                }}
+                                titleStyle={{ fontWeight: 'bold', fontSize:12,padding: 5 }}
+                                
                             >Connect</Button>
                         </View>
 
@@ -109,10 +107,7 @@ const Network = () => {
                                     width: 120,
                                     height: 35,
                                 }}
-                                titleStyle={{
-                                    fontSize: 12,
-                                    padding: 10
-                                }}
+                                titleStyle={{ fontWeight: 'bold', fontSize:12,padding: 5 }}
                             >Connect</Button>
                         </View>
                         <View style={styles.suggestions}>
@@ -132,10 +127,11 @@ const Network = () => {
                                     width: 120,
                                     height: 35,
                                 }}
-                                titleStyle={{
-                                    fontSize: 12,
-                                    padding: 10
-                                }}
+                                // titleStyle={{
+                                //     fontSize: 12,
+                                //     padding: 10
+                                // }}
+                                titleStyle={{ fontWeight: 'bold', fontSize:12,padding: 5 }}
                             >Connect</Button>
                         </View>
                         <View style={styles.suggestions}>
@@ -155,10 +151,7 @@ const Network = () => {
                                     width: 120,
                                     height: 35,
                                 }}
-                                titleStyle={{
-                                    fontSize: 12,
-                                    padding: 10
-                                }}
+                                titleStyle={{ fontWeight: 'bold', fontSize:12,padding: 5 }}
                             >Connect</Button>
                         </View>
 
