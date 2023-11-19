@@ -24,8 +24,9 @@ export default function App() {
    {/* <ElderProfile/> */}
    {/* <EditProfileE/> */}
    {/* <VolunProfile/> */}
-   <EditProfileV/>
+   {/* <EditProfileV/> */}
    {/* <PassChangeE/> */}
+   <PassChangeV/>
 
     
     

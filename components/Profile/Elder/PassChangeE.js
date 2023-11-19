@@ -28,7 +28,7 @@ const PassChangeE = ({ navigation }) => {
           <Text>Retype Password</Text>
         </View>
         <View style={styles.line} />
-        <Button size="md" radius={10} type="solid" color="#FFD699" style={styles.saveButton}>
+        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
           Save
         </Button>
       </View>
@@ -46,27 +46,35 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent:'space-between',
     marginTop: 20,
+    marginLeft:20,
+    marginRight:110
   },
+
   headerText: {
     fontSize: 20,
     fontWeight: 'bold',
     marginLeft: 10,
     color: '#1B5B7D',
+   
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
+    marginBottom:400
   },
   passwordItem: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft:50,
   },
   line: {
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     marginVertical: 10,
+    marginLeft:50,
+    marginRight:80,
   },
   saveButton: {
     alignSelf: 'center',
