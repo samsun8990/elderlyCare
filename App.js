@@ -11,7 +11,7 @@ import VolunProfile from './components/Profile/Volunteer/VolunProfile';
 import EditProfileV from './components/Profile/Volunteer/EditProfileV';
 import PassChangeE from './components/Profile/Elder/PassChangeE';
 import PassChangeV from './components/Profile/Volunteer/PassChangeV';
-
+import HealthInfo from './components/Profile/Elder/HealthInfo';
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -26,7 +26,8 @@ export default function App() {
    {/* <VolunProfile/> */}
    {/* <EditProfileV/> */}
    {/* <PassChangeE/> */}
-   <PassChangeV/>
+   {/* <PassChangeV/> */}
+   <HealthInfo/>
 
     
     
