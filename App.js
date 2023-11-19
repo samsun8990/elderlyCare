@@ -21,11 +21,11 @@ export default function App() {
     
    <SafeAreaView style={styles.container}>
    
-   {/* <ElderProfile/> */}
+   <ElderProfile/>
    {/* <EditProfileE/> */}
    {/* <VolunProfile/> */}
    {/* <EditProfileV/> */}
-   <PassChangeE/>
+   {/* <PassChangeE/> */}
 
     
     

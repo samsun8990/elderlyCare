@@ -2,12 +2,22 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Button, Icon } from '@rneui/themed';
-import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
+import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 
 
-const ElderProfile = () => {
+const ElderProfile = ({ navigation }) => {
+    const handleBackPress = () => {
+        // Add navigation logic here to go back
+        navigation.goBack();
+    };
+
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.headerContainer}>
+                <TouchableOpacity onPress={handleBackPress}>
+                    <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
             <View style={styles.profileContainer}>
                 <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
                 <Text>Joined Date: 12 Aug 2022</Text>
@@ -27,7 +37,13 @@ const ElderProfile = () => {
                 <View style={styles.detailRow}>
                     <Icon name="lock" color="black" size={20} style={styles.icon} />
                     <Text>Password</Text>
-                    <Button size={"sm"} radius={5} type="outline" color={"#1B5B7D"} >
+                    <Button
+                        containerStyle={{
+                            height: 30,
+                            width: 200,
+                            marginHorizontal: 50,
+                            marginVertical: 5,
+                        }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"} >
                         Change
                     </Button>
                 </View>
@@ -40,6 +56,7 @@ const ElderProfile = () => {
                     <Text>Phone Number</Text>
                 </View>
             </View>
+
             <View style={styles.cardContainer}>
                 <Text style={styles.sectionTitle}>Dashboard</Text>
                 <View style={styles.line} />
@@ -115,13 +132,19 @@ const styles = StyleSheet.create({
     line: {
         borderBottomColor: 'black',
         borderBottomWidth: 1,
-        marginVertical: 10,
-      },      
+        marginVertical: 5,
+    },
     detailRow: {
         flexDirection: 'row',
         alignItems: 'center',
+
     },
     icon: {
         marginRight: 10,
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 5,
     },
 });
