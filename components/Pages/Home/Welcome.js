@@ -5,7 +5,7 @@ import { Card } from '@rneui/themed';
 import { FontAwesome } from "react-native-vector-icons";
 import { styles } from './HomeStyle';
 
-const Welcome = () => {
+const Welcome = ({navigation}) => {
 
     return (
 

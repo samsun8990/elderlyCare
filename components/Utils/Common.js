@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { FontAwesome } from "react-native-vector-icons";
+import { useNavigation } from '@react-navigation/native';
 
-export const headerOptions ={
+
+export const headerOptions = {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
@@ -16,7 +18,7 @@ export const headerOptions ={
             color="#1B5B7D"
             size={24}
             style={{ marginRight: 15 }}
-            onPress={() => navigation.navigate('Notifications')}
+            // onPress={() => navigation.navigate('Notification')}
           />
         </TouchableOpacity>
         <TouchableOpacity>

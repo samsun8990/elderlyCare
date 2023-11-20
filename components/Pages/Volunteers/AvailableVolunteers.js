@@ -40,6 +40,7 @@ const AvailableVolunteers = () => {
                 height: 38,
               }}
               titleStyle={{ fontWeight: 'bold', fontSize:13,padding: 5 }}
+              onPress={()=>navigation.navigate("RequestPage")}
             >Request</Button>
           </View>
         </View>
