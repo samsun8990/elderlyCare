@@ -8,6 +8,7 @@ import Invitations from "./components/Pages/Network/Invitations";
 import Suggestions from "./components/Pages/Network/Suggestions";
 import FeedbackPage from "./components/Pages/Volunteers/FeedbackPage";
 import RequestPage from "./components/Pages/Volunteers/RequestPage";
+import Notification from "./components/Pages/Notifications/Notification";
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -30,6 +31,7 @@ export default function App() {
           <Stack.Screen name="RequestedVolunteers" component={Suggestions} />
           <Stack.Screen name="Feedback" component={FeedbackPage} options={{title:"Give Feedback"}}/>
           <Stack.Screen name="RequestPage" component={RequestPage} />
+          <Stack.Screen name="Notification" component={Notification} />
 
         </Stack.Navigator>
       </NavigationContainer>

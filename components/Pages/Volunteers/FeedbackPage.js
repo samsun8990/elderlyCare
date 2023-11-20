@@ -14,19 +14,17 @@ const FeedbackPage = () => {
   return (
 
     <SafeAreaView style={styles.container}>
-     <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
-    
-      <Card.Divider />
-      <View>
-        <View style={{flexDirection:"row", justifyContent:"center",alignItems:"center",gap:10, padding:10}}>
-        <Image source={require("../../../assets/images/defaultuser-img.png")}
-            style={{ width: 60, height: 60, borderRadius: 20 }} resizeMode="cover" />
-          <Text style={{fontWeight:"bold"}}>Lorem Lipsum</Text>
-        </View>
-        <Card.Divider/>
+      <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
+        <View>
+          <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10, padding: 10 }}>
+            <Image source={require("../../../assets/images/defaultuser-img.png")}
+              style={{ width: 60, height: 60, borderRadius: 20 }} resizeMode="cover" />
+            <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
+          </View>
+          <Card.Divider />
 
-        <View style={{ justifyContent:"center",alignItems:"center",gap:10, padding:10}}>
-          <Text>Your Rating Matters</Text>
+          <View style={{ justifyContent: "center", alignItems: "center", gap: 10, padding: 10 }}>
+            <Text>Your Rating Matters</Text>
             <Rating
               type='star'
               // ratingColor='#3498db'
@@ -37,32 +35,35 @@ const FeedbackPage = () => {
               style={{ paddingVertical: 10 }}
             />
             <TextInput
-              style={{borderWidth:1, borderColor:"grey",height: 60,width:170,borderRadius:8,backgroundColor:"#EAEAEA",
-              margin: 12,
-              borderWidth: 1,
-              padding: 10,}}
+              style={{
+                borderWidth: 1, borderColor: "grey", height: 60, width: 170, borderRadius: 8, backgroundColor: "#EAEAEA",
+                margin: 12,
+                borderWidth: 1,
+                padding: 10,
+                color:"gray"
+              }}
               placeholder='Feedback Here'
             />
-           <Button buttonStyle={{
-                                backgroundColor: '#1B5B7D',
-                                borderWidth: 2,
-                                borderColor: '#1B5B7D',
-                                borderRadius: 8,
-                            }}
-                                size="md"
-                                containerStyle={{
-                                    width: 140,
-                                    height: 55,
-                                }}
-                                titleStyle={{ fontWeight: 'bold', fontSize:15,padding: 5 }}
-                            >Submit</Button>
+            <Button buttonStyle={{
+              backgroundColor: '#1B5B7D',
+              borderWidth: 2,
+              borderColor: '#1B5B7D',
+              borderRadius: 8,
+            }}
+              size="md"
+              containerStyle={{
+                width: 140,
+                height: 55,
+              }}
+              titleStyle={{ fontWeight: 'bold', fontSize: 15, padding: 5 }}
+            >Submit</Button>
+
+          </View>
 
         </View>
-        
-      </View>
-   
-    </Card>
-</SafeAreaView>
+
+      </Card>
+    </SafeAreaView>
 
 
 
