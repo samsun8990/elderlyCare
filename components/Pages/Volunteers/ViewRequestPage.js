@@ -1,46 +1,24 @@
 import {
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  TextInput,
-  Pressable,
-} from "react-native";
-import React, { useState, useEffect } from "react";
-import { FontAwesome } from "react-native-vector-icons";
-import { useNavigation } from "@react-navigation/native";
-// import { headerOptions } from '../../Utils/Common';
-import { Card, Button, CheckBox } from "@rneui/themed";
-import { styles } from "./VolunteerStyles.js";
-import { Picker } from "@react-native-picker/picker";
-import { Dropdown } from "react-native-element-dropdown";
-import AvailableVolunteers from "./AvailableVolunteers";
-import RequestedVolunteers from "./RequestedVolunteers";
-import DateTimePicker from '@react-native-community/datetimepicker'
+    Text,
+    View,
+    SafeAreaView,
+    ScrollView,
+    Image,
+    TouchableOpacity,
+    TextInput,
+  } from "react-native";
+  import React, { useState, useEffect } from "react";
+  import { FontAwesome } from "react-native-vector-icons";
+  import { useNavigation } from "@react-navigation/native";
+  // import { headerOptions } from '../../Utils/Common';
+  import { Card, Button, CheckBox } from "@rneui/themed";
+  import { styles } from "./VolunteerStyles.js";
+  import { Picker } from "@react-native-picker/picker";
+  import { Dropdown } from "react-native-element-dropdown";
+  import AvailableVolunteers from "./AvailableVolunteers";
+  import RequestedVolunteers from "./RequestedVolunteers";
 
-const RequestPage = () => {
-  const [check1, setCheck1] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [showPicker,setShowPicker] = useState(false)
-
-
-  const toggleDatePicker = ()=>{
-    setShowPicker(!showPicker)
-  }
-
-  const handleDateChange= ({type},selectedDate)=>{
-    if(type == "set"){
-      const currentDate = selectedDate
-      setDate(currentDate)
-    }
-    else{
-      toggleDatePicker()
-    }
-
-  }
-  
+const ViewRequestPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Card
@@ -124,59 +102,20 @@ const RequestPage = () => {
           <View>
             <Text>Timings</Text>
             <Card.Divider />
-            <View>
-              <Text>Select Start Date</Text>
-              <Pressable onPress={toggleDatePicker}>
-                <TextInput
-                placeholder="Start Date"
-                value={date}
-                editable={false}
-                
-                />
-              </Pressable>
-              <Button onPress={()=>setShowPicker(true)}>Start</Button>
-
-            </View>
-            <View>
-              <Text>Select End Date</Text>
-              <Button onPress={()=>setShowPicker(true)}>End</Button>
-            </View>
-          {
-            showPicker
-            ?
-            <DateTimePicker mode="date" value={date} display="spinner" onChange={handleDateChange}/>
-            :
-            null
-
-          }
-
-            
-         
+            <Text>11-01-23 - 12-01-23</Text>
           </View>
 
           <View>
             <Text>Paymemt Amount</Text>
             <Card.Divider />
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: "grey",
-                height: 60,
-                width: 200,
-                borderRadius: 8,
-                backgroundColor: "#EAEAEA",
-                margin: 12,
-                borderWidth: 1,
-                padding: 10,
-                color: "gray",
-              }}
-              placeholder="What are you looking for?"
-            />
+           <Text>QR 100</Text>
           </View>
         </View>
       </Card>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default RequestPage;
+export default ViewRequestPage
+
+const styles = StyleSheet.create({})

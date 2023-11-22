@@ -19,10 +19,9 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          //initialRouteName="RequestPage"
+          initialRouteName="RequestPage"
         >
-        
-
+      
           <Stack.Screen options={{ headerShown: false }} name="Tabs" component={BottomTabs} />
 
           <Stack.Screen name="StartPage" component={StartPage} />
