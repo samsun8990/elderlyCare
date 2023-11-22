@@ -6,7 +6,12 @@ import {getStorage} from 'firebase/storage'
 
 
 const firebaseConfig = {
-  
+  apiKey: "AIzaSyChXmGiQhnDxTnmKzsRRnAChZDinSeeeNU",
+  authDomain: "eldercare-c84c1.firebaseapp.com",
+  projectId: "eldercare-c84c1",
+  storageBucket: "eldercare-c84c1.appspot.com",
+  messagingSenderId: "798468538732",
+  appId: "1:798468538732:web:5c5cb051c108c05115f349"
   };
   
 // Initialize Firebase
