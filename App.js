@@ -19,7 +19,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Tabs"
+          //initialRouteName="RequestPage"
         >
         
 
