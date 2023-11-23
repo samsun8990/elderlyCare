@@ -1,18 +1,19 @@
-import {getFirestore}  from 'firebase/firestore'
-import { initializeAuth, getAuth, getReactNativePersistence } from 'firebase/auth';
-import { initializeApp } from "firebase/app";
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
-import {getStorage} from 'firebase/storage'
 
+
+import { initializeApp } from 'firebase/app';
+import {initializeAuth, getAuth,getReactNativePersistence} from "firebase/auth";
+import {getFirestore} from "firebase/firestore";
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import {getStorage} from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyChXmGiQhnDxTnmKzsRRnAChZDinSeeeNU",
-  authDomain: "eldercare-c84c1.firebaseapp.com",
-  projectId: "eldercare-c84c1",
-  storageBucket: "eldercare-c84c1.appspot.com",
-  messagingSenderId: "798468538732",
-  appId: "1:798468538732:web:5c5cb051c108c05115f349"
-  };
+  apiKey: "AIzaSyAAse_dhc_AuRtbkIiF5KoAZZc4j_rMU8U",
+  authDomain: "eldercare-d95b6.firebaseapp.com",
+  projectId: "eldercare-d95b6",
+  storageBucket: "eldercare-d95b6.appspot.com",
+  messagingSenderId: "552504195827",
+  appId: "1:552504195827:web:7e03b0688e623c1c365586"
+};
   
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

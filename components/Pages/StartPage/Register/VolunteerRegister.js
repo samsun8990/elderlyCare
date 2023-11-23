@@ -1,4 +1,7 @@
-import { StyleSheet, TextInput, View, TouchableOpacity, Text, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import {
+  StyleSheet, TextInput, View, Image, TouchableOpacity, Text, KeyboardAvoidingView, TouchableWithoutFeedback,
+  StatusBar, ScrollView, Keyboard, SafeAreaView, Pressable, Platform
+} from 'react-native'
 import React, { useEffect, useState } from 'react';
 //import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { Fontisto, FontAwesome5, Foundation } from 'react-native-vector-icons'
@@ -6,89 +9,86 @@ import { doc, setDoc, getDocs, collection, deleteDoc, addDoc } from "firebase/fi
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { auth, db } from '../../../Config/config';
 
-
 const VolunteerRegister = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [fullname, setFullname] = useState();
-  const [phone, setPhone] = useState();
+  const [phone, setPhone] = useState(0);
   const [experience, setExperience] = useState();
-  const [DOB, setDOB] = useState(new Date());
+  const [dob, setDob] = useState("");
   const [userError, setUserError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-
-  const set = async () => {
-    // const docRef = doc(db, "volunteer", email);
-    // await setDoc(docRef, { email: email , fullname:fullname, phone:phone, experience:experience, DOB:DOB});
-    // addDoc().then(() => {
-    //   console.log("data submitted");
-    // });
-  };
+  const [gender, setGender] = useState(null)
+  const [showPicker, setShowPicker] = useState(false)
+  const [date, setDate] = useState(new Date())
 
   const handleVolunteerRegister = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log("registered");
-        setUserError("");
-        setPasswordError("");
-        set();
-        navigation.navigate("LoginUser");
-      })
-      .catch((error) => {
-        console.log(error.message);
-        if (email.length === 0 && password.length === 0
-          && fullname.length === 0) {
-          setUserError("*All fields is required");
-        }
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then(() => {
+    //     console.log("registered");
+    //     setUserError("");
+    //     setPasswordError("");
+    //     set();
+    //     navigation.navigate("LoginUser");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //     if (email.length === 0 && password.length === 0
+    //       && fullname.length === 0) {
+    //       setUserError("*All fields is required");
+    //     }
 
-        else if (!email.includes("@")) {
-          setUserError("*Missing @ in email");
-        }
-        else if (!email.includes(".com")) {
-          setUserError("*Missing .com in email");
-        }
-        else if (email.includes("@") && password.length < 6) {
-          setUserError("");
-          setPasswordError("*Password should be more than 6 character");
-        }
+    //     else if (!email.includes("@")) {
+    //       setUserError("*Missing @ in email");
+    //     }
+    //     else if (!email.includes(".com")) {
+    //       setUserError("*Missing .com in email");
+    //     }
+    //     else if (email.includes("@") && password.length < 6) {
+    //       setUserError("");
+    //       setPasswordError("*Password should be more than 6 character");
+    //     }
 
-        else {
-          setPasswordError("");
-          setUserError("Email Already Exist");
-        }
+    //     else {
+    //       setPasswordError("");
+    //       setUserError("Email Already Exist");
+    //     }
 
-      });
+    //   });
   };
 
-  const handleDateChange = (date) => {
-    setDOB(date);
-  };
 
-  const handleSave = async () => {
-    try {
-      // Store data in Firebase Firestore
-      const docRef = await addDoc(collection(db(), 'dates'), {
-        date: DOB
-      });
 
-      console.log('Document written with ID: ', docRef.id);
-    } catch (error) {
-      console.error('Error adding document: ', error);
+  const handleShowDatePicker = () => setShowPicker(!showPicker)
+
+  const handleDateChange = ({ type }, selectedDate) => {
+    console.log("hello");
+    if (type == "set") {
+      const currentDate = selectedDate
+      setDate(currentDate.toDateString())
     }
-  };
+    else {
+      handleShowDatePicker()
+      
+    }
+  }
+
+  const confirmIOSDate = () => {
+    setDob(date.toDateString())
+    handleShowDatePicker()
+  }
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView style={styles.container}>
-
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          <View style={{ gap: 60, alignContent: 'center', flexDirection: 'row', justifyContent: "center", marginTop: '8%', marginBottom: 20 }}>
+          <View style={{ gap: 60, alignContent: 'center', flexDirection: 'row', justifyContent: "center", marginTop: 30, marginBottom: 20 }}>
 
-            <TouchableOpacity>
-              <FontAwesome5 name="female" size={50}></FontAwesome5>
+            <TouchableOpacity onPress={() => setGender("Female")}>
+              <FontAwesome5 name="female" size={50} color={gender === "Female" ? 'green' : 'black'}></FontAwesome5>
             </TouchableOpacity>
-            <TouchableOpacity>
-              <FontAwesome5 name="male" size={50}></FontAwesome5>
+            <TouchableOpacity onPress={() => setGender("Male")}>
+              <FontAwesome5 name="male" size={50} color={gender === "Male" ? 'green' : 'black'}></FontAwesome5>
             </TouchableOpacity>
           </View>
           <View style={{ alignContent: 'center', justifyContent: "center" }}>
@@ -126,52 +126,59 @@ const VolunteerRegister = () => {
               <FontAwesome5 name="phone-square-alt" size={40}></FontAwesome5>
               <TextInput
                 placeholder="Phone"
-                value={phone}
+                value={phone.toString()}
                 onChangeText={(text) => setPhone(text)}
                 style={styles.input}
                 autoCorrect={false}
+                inputMode='numeric'
               />
             </View>
             <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%', marginBottom: 20 }}>
               <FontAwesome5 name="briefcase" size={40}></FontAwesome5>
               <TextInput
-                placeholder="Experience"
+                placeholder="Years of Experience"
                 value={experience}
                 onChangeText={(text) => setExperience(text)}
                 style={styles.input}
                 autoCorrect={false}
               />
             </View>
-            <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%' }}>
-              <Fontisto name="date" size={40}></Fontisto>
-              <TextInput
-                placeholder="Date Of Birth"
-                value={DOB}
-                onChangeText={(text) => setDOB(text)}
-                style={styles.input}
-                autoCorrect={false}
-              />
-              {/* <DateTimePicker style={styles.DateTimePicker}
-              value={DOB}
-              mode="date"
-              placeholder="Select date"
-              format="YYYY-MM-DD"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  marginLeft: 36,
-                },
-              }}
-              onDateChange={handleDateChange} onPress={handleSave}
-            /> */}
-            </View>
+            {
+                  <TouchableOpacity onPress={()=>setShowPicker(true)} style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%' }}>
+                    <Fontisto name="date" size={40}></Fontisto>
+                    <TextInput
+                      placeholder="Date Of Birth"
+                      style={styles.input}
+                      value={dob}
+                      editable={false}
+                    />
+                  </TouchableOpacity>
+              
+            }
+               {
+              showPicker &&
+              <DateTimePicker mode="date" value={date} display="spinner" onChange={handleDateChange}/>
+              
+            }
+
+            {/* {
+              showPicker && Platform.OS === "ios" && (
+                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                  <TouchableOpacity style={[styles.button, styles.pickerButton, { backgroundColor: "#11182711" }]}
+                    onPress={handleShowDatePicker}>
+                    <Text>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.button, styles.pickerButton, { backgroundColor: "#11182711" }]}
+                    onPress={confirmIOSDate}>
+                    <Text>Confirm</Text>
+                  </TouchableOpacity>
+
+                </View>
+              )
+            } */}
+
+
+         
           </View>
 
 
@@ -198,21 +205,10 @@ const VolunteerRegister = () => {
           </View>
         </View>
 
-
-        {/* <View>
-          <View style={{ marginBottom: 100, alignContent: 'center' }}>
-            <Text style={{ textAlign: 'center', marginTop: 20, fontSize: 18 }}>
-              Already have an account?
-            </Text>
-            <TouchableOpacity style={{ alignItems: 'center', marginTop: 20 }}>
-              <Text style={{ fontSize: 18, color: 'dodgerblue' }}>Login</Text>
-            </TouchableOpacity>
-          </View>
-        </View> */}
+      </ScrollView>
 
 
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+    </SafeAreaView>
   )
 }
 
@@ -223,7 +219,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#E4EDF2'
+    backgroundColor: '#E4EDF2',
+    paddingTop: StatusBar.currentHeight,
   },
   input: {
     flex: 1,
@@ -277,5 +274,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     width: 340,
   },
+  DateTimePicker: {
+    height: 180,
+    width:200
+    // marginTop: -10
+  }
 
 })
