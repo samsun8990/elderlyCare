@@ -8,8 +8,9 @@ import { Fontisto, FontAwesome5, Foundation } from 'react-native-vector-icons'
 import { doc, setDoc, getDocs, collection, deleteDoc, addDoc } from "firebase/firestore";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { auth, db } from '../../../Config/config';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const VolunteerRegister = () => {
+const VolunteerRegister = ({navigation}) => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -23,63 +24,74 @@ const VolunteerRegister = () => {
   const [showPicker, setShowPicker] = useState(false)
   const [date, setDate] = useState(new Date())
 
-  const handleVolunteerRegister = () => {
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then(() => {
-    //     console.log("registered");
-    //     setUserError("");
-    //     setPasswordError("");
-    //     set();
-    //     navigation.navigate("LoginUser");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //     if (email.length === 0 && password.length === 0
-    //       && fullname.length === 0) {
-    //       setUserError("*All fields is required");
-    //     }
+  const clear = () => {
+    setEmail()
+    setPassword()
+    setFullname()
+    setPhone()
+    setExperience()
+    setGender(null)
+    setDob("")
+    setDate(new Date())
+    setShowPicker(false)
+  }
 
-    //     else if (!email.includes("@")) {
-    //       setUserError("*Missing @ in email");
-    //     }
-    //     else if (!email.includes(".com")) {
-    //       setUserError("*Missing .com in email");
-    //     }
-    //     else if (email.includes("@") && password.length < 6) {
-    //       setUserError("");
-    //       setPasswordError("*Password should be more than 6 character");
-    //     }
+  const handleVolunteerRegister =async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      if (userCredential) {
+        const docRef = doc(db, "volunteerUsers", userCredential.user.uid)
 
-    //     else {
-    //       setPasswordError("");
-    //       setUserError("Email Already Exist");
-    //     }
+        await setDoc(docRef,
+          { email: email, fullname: fullname, password: password, phone: phone, gender: gender, avatar: "https://static.thenounproject.com/png/5034901-200.png", role: "volunteer",
+          experience:experience,dob:dob},
+          { merge: true })
+          .then(() => {
+            console.log("User registered successfully!");
+            alert("User registered successfully!")
+            navigation.navigate("LoginUser")
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      }
+    } catch (error) {
 
-    //   });
+      console.log(error.message);
+      if (email.length === 0 && password.length === 0
+        && fullname.length === 0) {
+        setUserError("*All fields is required");
+      }
+
+      else if (!email.includes("@")) {
+        setUserError("*Missing @ in email");
+      }
+      else if (!email.includes(".com")) {
+        setUserError("*Missing .com in email");
+      }
+      else if (email.includes("@") && password.length < 6) {
+        setUserError("");
+        setPasswordError("*Password should be more than 6 character");
+      }
+
+      else {
+        setPasswordError("");
+        setUserError("Something went wrong!");
+      }
+    }
   };
-
-
 
   const handleShowDatePicker = () => setShowPicker(!showPicker)
 
   const handleDateChange = ({ type }, selectedDate) => {
-    console.log("hello");
-    if (type == "set") {
-      const currentDate = selectedDate
-      setDate(currentDate.toDateString())
-    }
-    else {
-      handleShowDatePicker()
-      
-    }
+
+    setDate(new Date(selectedDate))
+    setDob(selectedDate.toDateString())
+    setShowPicker(false)
   }
 
-  const confirmIOSDate = () => {
-    setDob(date.toDateString())
-    handleShowDatePicker()
-  }
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={{ gap: 60, alignContent: 'center', flexDirection: 'row', justifyContent: "center", marginTop: 30, marginBottom: 20 }}>
@@ -143,42 +155,23 @@ const VolunteerRegister = () => {
                 autoCorrect={false}
               />
             </View>
+            
+            <TouchableOpacity onPress={() => setShowPicker(true)} style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%' }}>
+              <Fontisto name="date" size={40}></Fontisto>
+              <TextInput
+                placeholder="Date Of Birth"
+                style={styles.input}
+                value={dob}
+                editable={false}
+              />
+            </TouchableOpacity>
+
+            
             {
-                  <TouchableOpacity onPress={()=>setShowPicker(true)} style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%' }}>
-                    <Fontisto name="date" size={40}></Fontisto>
-                    <TextInput
-                      placeholder="Date Of Birth"
-                      style={styles.input}
-                      value={dob}
-                      editable={false}
-                    />
-                  </TouchableOpacity>
-              
-            }
-               {
               showPicker &&
-              <DateTimePicker mode="date" value={date} display="spinner" onChange={handleDateChange}/>
-              
+              <DateTimePicker mode="date" value={date} display="default" maximumDate={new Date()} onChange={handleDateChange} />
+
             }
-
-            {/* {
-              showPicker && Platform.OS === "ios" && (
-                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                  <TouchableOpacity style={[styles.button, styles.pickerButton, { backgroundColor: "#11182711" }]}
-                    onPress={handleShowDatePicker}>
-                    <Text>Cancel</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.button, styles.pickerButton, { backgroundColor: "#11182711" }]}
-                    onPress={confirmIOSDate}>
-                    <Text>Confirm</Text>
-                  </TouchableOpacity>
-
-                </View>
-              )
-            } */}
-
-
-         
           </View>
 
 
@@ -208,7 +201,7 @@ const VolunteerRegister = () => {
       </ScrollView>
 
 
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   )
 }
 
@@ -276,7 +269,7 @@ const styles = StyleSheet.create({
   },
   DateTimePicker: {
     height: 180,
-    width:200
+    width: 200
     // marginTop: -10
   }
 
