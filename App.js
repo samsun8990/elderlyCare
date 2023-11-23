@@ -11,13 +11,26 @@ import RequestPage from "./components/Pages/Volunteers/RequestPage";
 import Notification from "./components/Pages/Notifications/Notification";
 import LoginUser from "./components/Pages/StartPage/Login/LoginUser";
 import ElderlyRegister from "./components/Pages/StartPage/Register/ElderlyRegister";
+// import VolunteerRegister from "./components/Pages/StartPage/Register/VolunteerRegister";
+import { FontAwesome } from 'react-native-vector-icons'
 import VolunteerRegister from "./components/Pages/StartPage/Register/VolunteerRegister";
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
+const CenteredTitle = ({ title, props }) => {
+  return (
+    <View style={styles.headerTitle}>
+      <Text style={styles.titleText}>{title}</Text>
+    </View>
+  );
+};
+
+
 export default function App() {
+
+
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
@@ -25,17 +38,24 @@ export default function App() {
           initialRouteName="StartPage"
         >
 
-         
           <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false }} />
 
-          <Stack.Screen name='LoginUser' component={LoginUser} options={{ title: 'Login' }} />
+          <Stack.Screen name='LoginUser' component={LoginUser}
+            options={{ headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} /> }} />
 
           <Stack.Screen options={{ headerShown: false }} name="Tabs" component={BottomTabs} />
-          <Stack.Screen name='ElderlyRegister' component={ElderlyRegister} options={{ title: 'Elderly registration' }} />
-        
-          <Stack.Screen name='VolunteerRegister' component={VolunteerRegister} options={{ title: 'Volunteer registration' }} />
-          
-          
+
+          <Stack.Screen name='ElderlyRegister' component={ElderlyRegister}
+            options={{
+              headerTitle: (props) => <CenteredTitle title="Create User Account" {...props} />
+            }} />
+
+          <Stack.Screen name='VolunteerRegister' component={VolunteerRegister}
+            options={{
+              headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />
+            }} />
+
+
           <Stack.Screen name="Invitations" component={Invitations} />
           <Stack.Screen name="Suggestions" component={Suggestions} />
           <Stack.Screen name="RequestedVolunteers" component={Suggestions} />
@@ -57,5 +77,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: windowWidth,
     height: windowHeight,
+  },
+  headerTitle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: "center",
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    color: "#1B5B7D",
+    textAlign:"center"
   },
 })
