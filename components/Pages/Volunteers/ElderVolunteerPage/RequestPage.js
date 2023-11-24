@@ -13,12 +13,13 @@ import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 // import { headerOptions } from '../../Utils/Common';
 import { Card, Button, CheckBox } from "@rneui/themed";
-import { styles } from "./VolunteerStyles.js";
+import { styles } from "../VolunteerStyles.js";
 import { Picker } from "@react-native-picker/picker";
 import { Dropdown } from "react-native-element-dropdown";
-import AvailableVolunteers from "./AvailableVolunteers";
-import RequestedVolunteers from "./RequestedVolunteers";
+import AvailableVolunteers from "./AvailableVolunteers.js";
+import RequestedVolunteers from "./RequestedVolunteers.js";
 import DateTimePicker from '@react-native-community/datetimepicker'
+import { defaultImg } from "../../../Utils/ImageCommon.js";
 
 const RequestPage = () => {
   const [check1, setCheck1] = useState(false);
@@ -58,7 +59,7 @@ const RequestPage = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/defaultuser-img.png")}
+              source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 20 }}
               resizeMode="cover"
             />

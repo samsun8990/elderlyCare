@@ -2,12 +2,13 @@ import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, TextInpu
 import React, { useState, useEffect } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import { headerOptions } from '../../Utils/Common';
+import { headerOptions } from '../../../Utils/Common.js';
 import { Card, Button } from '@rneui/themed';
-import { styles } from './VolunteerStyles.js';
+import { styles } from '../VolunteerStyles.js';
 import { Picker } from '@react-native-picker/picker'
 import { Dropdown } from 'react-native-element-dropdown';
 import { Rating } from 'react-native-ratings';
+import { defaultImg } from '../../../Utils/ImageCommon.js';
 
 
 const FeedbackPage = () => {
@@ -17,7 +18,7 @@ const FeedbackPage = () => {
       <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
         <View>
           <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10, padding: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 20 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
           </View>

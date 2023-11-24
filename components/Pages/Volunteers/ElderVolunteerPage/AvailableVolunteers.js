@@ -2,11 +2,12 @@ import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'r
 import React, { useState, useEffect } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import { headerOptions } from '../../Utils/Common';
+import { headerOptions } from '../../../Utils/Common.js';
 import { Card, Button } from '@rneui/themed';
-import { styles } from './VolunteerStyles.js';
+import { styles } from '../VolunteerStyles.js';
 import { Picker } from '@react-native-picker/picker'
 import { Dropdown } from 'react-native-element-dropdown';
+import { defaultImg } from '../../../Utils/ImageCommon.js';
 
 
 const AvailableVolunteers = () => {
@@ -18,7 +19,7 @@ const AvailableVolunteers = () => {
       <ScrollView>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View style={{margin:5}}>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -47,7 +48,7 @@ const AvailableVolunteers = () => {
         <Card.Divider/>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View style={{margin:5}}>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -75,7 +76,7 @@ const AvailableVolunteers = () => {
         <Card.Divider/>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View style={{margin:5}}>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -103,7 +104,7 @@ const AvailableVolunteers = () => {
         <Card.Divider/>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View style={{margin:5}}>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>

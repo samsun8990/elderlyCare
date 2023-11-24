@@ -1,27 +1,26 @@
 import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
-import Welcome from './Welcome';
+import Welcome from '../Welcome';
 // import { headerOptions } from '../../Utils/Common';
-import HomeAvailable from './HomeAvailable';
-import HomeSuggestions from './HomeSuggestions';
 import { styles } from './HomeStyle';
-import { AuthContext } from '../../Config/AuthContext';
+import { AuthContext } from '../../../Config/AuthContext';
+import ElderHomeAvailable from './ElderHomeAvailable';
+import ElderHomeSuggestions from './ElderHomeSuggestions';
+import { logo } from '../../../Utils/ImageCommon';
 
 
 const ElderHome = ({navigation}) => {
- 
-  //const navigation = useNavigation();
 
-  const { signOut } = useContext(AuthContext);
+  const { signOut,setUser } = useContext(AuthContext);
 
   const headerOptions = {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
-        <Image source={require("../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
+        <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
     headerRight: () => (
@@ -41,7 +40,11 @@ const ElderHome = ({navigation}) => {
             color="#1B5B7D"
             size={24}
             style={{ marginRight: 15 }}
-            onPress={signOut}
+            onPress={()=>{
+              signOut()
+              setUser(null)
+              navigation.replace("LoginUser")
+            }}
           />
         </TouchableOpacity>
       </View>
@@ -70,9 +73,9 @@ const ElderHome = ({navigation}) => {
           }}
         >
           <Welcome/>
-          <HomeSuggestions/>
+          <ElderHomeSuggestions/>
           <Text></Text>
-          <HomeAvailable/>
+          <ElderHomeAvailable/>
 
           <View style={{ paddingBottom: 90 }} />
           

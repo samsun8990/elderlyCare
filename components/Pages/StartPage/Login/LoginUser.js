@@ -24,7 +24,6 @@ const LoginUser = ({ route, navigation }) => {
 
     useEffect(() => {
         if (user) {
-            console.log("success");
             setEmail()
             setPassword()
             //console.log( user,elderUser,volunteerUser);
@@ -38,6 +37,9 @@ const LoginUser = ({ route, navigation }) => {
                 navigation.navigate("volunteerTabs")
             }
 
+        }
+        else{
+            navigation.navigate("LoginUser")
         }
     }, [elderUser, volunteerUser])
 

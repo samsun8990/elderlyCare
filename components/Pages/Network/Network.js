@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../Utils/Common';
 import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
+import { defaultImg } from '../../Utils/ImageCommon.js';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
@@ -65,7 +66,7 @@ const ElderNetwork = () => {
                 <ScrollView>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <View style={{ flexDirection: "row", gap: 10 }}>
-                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                            <Image source={defaultImg}
                                 style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
                             <View>
                                 <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -80,7 +81,7 @@ const ElderNetwork = () => {
                     </View>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                         <View style={{ flexDirection: "row", gap: 10 }}>
-                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                            <Image source={defaultImg}
                                 style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
                             <View>
                                 <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -108,7 +109,7 @@ const ElderNetwork = () => {
                 <ScrollView>
                     <View style={{ flexWrap: "wrap", flexDirection: "row", gap: 20, justifyContent: "center" }}>
                         <View style={styles.suggestions}>
-                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                            <Image source={defaultImg}
                                 style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
                             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
                             <Text>Country</Text>
@@ -130,7 +131,7 @@ const ElderNetwork = () => {
                         </View>
 
                         <View style={styles.suggestions}>
-                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                            <Image source={defaultImg}
                                 style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
                             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
                             <Text>Country</Text>
@@ -150,7 +151,7 @@ const ElderNetwork = () => {
                             >Connect</Button>
                         </View>
                         <View style={styles.suggestions}>
-                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                            <Image source={defaultImg}
                                 style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
                             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
                             <Text>Country</Text>
@@ -174,7 +175,7 @@ const ElderNetwork = () => {
                             >Connect</Button>
                         </View>
                         <View style={styles.suggestions}>
-                            <Image source={require("../../../assets/images/defaultuser-img.png")}
+                            <Image source={defaultImg}
                                 style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
                             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
                             <Text>Country</Text>

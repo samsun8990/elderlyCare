@@ -4,7 +4,7 @@ import { FontAwesome, MaterialIcons, Entypo } from "react-native-vector-icons";
 import { Card, Button } from '@rneui/themed';
 
 
-const Notification = ({ navigation }) => {
+const Notifications = ({ navigation }) => {
   return (
     <Card >
       <Card.Title style={{ fontSize: 18 }}>All (20)</Card.Title>
@@ -86,4 +86,4 @@ const Notification = ({ navigation }) => {
   )
 }
 
-export default Notification
+export default Notifications

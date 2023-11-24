@@ -3,25 +3,25 @@ import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image } from "react-n
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import React, { createContext, useState, useEffect } from 'react';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import StartPage from "./components/Pages/StartPage/StartPage";
-import Invitations from "./components/Pages/Network/Invitations";
-import Suggestions from "./components/Pages/Network/Suggestions";
-import FeedbackPage from "./components/Pages/Volunteers/FeedbackPage";
-import RequestPage from "./components/Pages/Volunteers/RequestPage";
-import Notification from "./components/Pages/Notifications/Notification";
-import LoginUser from "./components/Pages/StartPage/Login/LoginUser";
-import ElderlyRegister from "./components/Pages/StartPage/Register/ElderlyRegister";
 import { FontAwesome } from 'react-native-vector-icons'
-import VolunteerRegister from "./components/Pages/StartPage/Register/VolunteerRegister";
 import { readUser } from "./components/Config/dbcls";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "./components/Config/AuthContext";
 import { auth, db } from "./components/Config/config";
+import { doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc } from "firebase/firestore";
+import StartPage from "./components/Pages/StartPage/StartPage";
+import LoginUser from "./components/Pages/StartPage/Login/LoginUser";
+import ElderlyRegister from "./components/Pages/StartPage/Register/ElderlyRegister";
+import VolunteerRegister from "./components/Pages/StartPage/Register/VolunteerRegister";
 import ElderBottomTabs from "./components/Utils/BottomTabs";
 import VolunteerBottomTabs from "./components/Utils/VolunteerBottomTabs";
-import { doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc } from "firebase/firestore";
-import ElderHome from "./components/Pages/Home/Home";
-
+import ElderHome from "./components/Pages/Home/ElderHomepage/ElderHome";
+import Notifications from "./components/Pages/Notifications/Notifications";
+import FeedbackPage from "./components/Pages/Volunteers/ElderVolunteerPage/FeedbackPage";
+import RequestedVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/RequestedVolunteers";
+import Invitations from "./components/Pages/Network/Invitations";
+import Suggestions from "./components/Pages/Network/Suggestions";
+import RequestPage from "./components/Pages/Volunteers/ElderVolunteerPage/RequestPage";
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -97,7 +97,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser }}>
+      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser,setUser }}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="StartPage"
@@ -126,10 +126,10 @@ export default function App() {
             <Stack.Screen name="ElderHome" component={ElderHome} />
             <Stack.Screen name="Invitations" component={Invitations} />
             <Stack.Screen name="Suggestions" component={Suggestions} />
-            <Stack.Screen name="RequestedVolunteers" component={Suggestions} />
+            <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
             <Stack.Screen name="RequestPage" component={RequestPage} />
-            <Stack.Screen name="Notification" component={Notification} />
+            <Stack.Screen name="Notification" component={Notifications} />
 
           </Stack.Navigator>
         </NavigationContainer>

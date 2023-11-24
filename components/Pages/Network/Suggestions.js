@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../Utils/Common';
 import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
+import { defaultImg } from '../../Utils/ImageCommon.js';
 
 const Suggestions = () => {
   const navigation = useNavigation();
@@ -15,7 +16,7 @@ const Suggestions = () => {
       <ScrollView>
         <View style={{ flexWrap: "wrap", flexDirection: "row", gap: 20, justifyContent: "center" }}>
           <View style={styles.suggestions}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
             <Text>Country</Text>
@@ -39,7 +40,7 @@ const Suggestions = () => {
           </View>
 
           <View style={styles.suggestions}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
             <Text>Country</Text>
@@ -62,7 +63,7 @@ const Suggestions = () => {
             >Connect</Button>
           </View>
           <View style={styles.suggestions}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
             <Text>Country</Text>
@@ -85,7 +86,7 @@ const Suggestions = () => {
             >Connect</Button>
           </View>
           <View style={styles.suggestions}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
             <Text>Country</Text>
@@ -109,7 +110,7 @@ const Suggestions = () => {
           </View>
 
           <View style={styles.suggestions}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
             <Text>Country</Text>
@@ -132,7 +133,7 @@ const Suggestions = () => {
             >Connect</Button>
           </View>
           <View style={styles.suggestions}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
             <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
             <Text>Country</Text>

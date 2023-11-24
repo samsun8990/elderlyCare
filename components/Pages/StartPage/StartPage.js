@@ -5,7 +5,6 @@ import { AuthContext } from '../../Config/AuthContext';
 
 const StartPage = ({route, navigation}) => {
 
-    const { signOut } = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -29,7 +28,6 @@ const StartPage = ({route, navigation}) => {
                 <Text style={[styles.buttonText, styles.buttonOutLineText]}>Join as Volunteer</Text>
             </TouchableOpacity>
         </View>
-        <Button title="Signout" onPress={signOut}/>
     </View>
         
   )
