@@ -8,11 +8,14 @@ import Welcome from './Welcome';
 import HomeAvailable from './HomeAvailable';
 import HomeSuggestions from './HomeSuggestions';
 import { styles } from './HomeStyle';
+import { AuthContext } from '../../Config/AuthContext';
 
 
-const Home = () => {
+const ElderHome = ({navigation}) => {
  
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
+
+  const { signOut } = useContext(AuthContext);
 
   const headerOptions = {
     headerTitle: '',
@@ -38,9 +41,7 @@ const Home = () => {
             color="#1B5B7D"
             size={24}
             style={{ marginRight: 15 }}
-            onPress={() => {
-              // Handle logout logic here
-            }}
+            onPress={signOut}
           />
         </TouchableOpacity>
       </View>
@@ -81,4 +82,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default ElderHome

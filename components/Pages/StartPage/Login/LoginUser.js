@@ -10,24 +10,41 @@ import { AuthContext } from '../../../Config/AuthContext';
 
 const LoginUser = ({ route, navigation }) => {
 
-    const { user, signIn, signOut } = useContext(AuthContext);
+    const { user, signIn, signOut, elderUser, volunteerUser } = useContext(AuthContext);
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
     const handleLogin = async () => {
         if (email && password) {
-            let signAuth = await signIn(email, password)
-            if(user){
-                console.log("success");
-                setEmail()
-                setPassword()
-            }
+            await signIn(email, password)
         }
         return;
     }
 
- 
+    useEffect(() => {
+        if (user) {
+            console.log("success");
+            setEmail()
+            setPassword()
+            //console.log( user,elderUser,volunteerUser);
+
+            if (elderUser) {
+                console.log(elderUser);
+                navigation.navigate("elderTabs")
+            }
+            else if (volunteerUser) {
+                console.log(volunteerUser);
+                navigation.navigate("volunteerTabs")
+            }
+
+        }
+    }, [elderUser, volunteerUser])
+
+
+
+
+
     return (
 
         <KeyboardAvoidingView style={styles.container}>

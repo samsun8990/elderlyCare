@@ -10,7 +10,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AvailableVolunteers from './AvailableVolunteers';
 import RequestedVolunteers from './RequestedVolunteers';
 
-const Volunteers = () => {
+const ElderVolunteers = () => {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState('');
   const [value, setValue] = useState(null)
@@ -105,4 +105,4 @@ const Volunteers = () => {
   )
 }
 
-export default Volunteers
+export default ElderVolunteers
