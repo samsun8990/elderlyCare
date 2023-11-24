@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { defaultImg } from '../../../Utils/ImageCommon'
 
 const VolunteerPendingRequests = ({navigation}) => {
   return (
@@ -14,7 +15,7 @@ const VolunteerPendingRequests = ({navigation}) => {
     <ScrollView horizontal>
         <View style={styles.scrollContainer}>
             <View>
-                <Image source={require("../../../assets/images/defaultuser-img.png")}
+                <Image source={defaultImg}
                     style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                 <Text style={styles.item}>Lorem Lipsum</Text>
                 <Button buttonStyle={{
@@ -31,7 +32,7 @@ const VolunteerPendingRequests = ({navigation}) => {
                 >Accept</Button>
             </View>
             <View>
-                <Image source={require("../../../assets/images/defaultuser-img.png")}
+                <Image source={defaultImg}
                     style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                 <Text style={styles.item}>Lorem Lipsum</Text>
                 <Button buttonStyle={{
@@ -48,7 +49,7 @@ const VolunteerPendingRequests = ({navigation}) => {
                 >Accept</Button>
             </View>
             <View>
-                <Image source={require("../../../assets/images/defaultuser-img.png")}
+                <Image source={defaultImg}
                     style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                 <Text style={styles.item}>Lorem Lipsum</Text>
                 <Button buttonStyle={{

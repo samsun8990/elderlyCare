@@ -17,6 +17,7 @@ import {
   import { Dropdown } from "react-native-element-dropdown";
   import AvailableVolunteers from "./AvailableVolunteers";
   import RequestedVolunteers from "./RequestedVolunteers";
+import { defaultImg } from "../../../Utils/ImageCommon.js";
 
 const VolunteerAcceptedRequests = ({navigation}) => {
   return (
@@ -31,7 +32,7 @@ const VolunteerAcceptedRequests = ({navigation}) => {
             <ScrollView horizontal>
                 <View style={styles.scrollContainer}>
                     <View>
-                        <Image source={require("../../../assets/images/defaultuser-img.png")}
+                        <Image source={defaultImg}
                             style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                         <Text style={styles.item}>Lorem Lipsum</Text>
                         <Button buttonStyle={{
@@ -47,7 +48,7 @@ const VolunteerAcceptedRequests = ({navigation}) => {
                         >Connect</Button>
                     </View>
                     <View>
-                        <Image source={require("../../../assets/images/defaultuser-img.png")}
+                        <Image source={defaultImg}
                             style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                         <Text style={styles.item}>Lorem Lipsum</Text>
                         <Button buttonStyle={{
@@ -63,7 +64,7 @@ const VolunteerAcceptedRequests = ({navigation}) => {
                         >Connect</Button>
                     </View>
                     <View>
-                        <Image source={require("../../../assets/images/defaultuser-img.png")}
+                        <Image source={defaultImg}
                             style={{width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                         <Text style={styles.item}>Lorem Lipsum</Text>
                         <Button buttonStyle={{

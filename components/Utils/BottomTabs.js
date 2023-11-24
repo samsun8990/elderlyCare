@@ -3,13 +3,11 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
-import Chats from "../Pages/Chats/Chats";
-import Volunteers from "../Pages/Volunteers/Volunteers";
 import { FontAwesome } from "react-native-vector-icons";
-import ElderHome from "../Pages/Home/Home";
+import ElderHome from "../Pages/Home/ElderHomepage/ElderHome";
 import ElderNetwork from "../Pages/Network/Network";
-import ElderChats from "../Pages/Chats/Chats";
-import ElderVolunteers from "../Pages/Volunteers/Volunteers";
+import ElderVolunteers from "../Pages/Volunteers/ElderVolunteerPage/ElderVolunteers";
+import ElderChats from "../Pages/Chats/ElderChats";
 
 const Tab = createBottomTabNavigator();
 
@@ -67,7 +65,7 @@ const ElderBottomTabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Volunteers}
+        component={ElderVolunteers}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => {

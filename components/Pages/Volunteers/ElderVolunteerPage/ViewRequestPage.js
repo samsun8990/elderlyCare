@@ -12,11 +12,11 @@ import {
   import { useNavigation } from "@react-navigation/native";
   // import { headerOptions } from '../../Utils/Common';
   import { Card, Button, CheckBox } from "@rneui/themed";
-  import { styles } from "./VolunteerStyles.js";
+  import { styles } from "../VolunteerStyles.js";
   import { Picker } from "@react-native-picker/picker";
   import { Dropdown } from "react-native-element-dropdown";
-  import AvailableVolunteers from "./AvailableVolunteers";
-  import RequestedVolunteers from "./RequestedVolunteers";
+  import AvailableVolunteers from "../AvailableVolunteers.js";
+  import RequestedVolunteers from "../RequestedVolunteers.js";
 
 const ViewRequestPage = () => {
   return (

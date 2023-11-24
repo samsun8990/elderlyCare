@@ -4,9 +4,10 @@ import { Button } from '@rneui/themed'
 import { Card } from '@rneui/themed';
 import { FontAwesome } from "react-native-vector-icons";
 import { styles } from './HomeStyle';
+import { defaultImg } from '../../../Utils/ImageCommon';
 
 
-const HomeAvailable = () => {
+const ElderHomeAvailable = () => {
     return (
 
         <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
@@ -20,7 +21,7 @@ const HomeAvailable = () => {
             <ScrollView horizontal>
                 <View style={styles.scrollContainer}>
                     <View>
-                        <Image source={require("../../../assets/images/defaultuser-img.png")}
+                        <Image source={defaultImg}
                             style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                         <Text style={styles.item}>Lorem Lipsum</Text>
                         <Button buttonStyle={{
@@ -37,7 +38,7 @@ const HomeAvailable = () => {
                         >Request</Button>
                     </View>
                     <View>
-                        <Image source={require("../../../assets/images/defaultuser-img.png")}
+                        <Image source={defaultImg}
                             style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                         <Text style={styles.item}>Lorem Lipsum</Text>
                         <Button buttonStyle={{
@@ -54,7 +55,7 @@ const HomeAvailable = () => {
                         >Request</Button>
                     </View>
                     <View>
-                        <Image source={require("../../../assets/images/defaultuser-img.png")}
+                        <Image source={defaultImg}
                             style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
                         <Text style={styles.item}>Lorem Lipsum</Text>
                         <Button buttonStyle={{
@@ -81,4 +82,4 @@ const HomeAvailable = () => {
     )
 }
 
-export default HomeAvailable
+export default ElderHomeAvailable

@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '@rneui/themed'
 import { Card } from '@rneui/themed';
 import { FontAwesome } from "react-native-vector-icons";
-import { styles } from './HomeStyle';
+import { styles } from './ElderHomepage/HomeStyle';
 
 const Welcome = ({navigation}) => {
 

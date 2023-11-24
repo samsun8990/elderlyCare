@@ -3,12 +3,11 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from "../Pages/Home/Home";
-import Network from "../Pages/Network/Network";
-import Chats from "../Pages/Chats/Chats";
-import Volunteers from "../Pages/Volunteers/Volunteers";
 import { FontAwesome } from "react-native-vector-icons";
-import VolunteerHome from "../Pages/Home/VolunteerHome";
+import VolunteerHome from "../Pages/Home/VolunteerHomepage/VolunteerHome";
+import VolunteerChats from "../Pages/Chats/VolunteerChats";
+import VolunteerPage from "../Pages/Volunteers/VolunteerPage/VolunteerPage";
+
 
 
 const Tab = createBottomTabNavigator();
@@ -32,19 +31,8 @@ const VolunteerBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Network"
-        component={Network}
-        options={{
-          tabBarLabel: "Network",
-          tabBarIcon: ({ focused }) => {
-            const colors = focused ? "#1B5B7D" : "#323232";
-            return <FontAwesome name="globe" color={colors} size={30} />;
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Chats"
-        component={Chats}
+        name="VolunteerChats"
+        component={VolunteerChats}
         options={{
           tabBarLabel: "Chats",
           tabBarIcon: ({ focused }) => {
@@ -54,8 +42,8 @@ const VolunteerBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Volunteers"
-        component={Volunteers}
+        name="VolunteerPage"
+        component={VolunteerPage}
         options={{
           tabBarLabel: "Volunteers",
           tabBarIcon: ({ focused }) => {
@@ -67,7 +55,7 @@ const VolunteerBottomTabs = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Volunteers}
+        component={VolunteerPage}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => {

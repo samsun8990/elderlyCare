@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../Utils/Common';
 import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
+import { defaultImg } from '../../Utils/ImageCommon.js';
 
 
 const Invitations = () => {
@@ -16,7 +17,7 @@ const Invitations = () => {
       <ScrollView>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -31,23 +32,7 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
-              style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
-            <View>
-              <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
-              <Text style={{ color: "#847F7F" }}>1 day ago</Text>
-            </View>
-          </View>
-
-          <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-            <FontAwesome name="check" size={30} color="#265F17" />
-            <FontAwesome name="times" size={30} color="#7B7979" />
-          </View>
-        </View>
-        <Card.Divider />
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -63,7 +48,7 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -79,7 +64,7 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -95,7 +80,7 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -111,7 +96,7 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -127,7 +112,7 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
@@ -143,7 +128,23 @@ const Invitations = () => {
         <Card.Divider />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View style={{ flexDirection: "row", gap: 10 }}>
-            <Image source={require("../../../assets/images/defaultuser-img.png")}
+            <Image source={defaultImg}
+              style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
+            <View>
+              <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
+              <Text style={{ color: "#847F7F" }}>1 day ago</Text>
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
+            <FontAwesome name="check" size={30} color="#265F17" />
+            <FontAwesome name="times" size={30} color="#7B7979" />
+          </View>
+        </View>
+        <Card.Divider />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View style={{ flexDirection: "row", gap: 10 }}>
+            <Image source={defaultImg}
               style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
             <View>
               <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>

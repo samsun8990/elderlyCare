@@ -9,7 +9,7 @@ const VolunteerHome = () => {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
-        <Image source={require("../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
+        <Image source={require("../../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
     headerRight: () => (
