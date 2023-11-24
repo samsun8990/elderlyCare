@@ -1,84 +1,24 @@
-import { db } from "./config"
+
+import { doc, setDoc, getDocs,getDoc, collection, deleteDoc, addDoc } from "firebase/firestore";
+import { db } from "./config";
 
 
-//all database functionality
-class DB{
-    constructor(collection){
-        this.collection = collection
-    }
-    reformat(doc){
-        return {id:doc.id, ...doc.data()}
-    }
-    
-    findAll = async () => {
-        const data = await db.collection(this.collection).get()
-        return data.docs.map(this.reformat)
-    }
+export const readUser = async (userID,collection1,collection2,setElderUser,setVolunteerUser) => {
+  const docRef1 = doc(db,collection1, userID);
+  const docSnap1 = await getDoc(docRef1);
 
-    findByField = async (field, value) => {
-        const data = await db.collection(this.collection).where(field, '==', value).get()
-        return data.docs.map(this.reformat)
-    }
-    listenAll = set =>
-    db.collection(this.collection).onSnapshot(snap => set(snap.docs.map(this.reformat)))
+  const docRef2 = doc(db,collection2, userID);
+  const docSnap2 = await getDoc(docRef2);
 
-    findOne = async id => {
-    const doc = await db.collection(this.collection).doc(id).get()
-    return doc.exists ? this.reformat(doc) : undefined
-    }
-
-
-    listenOne = (set, id) =>
-    db.collection(this.collection).doc(id).onSnapshot(snap => set(this.reformat(snap)))
-
-    // item has no id
-    create = ({ id, ...rest }) =>
-    db.collection(this.collection).add(rest)
-
-    // item has id
-    update = ({ id, ...rest }) =>
-    db.collection(this.collection).doc(id).set(rest)
-
-    remove = id =>
-    db.collection(this.collection).doc(id).delete()
-
-    }
-
-    class ElderUsers extends DB {
-
-        constructor() {
-            super('elderlyUsers')
-        }
-        
-        findByRole = role =>
-            this.findByField('role', role)
-    
-        updateProfile = (userId, { ...rest }) =>
-            db.collection(this.collection).doc(userId).set(rest)
-        
-        listenToCustomerCount = (set, user) =>
-        db.collection(this.collection).where("role", "==", user).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
-
-    class VolunteerUsers extends DB {
-
-        constructor() {
-            super('volunteerUsers')
-            // this.Wishlist = new Wishlist(this.collection)
-            // this.Carts = new Carts(this.collection)
-        }
-        
-        findByRole = role =>
-            this.findByField('role', role)
-    
-        updateProfile = (userId, { ...rest }) =>
-            db.collection(this.collection).doc(userId).set(rest)
-        
-        listenToCustomerCount = (set, user) =>
-        db.collection(this.collection).where("role", "==", user).onSnapshot(snap => set(snap.docs.map(this.reformat)))
-    }
-export default {
-    ElderUsers: new ElderUsers(),
-    VolunteerUsers: new VolunteerUsers()
-   
-};
+  if (docSnap1.exists()) {
+    setElderUser({id: userID, ...docSnap1.data()})
+  } 
+  else if (docSnap2.exists()) {
+    setVolunteerUser({id: userID, ...docSnap2.data()})
+  }  
+  else {
+  // doc.data() will be undefined in this case
+  console.log("No such User!");
+  }
+  }
+  

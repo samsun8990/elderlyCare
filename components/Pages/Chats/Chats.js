@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Chats = () => {
+const ElderChats = () => {
   return (
     <View>
       <Text>Chats</Text>
@@ -9,6 +9,6 @@ const Chats = () => {
   )
 }
 
-export default Chats
+export default ElderChats
 
 const styles = StyleSheet.create({})

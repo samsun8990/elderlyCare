@@ -1,8 +1,12 @@
-import { StyleSheet, TextInput, View, Image, TouchableOpacity,Text,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React,{useEffect, useState} from 'react';
+import { StyleSheet, TextInput, View, Image, TouchableOpacity,Text,KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Button } from 'react-native'
+import React,{useEffect, useState,useContext} from 'react';
+import { AuthContext } from '../../Config/AuthContext';
 
 
 const StartPage = ({route, navigation}) => {
+
+    const { signOut } = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
         <View style={{marginTop:40,flexDirection:'row', justifyContent:'space-between'}}>
@@ -25,7 +29,7 @@ const StartPage = ({route, navigation}) => {
                 <Text style={[styles.buttonText, styles.buttonOutLineText]}>Join as Volunteer</Text>
             </TouchableOpacity>
         </View>
-
+        <Button title="Signout" onPress={signOut}/>
     </View>
         
   )

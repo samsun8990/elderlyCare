@@ -6,7 +6,7 @@ import { headerOptions } from '../../Utils/Common';
 import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 
-const Network = () => {
+const ElderNetwork = () => {
     const navigation = useNavigation();
 
     const headerOptions = {
@@ -202,4 +202,4 @@ const Network = () => {
     )
 }
 
-export default Network
+export default ElderNetwork

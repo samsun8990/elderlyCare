@@ -3,17 +3,17 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
+import Home from "../Pages/Home/Home";
+import Network from "../Pages/Network/Network";
 import Chats from "../Pages/Chats/Chats";
 import Volunteers from "../Pages/Volunteers/Volunteers";
 import { FontAwesome } from "react-native-vector-icons";
-import ElderHome from "../Pages/Home/Home";
-import ElderNetwork from "../Pages/Network/Network";
-import ElderChats from "../Pages/Chats/Chats";
-import ElderVolunteers from "../Pages/Volunteers/Volunteers";
+import VolunteerHome from "../Pages/Home/VolunteerHome";
+
 
 const Tab = createBottomTabNavigator();
 
-const ElderBottomTabs = () => {
+const VolunteerBottomTabs = () => {
   return (
     <Tab.Navigator
     screenOptions={{
@@ -21,8 +21,8 @@ const ElderBottomTabs = () => {
     }}
   >
       <Tab.Screen
-        name="ElderHome"
-        component={ElderHome}
+        name="VolunteerHome"
+        component={VolunteerHome}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ focused }) => {
@@ -32,8 +32,8 @@ const ElderBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="ElderNetwork"
-        component={ElderNetwork}
+        name="Network"
+        component={Network}
         options={{
           tabBarLabel: "Network",
           tabBarIcon: ({ focused }) => {
@@ -43,8 +43,8 @@ const ElderBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="ElderChats"
-        component={ElderChats}
+        name="Chats"
+        component={Chats}
         options={{
           tabBarLabel: "Chats",
           tabBarIcon: ({ focused }) => {
@@ -54,8 +54,8 @@ const ElderBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="ElderVolunteers"
-        component={ElderVolunteers}
+        name="Volunteers"
+        component={Volunteers}
         options={{
           tabBarLabel: "Volunteers",
           tabBarIcon: ({ focused }) => {
@@ -77,9 +77,9 @@ const ElderBottomTabs = () => {
         }}
       />
     </Tab.Navigator>
-  );
-};
+  )
+}
 
-export default ElderBottomTabs;
+export default VolunteerBottomTabs
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})
