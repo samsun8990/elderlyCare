@@ -10,8 +10,7 @@ import { AuthContext } from '../../../Config/AuthContext';
 import ElderHomeAvailable from './ElderHomeAvailable';
 import ElderHomeSuggestions from './ElderHomeSuggestions';
 import { logo } from '../../../Utils/ImageCommon';
-import { DrawerActions, createDrawerNavigator } from '@react-navigation/native';
-import ElderDrawer from '../../../Utils/ElderDrawer';
+//import { DrawerActions, createDrawerNavigator } from '@react-navigation/native';
 
 
 const ElderHome = ({}) => {
@@ -21,7 +20,7 @@ const ElderHome = ({}) => {
   const { signOut,setUser } = useContext(AuthContext);
 
   const handleDrawer =()=>{
-    navigation.dispatch(DrawerActions.openDrawer());
+    //navigation.dispatch(DrawerActions.openDrawer());
     // navigation.navigate("ElderDrawer")
 
   }

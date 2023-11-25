@@ -8,6 +8,7 @@ import ElderHome from "../Pages/Home/ElderHomepage/ElderHome";
 import ElderNetwork from "../Pages/Network/Network";
 import ElderVolunteers from "../Pages/Volunteers/ElderVolunteerPage/ElderVolunteers";
 import ElderChats from "../Pages/Chats/ElderChats";
+import ElderProfile from "../Pages/Profile/Elder/ElderProfile";
 
 const Tab = createBottomTabNavigator();
 
@@ -64,8 +65,8 @@ const ElderBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ElderVolunteers}
+        name="ElderProfile"
+        component={ElderProfile}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => {

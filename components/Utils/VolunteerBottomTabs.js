@@ -7,6 +7,7 @@ import { FontAwesome } from "react-native-vector-icons";
 import VolunteerHome from "../Pages/Home/VolunteerHomepage/VolunteerHome";
 import VolunteerChats from "../Pages/Chats/VolunteerChats";
 import VolunteerPage from "../Pages/Volunteers/VolunteerPage/VolunteerPage";
+import VolunProfile from "../Pages/Profile/Volunteer/VolunProfile";
 
 
 
@@ -54,8 +55,8 @@ const VolunteerBottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={VolunteerPage}
+        name="VolunteerProfile"
+        component={VolunProfile}
         options={{
           tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => {

@@ -27,8 +27,9 @@ import VolunteerDrawer from "./components/Utils/VolunteerDrawer";
 import ElderDrawer from "./components/Utils/ElderDrawer";
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ElderNetwork from "./components/Pages/Network/Network";
-import Test from "./components/Test";
 import DrawerTab from "./components/Utils/DrawerTab";
+import ElderProfile from "./components/Pages/Profile/Elder/ElderProfile";
+import VolunProfile from "./components/Pages/Profile/Volunteer/VolunProfile";
 
 
 const Drawer = createDrawerNavigator();
@@ -110,7 +111,7 @@ export default function App() {
       <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="elderTabs"
+            initialRouteName="StartPage"
           >
 
             <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false }} />
@@ -145,6 +146,10 @@ export default function App() {
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
             <Stack.Screen name="RequestPage" component={RequestPage} />
             <Stack.Screen name="Notification" component={Notifications} />
+
+            <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }}  /> 
+
+            <Stack.Screen name="VolunteerProfile" component={VolunProfile} options={{ headerShown: false }}  /> 
 
             {/* {
   user && elderUser
