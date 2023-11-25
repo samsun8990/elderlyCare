@@ -29,6 +29,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import ElderNetwork from "./components/Pages/Network/Network";
 import DrawerTab from "./components/Utils/DrawerTab";
 import ElderProfile from "./components/Pages/Profile/Elder/ElderProfile";
+import VolunProfile from "./components/Pages/Profile/Volunteer/VolunProfile";
 
 
 const Drawer = createDrawerNavigator();
@@ -146,9 +147,9 @@ export default function App() {
             <Stack.Screen name="RequestPage" component={RequestPage} />
             <Stack.Screen name="Notification" component={Notifications} />
 
-
             <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }}  /> 
 
+            <Stack.Screen name="VolunteerProfile" component={VolunProfile} options={{ headerShown: false }}  /> 
 
             {/* {
   user && elderUser

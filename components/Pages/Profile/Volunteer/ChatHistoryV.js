@@ -5,7 +5,7 @@ import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, AntDesign, FontAwesome5 } from 'react-native-vector-icons';
 import { Card } from '@rneui/base';
 
-const ChatHistoryE = ({ navigation }) => {
+const ChatHistoryV = ({ navigation }) => {
   const handleBackPress = () => {
     // Add navigation logic here to go back
     navigation.goBack();
@@ -97,7 +97,7 @@ const ChatHistoryE = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-export default ChatHistoryE;
+export default ChatHistoryV;
 
 const styles = StyleSheet.create({
   container: {
