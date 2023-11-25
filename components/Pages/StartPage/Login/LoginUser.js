@@ -29,11 +29,11 @@ const LoginUser = ({ route, navigation }) => {
             //console.log( user,elderUser,volunteerUser);
 
             if (elderUser) {
-                console.log(elderUser);
+                // console.log(elderUser);
                 navigation.navigate("elderTabs")
             }
             else if (volunteerUser) {
-                console.log(volunteerUser);
+                // console.log(volunteerUser);
                 navigation.navigate("volunteerTabs")
             }
 

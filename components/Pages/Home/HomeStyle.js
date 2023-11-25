@@ -47,5 +47,11 @@ export const styles = StyleSheet.create({
         margin: 5,
         fontWeight: "600"
     },
+    connectBtn:{
+        backgroundColor: '#FAB545',
+        borderWidth: 2,
+        borderColor: '#FAB545',
+        borderRadius: 30,
+    }
 
 })

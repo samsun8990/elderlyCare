@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -15,13 +15,16 @@ const Tab = createBottomTabNavigator();
 const ElderBottomTabs = () => {
   return (
     <Tab.Navigator
-    screenOptions={{
-      tabBarStyle: { position: 'absolute' },
-    }}
-  >
+      screenOptions={{
+        tabBarStyle: { position: 'absolute' },
+      }}
+    >
       <Tab.Screen
         name="ElderHome"
         component={ElderHome}
+        screenOptions={{
+          headerShown: false
+        }}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ focused }) => {

@@ -9,7 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { FontAwesome } from "react-native-vector-icons";
+import { FontAwesome,Fontisto } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 // import { headerOptions } from '../../Utils/Common';
 import { Card, Button, CheckBox } from "@rneui/themed";
@@ -23,25 +23,24 @@ import { defaultImg } from "../../../Utils/ImageCommon.js";
 
 const RequestPage = () => {
   const [check1, setCheck1] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [showPicker,setShowPicker] = useState(false)
+  const [showPicker, setShowPicker] = useState(false)
 
+  const [startDate, setStartDate] = useState(new Date());
+  const [startDateValue, setStartDateVaue] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date())
+  const [endDateValue, setEndDateValue] = useState(new Date());
 
-  const toggleDatePicker = ()=>{
-    setShowPicker(!showPicker)
+  const handleStartDateChange = ({ type }, selectedDate) => {
+    setStartDate(new Date(selectedDate))
+    setStartDateVaue(selectedDate.toDateString())
+    setShowPicker(false)
+  }
+  const handleEndDateChange = ({ type }, selectedDate) => {
+    setEndDate(new Date(selectedDate))
+    setEndDateValue(selectedDate.toDateString())
+    setShowPicker(false)
   }
 
-  const handleDateChange= ({type},selectedDate)=>{
-    if(type == "set"){
-      const currentDate = selectedDate
-      setDate(currentDate)
-    }
-    else{
-      toggleDatePicker()
-    }
-
-  }
-  
   return (
     <SafeAreaView style={styles.container}>
       <Card
@@ -64,20 +63,21 @@ const RequestPage = () => {
               resizeMode="cover"
             />
             <View>
-              <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-              <Text style={{ fontSize: 12 }}>lorem@lorem.com</Text>
+              <Text style={{ fontWeight: "bold", fontSize:18, }}>Lorem Lipsum</Text>
+              <Text style={{ fontSize: 13 }}>lorem@lorem.com</Text>
             </View>
+            <Card.Divider/>
           </View>
 
           <View>
-            <Text>Description</Text>
+            <Text style={styles.requestTitle}>Description</Text>
             <Card.Divider />
             <TextInput
               style={{
                 borderWidth: 1,
                 borderColor: "grey",
                 height: 60,
-                width: 190,
+                width: 200,
                 borderRadius: 8,
                 backgroundColor: "#EAEAEA",
                 margin: 12,
@@ -90,7 +90,7 @@ const RequestPage = () => {
           </View>
 
           <View>
-            <Text>Preferences</Text>
+            <Text style={styles.requestTitle}>Preferences</Text>
             <Card.Divider />
             <View style={{ flexDirection: "row" }}>
               <CheckBox
@@ -123,59 +123,72 @@ const RequestPage = () => {
           </View>
 
           <View>
-            <Text>Timings</Text>
+            <Text style={styles.requestTitle}>Set Date Preferences</Text>
             <Card.Divider />
-            <View>
-              <Text>Select Start Date</Text>
-              <Pressable onPress={toggleDatePicker}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '90%' }}>
+            <Fontisto name="date" size={20}></Fontisto>
+              <TouchableOpacity onPress={() => setShowPicker(true)}>
+
                 <TextInput
-                placeholder="Start Date"
-                value={date}
-                editable={false}
-                
+                  placeholder="Start Date"
+                  style={styles.input}
+                  value={startDateValue}
+                  editable={false}
                 />
-              </Pressable>
-              <Button onPress={()=>setShowPicker(true)}>Start</Button>
+              </TouchableOpacity>
+              {
+                showPicker &&
+                <DateTimePicker mode="date" value={startDate} display="default" maximumDate={new Date()} onChange={handleStartDateChange} />
 
+              }
             </View>
-            <View>
-              <Text>Select End Date</Text>
-              <Button onPress={()=>setShowPicker(true)}>End</Button>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '90%' }}>
+              <Fontisto name="date" size={20}></Fontisto>
+              <TouchableOpacity onPress={() => setShowPicker(true)}>
+
+                <TextInput
+                  placeholder="End Date"
+                  style={styles.input}
+                  value={endDateValue}
+                  editable={false}
+                />
+              </TouchableOpacity>
+              {
+                showPicker &&
+                <DateTimePicker mode="date" value={endDate} display="default" maximumDate={new Date()} onChange={handleEndDateChange} />
+
+              }
             </View>
-          {
-            showPicker
-            ?
-            <DateTimePicker mode="date" value={date} display="spinner" onChange={handleDateChange}/>
-            :
-            null
-
-          }
-
-            
-         
           </View>
-
           <View>
-            <Text>Paymemt Amount</Text>
+            <Text></Text>
+            <Text style={styles.requestTitle}>Payment Amount</Text>
             <Card.Divider />
             <TextInput
               style={{
                 borderWidth: 1,
                 borderColor: "grey",
-                height: 60,
+                height: 40,
                 width: 200,
-                borderRadius: 8,
+                borderRadius: 3,
                 backgroundColor: "#EAEAEA",
                 margin: 12,
                 borderWidth: 1,
                 padding: 10,
                 color: "gray",
               }}
-              placeholder="What are you looking for?"
+              placeholder="Amount"
             />
           </View>
+
+          <Button title="Request"/>
+
+
         </View>
+        <View style={{ paddingBottom: 90 }} />
+
       </Card>
+     
     </SafeAreaView>
   );
 };

@@ -59,14 +59,17 @@ export const styles = StyleSheet.create({
     search:{
         borderWidth:1,
         backgroundColor:"#D9D9D9",
-        width:190,
+        borderColor:"#D9D9D9",
+        borderRadius:10,
+        width:150,
         height:40,
         margin:10
     },
     dropdown:{
         borderWidth:1,
         backgroundColor:"#D9D9D9",
-        width:160,
+        borderColor:"#D9D9D9",
+        width:150,
         height:40,
         margin:10
     },
@@ -81,7 +84,10 @@ export const styles = StyleSheet.create({
         backgroundColor:"#1B5B7D",
         width:160,
         opacity:0.47,
-        
+    },
+    requestTitle:{
+        fontSize:18,
+        fontWeight:"500"
     }
 
 })

@@ -1,5 +1,5 @@
 import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 // import { headerOptions } from '../../Utils/Common';
@@ -10,11 +10,13 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AvailableVolunteers from './AvailableVolunteers.js';
 import RequestedVolunteers from './RequestedVolunteers.js';
 import { logo } from '../../../Utils/ImageCommon.js';
+import { AuthContext } from '../../../Config/AuthContext.js';
 
 const ElderVolunteers = () => {
   const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState('');
   const [value, setValue] = useState(null)
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
   const data = [
     { label: "Sort by Gender", value: 'Gender' },
@@ -44,7 +46,9 @@ const ElderVolunteers = () => {
             size={24}
             style={{ marginRight: 15 }}
             onPress={() => {
-              // Handle logout logic here
+              signOut()
+              setUser(null)
+              navigation.replace("LoginUser")
             }}
           />
         </TouchableOpacity>
@@ -68,7 +72,7 @@ const ElderVolunteers = () => {
 
 
   return (
-    <View>
+    <View  style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
           <FontAwesome name="search" size={20} style={{ fontSize: 15, padding: 5, color:"grey", top:5 }}>

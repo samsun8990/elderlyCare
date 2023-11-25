@@ -10,37 +10,32 @@ import { AuthContext } from '../../../Config/AuthContext';
 import ElderHomeAvailable from './ElderHomeAvailable';
 import ElderHomeSuggestions from './ElderHomeSuggestions';
 import { logo } from '../../../Utils/ImageCommon';
-//import { DrawerActions, createDrawerNavigator } from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/drawer';
 
 
-const ElderHome = ({}) => {
+const ElderHome = ({ }) => {
 
   const navigation = useNavigation()
 
-  const { signOut,setUser } = useContext(AuthContext);
-
-  const handleDrawer =()=>{
-    //navigation.dispatch(DrawerActions.openDrawer());
-    // navigation.navigate("ElderDrawer")
-
-  }
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
   const headerOptions = {
     headerTitle: '',
     headerLeft: () => (
-      <TouchableOpacity onPress={handleDrawer}>
+      <TouchableOpacity>
+
         <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
     headerRight: () => (
-      <View style={{flexDirection:"row"}}>
-        <TouchableOpacity  onPress={() => navigation.navigate('Notification')}>
+      <View style={{ flexDirection: "row" }}>
+        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
           <FontAwesome
             name="bell"
             color="#1B5B7D"
             size={24}
             style={{ marginRight: 15 }}
-           
+
           />
         </TouchableOpacity>
         <TouchableOpacity>
@@ -49,7 +44,7 @@ const ElderHome = ({}) => {
             color="#1B5B7D"
             size={24}
             style={{ marginRight: 15 }}
-            onPress={()=>{
+            onPress={() => {
               signOut()
               setUser(null)
               navigation.replace("LoginUser")
@@ -59,10 +54,10 @@ const ElderHome = ({}) => {
       </View>
     ),
     headerStyle: {
-       elevation: 5, 
-      shadowColor:'black',
-      shadowOpacity: 0.3, 
-      shadowRadius: 5, 
+      elevation: 5,
+      shadowColor: 'black',
+      shadowOpacity: 0.3,
+      shadowRadius: 5,
       shadowOffset: { width: 0, height: 2 },
     },
   }
@@ -81,14 +76,16 @@ const ElderHome = ({}) => {
             // padding: SIZES.medium,
           }}
         >
-          <Welcome/>
-          <ElderHomeSuggestions/>
+         
+         <Welcome  />
+          
+       
+          <ElderHomeSuggestions />
           <Text></Text>
-          <ElderHomeAvailable/>
-          {/* <ElderDrawer/> */}
+          <ElderHomeAvailable />
 
           <View style={{ paddingBottom: 90 }} />
-          
+
         </View>
       </ScrollView>
     </SafeAreaView>
