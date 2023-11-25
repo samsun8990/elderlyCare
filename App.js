@@ -16,6 +16,10 @@ import ChatHistoryE from './components/Profile/Elder/ChatHistoryE';
 import ChatHistoryV from './components/Profile/Volunteer/ChatHistoryV';
 import PaymentHistoryE from './components/Profile/Elder/PaymentHistoryE';
 import PaymentHistoryV from './components/Profile/Volunteer/PaymentHistoryV';
+import ForgetPasswordE from './components/Profile/Elder/ForgetPasswordE';
+import ForgetPasswordV from './components/Profile/Volunteer/ForgetPasswordV';
+
+
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -35,7 +39,8 @@ export default function App() {
    {/* <ChatHistoryE/> */}
    {/* <ChatHistoryV/> */}
    {/* <PaymentHistoryE/> */}
-   <PaymentHistoryV/>
+   {/* <ForgetPasswordE/> */}
+   <ForgetPasswordV/>
 
     
     
