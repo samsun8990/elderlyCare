@@ -2,24 +2,21 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Button, Icon } from '@rneui/themed';
-import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
+import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
+import { defaultImg } from '../../../Utils/ImageCommon';
 
 
-const ElderProfile = ({ navigation }) => {
-    const handleBackPress = () => {
-        // Add navigation logic here to go back
-        navigation.goBack();
-    };
+const VolunProfile = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.headerContainer}>
+             {/* <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={handleBackPress}>
                     <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
                 </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={styles.profileContainer}>
-                <Image source={require('../../../assets/profile.png')} style={styles.profileImage} />
+                <Image source={defaultImg} style={styles.profileImage} />
                 <Text>Joined Date: 12 Aug 2022</Text>
                 <Text>Name</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} >
@@ -37,7 +34,7 @@ const ElderProfile = ({ navigation }) => {
                 <View style={styles.detailRow}>
                     <Icon name="lock" color="black" size={20} style={styles.icon} />
                     <Text>Password</Text>
-                    <Button 
+                    <Button
                         containerStyle={{
                             height: 30,
                             width: 200,
@@ -56,7 +53,6 @@ const ElderProfile = ({ navigation }) => {
                     <Text>Phone Number</Text>
                 </View>
             </View>
-
             <View style={styles.cardContainer}>
                 <Text style={styles.sectionTitle}>Dashboard</Text>
                 <View style={styles.line} />
@@ -66,9 +62,6 @@ const ElderProfile = ({ navigation }) => {
                     </Button>
                     <Button size={"md"} radius={20} type="solid" color={"#FFD699"}>
                         Chat History
-                    </Button>
-                    <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}>
-                        Health Info
                     </Button>
                 </View>
             </View>
@@ -85,7 +78,7 @@ const ElderProfile = ({ navigation }) => {
     );
 };
 
-export default ElderProfile;
+export default VolunProfile;
 
 const styles = StyleSheet.create({
     container: {
@@ -137,7 +130,7 @@ const styles = StyleSheet.create({
     detailRow: {
         flexDirection: 'row',
         alignItems: 'center',
-       
+
     },
     icon: {
         marginRight: 10,
@@ -146,5 +139,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 5,
-    },
+    }
 });
