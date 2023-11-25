@@ -12,11 +12,9 @@ import {
   import { useNavigation } from "@react-navigation/native";
   // import { headerOptions } from '../../Utils/Common';
   import { Card, Button, CheckBox } from "@rneui/themed";
-  import { styles } from "./VolunteerStyles.js";
+  import { styles } from "../HomeStyle.js";
   import { Picker } from "@react-native-picker/picker";
   import { Dropdown } from "react-native-element-dropdown";
-  import AvailableVolunteers from "./AvailableVolunteers";
-  import RequestedVolunteers from "./RequestedVolunteers";
 import { defaultImg } from "../../../Utils/ImageCommon.js";
 
 const VolunteerAcceptedRequests = ({navigation}) => {
@@ -86,5 +84,3 @@ const VolunteerAcceptedRequests = ({navigation}) => {
 }
 
 export default VolunteerAcceptedRequests
-
-const styles = StyleSheet.create({})

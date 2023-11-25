@@ -5,21 +5,31 @@ import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import Welcome from '../Welcome';
 // import { headerOptions } from '../../Utils/Common';
-import { styles } from './HomeStyle';
+import { styles } from '../HomeStyle';
 import { AuthContext } from '../../../Config/AuthContext';
 import ElderHomeAvailable from './ElderHomeAvailable';
 import ElderHomeSuggestions from './ElderHomeSuggestions';
 import { logo } from '../../../Utils/ImageCommon';
+import { DrawerActions, createDrawerNavigator } from '@react-navigation/native';
+import ElderDrawer from '../../../Utils/ElderDrawer';
 
 
-const ElderHome = ({navigation}) => {
+const ElderHome = ({}) => {
+
+  const navigation = useNavigation()
 
   const { signOut,setUser } = useContext(AuthContext);
+
+  const handleDrawer =()=>{
+    navigation.dispatch(DrawerActions.openDrawer());
+    // navigation.navigate("ElderDrawer")
+
+  }
 
   const headerOptions = {
     headerTitle: '',
     headerLeft: () => (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleDrawer}>
         <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
@@ -76,6 +86,7 @@ const ElderHome = ({navigation}) => {
           <ElderHomeSuggestions/>
           <Text></Text>
           <ElderHomeAvailable/>
+          {/* <ElderDrawer/> */}
 
           <View style={{ paddingBottom: 90 }} />
           

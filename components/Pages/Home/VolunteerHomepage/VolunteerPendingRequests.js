@@ -1,6 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { defaultImg } from '../../../Utils/ImageCommon'
+import {
+    Text,
+    View,
+    SafeAreaView,
+    ScrollView,
+    Image,
+    TouchableOpacity,
+    TextInput,
+  } from "react-native";
+  import React, { useState, useEffect } from "react";
+  import { FontAwesome } from "react-native-vector-icons";
+  import { useNavigation } from "@react-navigation/native";
+  // import { headerOptions } from '../../Utils/Common';
+  import { Card, Button, CheckBox } from "@rneui/themed";
+  import { styles } from "../HomeStyle.js";
+  import { Picker } from "@react-native-picker/picker";
+  import { Dropdown } from "react-native-element-dropdown";
+import { defaultImg } from "../../../Utils/ImageCommon.js";
 
 const VolunteerPendingRequests = ({navigation}) => {
   return (
@@ -72,5 +87,3 @@ const VolunteerPendingRequests = ({navigation}) => {
 }
 
 export default VolunteerPendingRequests
-
-const styles = StyleSheet.create({})

@@ -22,6 +22,16 @@ import RequestedVolunteers from "./components/Pages/Volunteers/ElderVolunteerPag
 import Invitations from "./components/Pages/Network/Invitations";
 import Suggestions from "./components/Pages/Network/Suggestions";
 import RequestPage from "./components/Pages/Volunteers/ElderVolunteerPage/RequestPage";
+import VolunteerHome from "./components/Pages/Home/VolunteerHomepage/VolunteerHome";
+import VolunteerDrawer from "./components/Utils/VolunteerDrawer";
+import ElderDrawer from "./components/Utils/ElderDrawer";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import ElderNetwork from "./components/Pages/Network/Network";
+import Test from "./components/Test";
+import DrawerTab from "./components/Utils/DrawerTab";
+
+
+const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -97,10 +107,10 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser,setUser }}>
+      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="StartPage"
+            initialRouteName="elderTabs"
           >
 
             <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false }} />
@@ -123,7 +133,12 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
 
+            {/* <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />   */}
+
             <Stack.Screen name="ElderHome" component={ElderHome} />
+
+            <Stack.Screen name="VolunteerHome" component={VolunteerHome} />
+
             <Stack.Screen name="Invitations" component={Invitations} />
             <Stack.Screen name="Suggestions" component={Suggestions} />
             <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
@@ -131,12 +146,30 @@ export default function App() {
             <Stack.Screen name="RequestPage" component={RequestPage} />
             <Stack.Screen name="Notification" component={Notifications} />
 
+            {/* {
+  user && elderUser
+  ?
+  <Drawer.Navigator>
+  <Drawer.Screen options={{ headerShown: false }} name="elderTabs" component={ElderBottomTabs}  />
+  <Drawer.Screen options={{ headerShown: false }} name="fruits" component={Test} />
+</Drawer.Navigator>
+:
+null
+
+
+} */}
           </Stack.Navigator>
+
+         
+          
+
         </NavigationContainer>
       </AuthContext.Provider>
     </SafeAreaView>
   );
 }
+{/* <Stack.Screen name="ElderDrawer" component={ElderDrawer} />  
+            <Stack.Screen name="VolunteerDrawer" component={VolunteerDrawer} />   */}
 
 const styles = StyleSheet.create({
   container: {

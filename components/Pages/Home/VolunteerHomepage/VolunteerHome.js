@@ -1,6 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { createStackNavigator } from '@react-navigation/stack';
+import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import Welcome from '../Welcome';
+// import { headerOptions } from '../../Utils/Common';
+import { styles } from '../HomeStyle';
+import { AuthContext } from '../../../Config/AuthContext';
+import { logo } from '../../../Utils/ImageCommon';
+import VolunteerAcceptedRequests from './VolunteerAcceptedRequests';
+import VolunteerPendingRequests from './VolunteerPendingRequests';
+
 
 const VolunteerHome = () => {
     const navigation = useNavigation();
@@ -60,9 +70,9 @@ const VolunteerHome = () => {
         }}
       >
         <Welcome/>
-        <HomeSuggestions/>
+        <VolunteerAcceptedRequests/>
         <Text></Text>
-        <HomeAvailable/>
+        <VolunteerPendingRequests/>
 
         <View style={{ paddingBottom: 90 }} />
         
