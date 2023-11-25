@@ -5,8 +5,10 @@ import { Card } from '@rneui/themed';
 import { FontAwesome } from "react-native-vector-icons";
 import { styles } from '../HomeStyle';
 import { defaultImg } from '../../../Utils/ImageCommon';
+import { useNavigation } from '@react-navigation/native';
 
-const ElderHomeSuggestions = ({navigation}) => {
+const ElderHomeSuggestions = () => {
+    const navigation = useNavigation()
 
     return (
         <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>

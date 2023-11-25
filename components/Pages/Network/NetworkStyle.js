@@ -48,13 +48,14 @@ export const styles = StyleSheet.create({
         fontWeight: "600"
     },
     suggestions:{
-        width:150,
+        width:130,
         backgroundColor:"#EBE9E9",
         borderWidth:1,
         borderRadius:10,
         justifyContent:"center",
         alignItems:"center",
-        padding:15
+        padding:12,
+        margin:2
         
     }
 

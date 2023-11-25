@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import 'react-native-gesture-handler'
 import { StyleSheet, Text, View, SafeAreaView, Dimensions, Image } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import React, { createContext, useState, useEffect } from 'react';
@@ -23,16 +24,15 @@ import Invitations from "./components/Pages/Network/Invitations";
 import Suggestions from "./components/Pages/Network/Suggestions";
 import RequestPage from "./components/Pages/Volunteers/ElderVolunteerPage/RequestPage";
 import VolunteerHome from "./components/Pages/Home/VolunteerHomepage/VolunteerHome";
-import VolunteerDrawer from "./components/Utils/VolunteerDrawer";
-import ElderDrawer from "./components/Utils/ElderDrawer";
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import ElderNetwork from "./components/Pages/Network/Network";
 import DrawerTab from "./components/Utils/DrawerTab";
 import ElderProfile from "./components/Pages/Profile/Elder/ElderProfile";
 import VolunProfile from "./components/Pages/Profile/Volunteer/VolunProfile";
+import ElderVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/ElderVolunteers";
+import PendingVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/PendingVolnteerLists";
+import AvailableVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/AvailableVolunteers";
+import ElderChats from "./components/Pages/Chats/ElderChats";
 
-
-const Drawer = createDrawerNavigator();
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -134,7 +134,7 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
 
-            {/* <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />   */}
+            <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />  
 
             <Stack.Screen name="ElderHome" component={ElderHome} />
 
@@ -146,23 +146,19 @@ export default function App() {
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
             <Stack.Screen name="RequestPage" component={RequestPage} />
             <Stack.Screen name="Notification" component={Notifications} />
+            
+            <Stack.Screen name="ElderChats" component={ElderChats} />
+            
+            <Stack.Screen name="AvailableVolunteers" component={AvailableVolunteers} />
+            
+            <Stack.Screen name="ElderVolunteers" component={ElderVolunteers} />
+            
+            <Stack.Screen name="PendingVolnteerLists" component={PendingVolnteerLists} />
 
             <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }}  /> 
 
             <Stack.Screen name="VolunteerProfile" component={VolunProfile} options={{ headerShown: false }}  /> 
 
-            {/* {
-  user && elderUser
-  ?
-  <Drawer.Navigator>
-  <Drawer.Screen options={{ headerShown: false }} name="elderTabs" component={ElderBottomTabs}  />
-  <Drawer.Screen options={{ headerShown: false }} name="fruits" component={Test} />
-</Drawer.Navigator>
-:
-null
-
-
-} */}
           </Stack.Navigator>
 
          
@@ -173,8 +169,6 @@ null
     </SafeAreaView>
   );
 }
-{/* <Stack.Screen name="ElderDrawer" component={ElderDrawer} />  
-            <Stack.Screen name="VolunteerDrawer" component={VolunteerDrawer} />   */}
 
 const styles = StyleSheet.create({
   container: {

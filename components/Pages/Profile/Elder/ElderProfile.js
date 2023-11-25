@@ -73,6 +73,8 @@ const ElderProfile = ({ navigation }) => {
                 </Text>
                 {/* </Button> */}
             </View>
+
+            <View style={{ paddingBottom: 90 }} />
             </ScrollView>
           
         </SafeAreaView>
