@@ -13,6 +13,7 @@ import PassChangeE from './components/Profile/Elder/PassChangeE';
 import PassChangeV from './components/Profile/Volunteer/PassChangeV';
 import HealthInfo from './components/Profile/Elder/HealthInfo';
 import ChatHistoryE from './components/Profile/Elder/ChatHistoryE';
+import ChatHistoryV from './components/Profile/Volunteer/ChatHistoryV';
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -29,7 +30,8 @@ export default function App() {
    {/* <PassChangeE/> */}
    {/* <PassChangeV/> */}
    {/* <HealthInfo/> */}
-   <ChatHistoryE/>
+   {/* <ChatHistoryE/> */}
+   <ChatHistoryV/>
 
     
     
