@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity,TextInput } from 'react-native';
 import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 import { Button } from '@rneui/themed';
+// import { TextInput } from 'react-native-gesture-handler';
 
 const PassChangeE = ({ navigation }) => {
   const handleBackPress = () => {
@@ -20,15 +21,18 @@ const PassChangeE = ({ navigation }) => {
       <View style={styles.contentContainer}>
         <View style={styles.passwordItem}>
           <AntDesign name="lock" size={24} color="black" />
-          <Text>New Password</Text>
+          <TextInput
+          placeholder='New Password'></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.passwordItem}>
           <AntDesign name="lock" size={24} color="black" />
-          <Text>Retype Password</Text>
+          <TextInput
+          placeholder='Retype Password'></TextInput>
         </View>
         <View style={styles.line} />
-        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
+        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
+        onPress={()=>navigation.navigate("ElderProfile")}>
           Save
         </Button>
       </View>

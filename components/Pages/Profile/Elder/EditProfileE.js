@@ -24,17 +24,20 @@ const EditProfileE = ({ navigation }) => {
       <View style={styles.profileSection}>
         <View style={styles.profileRow}>
           <MaterialCommunityIcons name="account" size={20} color="black" style={styles.icon} />
-          <TextInput style={styles.profileText}>{elderUser.fullname}</TextInput>
+          <TextInput style={styles.profileText}
+          placeholder={elderUser.fullname}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
           <AntDesign name="contacts" size={20} color="black" style={styles.icon} />
-          <TextInput style={styles.profileText}>{elderUser.phone}</TextInput>
+          <TextInput style={styles.profileText}
+          placeholder={elderUser.phone}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
           <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
-          <TextInput style={styles.profileText}>{elderUser.date}</TextInput>
+          <TextInput style={styles.profileText}
+          placeholder={elderUser.date}></TextInput>
         </View>
         <View style={styles.line} />
 
