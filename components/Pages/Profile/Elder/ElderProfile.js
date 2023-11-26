@@ -4,17 +4,22 @@ import React from 'react';
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
+import { useNavigation } from '@react-navigation/native';
+import { styles } from '../ProfileStyles';
 
-const ElderProfile = ({ navigation }) => {
 
+const ElderProfile = () => {
+    const navigation = useNavigation()
     return (
+
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.profileContainer}>
                 <Image source={defaultImg} style={styles.profileImage} />
                 <Text>Joined Date: 12 Aug 2022</Text>
                 <Text>Name</Text>
-                <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} >
+                <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} 
+                onPress={()=>navigation.navigate("EditProfileE")} >
                     <Icon name="edit" color="white" />
                     Edit
                 </Button>
@@ -35,7 +40,8 @@ const ElderProfile = ({ navigation }) => {
                             width: 200,
                             marginHorizontal: 50,
                             marginVertical: 5,
-                        }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"} >
+                        }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"}
+                        onPress={()=>navigation.navigate("PassChangeE")}  >
                         Change
                     </Button>
                 </View>
@@ -53,23 +59,28 @@ const ElderProfile = ({ navigation }) => {
                 <Text style={styles.sectionTitle}>Dashboard</Text>
                 <View style={styles.line} />
                 <View style={styles.dashboardButtons}>
-                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}>
+                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
+                     onPress={()=>navigation.navigate("PaymentHistoryE")}  >
                         Payments
                     </Button>
-                    <Button size={"md"} radius={20} type="solid" color={"#FFD699"}>
+                    <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
+                    onPress={()=>navigation.navigate("ChatHistoryE")}>
                         Chat History
                     </Button>
-                    <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}>
+                    <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}
+                    onPress={()=>navigation.navigate("HealthInfo")}>
                         Health Info
                     </Button>
                 </View>
             </View>
+
             <View style={styles.accountContainer}>
                 <Text style={styles.sectionTitle}>My Account</Text>
                 <View style={styles.line} />
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
-                <Text style={styles = { fontSize: 16 }}>
-                    <Icon size={30} name="logout" color="#1B5B7D" /> Logout
+                <Text style={{ fontSize: 16 }}>
+                    <Icon size={30} name="logout" color="#1B5B7D" 
+                    onPress={()=>navigation.navigate("StartPage")}/> Logout
                 </Text>
                 {/* </Button> */}
             </View>
@@ -83,64 +94,64 @@ const ElderProfile = ({ navigation }) => {
 
 export default ElderProfile;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#DDEBEF",
-        justifyContent: 'space-between'
-    },
-    profileContainer: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 5,
-        gap: 5
-    },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
-    personalDetailsContainer: {
-        flex: 1,
-        alignItems: 'left',
-        padding: 20,
-    },
-    cardContainer: {
-        flex: 1,
-        alignItems: 'left',
-        padding: 10,
-    },
-    accountContainer: {
-        flex: 1,
-        alignItems: 'left',
-        padding: 20,
-    },
-    sectionTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    dashboardButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 5
-    },
-    line: {
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        marginVertical: 5,
-    },
-    detailRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         backgroundColor: "#DDEBEF",
+//         justifyContent: 'space-between'
+//     },
+//     profileContainer: {
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         padding: 5,
+//         gap: 5
+//     },
+//     profileImage: {
+//         width: 100,
+//         height: 100,
+//         borderRadius: 50,
+//     },
+//     personalDetailsContainer: {
+//         flex: 1,
+//         alignItems: 'left',
+//         padding: 20,
+//     },
+//     cardContainer: {
+//         flex: 1,
+//         alignItems: 'left',
+//         padding: 10,
+//     },
+//     accountContainer: {
+//         flex: 1,
+//         alignItems: 'left',
+//         padding: 20,
+//     },
+//     sectionTitle: {
+//         fontSize: 20,
+//         fontWeight: 'bold',
+//         marginBottom: 10,
+//     },
+//     dashboardButtons: {
+//         flexDirection: 'row',
+//         justifyContent: 'space-between',
+//         marginTop: 5
+//     },
+//     line: {
+//         borderBottomColor: 'black',
+//         borderBottomWidth: 1,
+//         marginVertical: 5,
+//     },
+//     detailRow: {
+//         flexDirection: 'row',
+//         alignItems: 'center',
        
-    },
-    icon: {
-        marginRight: 10,
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 5,
-    },
-});
+//     },
+//     icon: {
+//         marginRight: 10,
+//     },
+//     headerContainer: {
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         marginTop: 5,
+//     },
+// });
