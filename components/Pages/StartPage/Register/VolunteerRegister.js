@@ -43,7 +43,7 @@ const VolunteerRegister = ({navigation}) => {
         const docRef = doc(db, "volunteerUsers", userCredential.user.uid)
 
         await setDoc(docRef,
-          { email: email, fullname: fullname, password: password, phone: phone, gender: gender, avatar: "https://static.thenounproject.com/png/5034901-200.png", role: "volunteer",
+          { email: email, fullname: fullname, password: password, phone: phone, gender: gender, avatar: "https://static.thenounproject.com/png/5034901-200.png", role: "volunteer",status:"available",
           experience:experience,dob:dob},
           { merge: true })
           .then(() => {

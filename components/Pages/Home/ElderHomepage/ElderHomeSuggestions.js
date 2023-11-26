@@ -1,14 +1,31 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button } from '@rneui/themed'
 import { Card } from '@rneui/themed';
 import { FontAwesome } from "react-native-vector-icons";
 import { styles } from '../HomeStyle';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
+import { readAllElderUsers } from '../../../Config/dbcls';
+import { AuthContext } from '../../../Config/AuthContext';
 
 const ElderHomeSuggestions = () => {
     const navigation = useNavigation()
+
+    const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+
+
+    const [suggestionList,setSuggestionList] = useState()
+
+    useEffect(()=>{
+
+        if(elderUser){
+            readAllElderUsers(elderUser.fullname,setSuggestionList)
+        }
+
+    },[])
+
+
 
     return (
         <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
@@ -21,10 +38,12 @@ const ElderHomeSuggestions = () => {
             <Card.Divider />
             <ScrollView horizontal>
                 <View style={styles.scrollContainer}>
-                    <View>
-                        <Image source={defaultImg}
+                    {suggestionList && suggestionList.length > 0 && (
+                        suggestionList.map((suggest,index)=>
+                        <View key={index}>
+                        <Image source={{uri:suggest.avatar}}
                             style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
-                        <Text style={styles.item}>Lorem Lipsum</Text>
+                        <Text style={styles.item}>{suggest.fullname}</Text>
                         <Button buttonStyle={{
                             backgroundColor: '#1B5B7D',
                             borderWidth: 2,
@@ -37,38 +56,11 @@ const ElderHomeSuggestions = () => {
                             titleStyle={{ fontWeight: 'bold', fontSize:15 }}
                         >Connect</Button>
                     </View>
-                    <View>
-                        <Image source={defaultImg}
-                            style={{ width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
-                        <Text style={styles.item}>Lorem Lipsum</Text>
-                        <Button buttonStyle={{
-                            backgroundColor: '#1B5B7D',
-                            borderWidth: 2,
-                            borderColor: '#1B5B7D',
-                            borderRadius: 30,
-                        }}
-                            containerStyle={{
-                                width: 90
-                            }}
-                            titleStyle={{ fontWeight: 'bold', fontSize:15 }}
-                        >Connect</Button>
-                    </View>
-                    <View>
-                        <Image source={defaultImg}
-                            style={{width: 90, height: 85, borderRadius: 50 }} resizeMode="cover" />
-                        <Text style={styles.item}>Lorem Lipsum</Text>
-                        <Button buttonStyle={{
-                            backgroundColor: '#1B5B7D',
-                            borderWidth: 2,
-                            borderColor: '#1B5B7D',
-                            borderRadius: 30,
-                        }}
-                            containerStyle={{
-                                width: 90
-                            }}
-                            titleStyle={{ fontWeight: 'bold', fontSize:15 }}
-                        >Connect</Button>
-                    </View>
+                        )
+                   
+
+                    )}
+                  
                 </View>
             </ScrollView>
         </Card>

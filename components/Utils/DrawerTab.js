@@ -9,20 +9,11 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from '@react-navigation/native';
 import ElderNetwork from '../Pages/Network/Network';
 import { Button } from 'react-native';
+import { useContext } from 'react';
+import { AuthContext } from '../Config/AuthContext';
+import VolunteerBottomTabs from './VolunteerBottomTabs';
 
 const Drawer = createDrawerNavigator();
-
-
-function GoElderHome({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        onPress={() => navigation.navigate('ElderHome')}
-        title="Home"
-      />
-    </View>
-  );
-}
 
 
 
@@ -30,6 +21,7 @@ const DrawerTab = () => {
   const dimensions = useWindowDimensions();
   const navigation = useNavigation()
 
+  const { user, signIn, signOut, elderUser, volunteerUser } = useContext(AuthContext);
 
 
 
@@ -43,21 +35,52 @@ const DrawerTab = () => {
       }}
       drawerStyle={{ width: "70%" }}
     >
-      {/* <Drawer.Screen
-        name="elderTabs"
-        component={ElderBottomTabs}
-        // options={{ drawerLabel: 'Home' }}
-    /> */}
-      <Drawer.Screen
-        name="elderlyHome"
-        component={ElderHome}
-        options={{ drawerLabel: 'Home' }}
-      />
-      <Drawer.Screen
-        name="ElderlyNetwork"
-        component={ElderNetwork}
-        options={{ drawerLabel: 'Network' }}
-      />
+      {
+        elderUser
+        ?
+        (
+          <>
+          <Drawer.Screen
+                  name="elderTabs"
+                  component={ElderBottomTabs}
+                  options={{ drawerLabel: 'Home' }}
+              />
+                
+                <Drawer.Screen
+                  name="ElderlyNetwork"
+                  component={ElderNetwork}
+                  options={{ drawerLabel: 'Network' }}
+                />
+                {/* <Drawer.Screen
+                  name="Logout"
+                  component={signout}
+                  options={{ drawerLabel: 'Logout' }}
+                /> */}
+          </>
+        )
+        :
+        (
+          <>
+          <Drawer.Screen
+                  name="volunteerTabs"
+                  component={VolunteerBottomTabs}
+                  options={{ drawerLabel: 'Home' }}
+              />
+        
+                <Drawer.Screen
+                  name="ElderlyNetwork"
+                  component={ElderNetwork}
+                  options={{ drawerLabel: 'Network' }}
+                />
+                {/* <Drawer.Screen
+                  name="Logout"
+                  component={signout}
+                  options={{ drawerLabel: 'Logout' }}
+                /> */}
+          </>
+        )
+      }
+     
 
 
     </Drawer.Navigator>
