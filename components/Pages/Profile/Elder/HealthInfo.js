@@ -28,7 +28,8 @@ const HealthInfo = ({ navigation }) => {
                     <Text>Description</Text>
                 </View>
                 <View style={styles.line} />
-                <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
+                <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
+                 onPress={()=>navigation.navigate("ElderProfile")}>
                     Save
                 </Button>
             </View>

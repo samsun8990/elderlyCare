@@ -33,6 +33,16 @@ import PendingVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/Pe
 import AvailableVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/AvailableVolunteers";
 import ElderChats from "./components/Pages/Chats/ElderChats";
 
+import EditProfileE from "./components/Pages/Profile/Elder/EditProfileE";
+import PaymentHistoryE from "./components/Pages/Profile/Elder/PaymentHistoryE";
+import ChatHistoryE from "./components/Pages/Profile/Elder/ChatHistoryE";
+import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
+import HealthInfo from "./components/Pages/Profile/Elder/HealthInfo";
+import PassChangeE from "./components/Pages/Profile/Elder/PassChangeE";
+
+
+
+
 
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
@@ -155,6 +165,28 @@ export default function App() {
             <Stack.Screen name="ElderVolunteers" component={ElderVolunteers} />
             
             <Stack.Screen name="PendingVolnteerLists" component={PendingVolnteerLists} />
+
+            <Stack.Screen options={{ headerShown: false }} name="EditProfileE" component={EditProfileE} />
+
+            <Stack.Screen  options={{ headerShown: false }} name="PaymentHistoryE" component={PaymentHistoryE} />
+
+            <Stack.Screen options={{ headerShown: false }} name="ChatHistoryE" component={ChatHistoryE} />
+
+            <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordE" component={ForgetPasswordE} />
+
+            <Stack.Screen options={{ headerShown: false }} name="HealthInfo" component={HealthInfo} />
+
+            <Stack.Screen options={{ headerShown: false }} name="PassChangeE" component={PassChangeE} />
+            
+
+
+
+
+
+
+
+
+
 
             <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }}  /> 
 
