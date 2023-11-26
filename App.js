@@ -40,6 +40,13 @@ import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
 import HealthInfo from "./components/Pages/Profile/Elder/HealthInfo";
 import PassChangeE from "./components/Pages/Profile/Elder/PassChangeE";
 
+import ChatHistoryV from "./components/Pages/Profile/Volunteer/ChatHistoryV";
+import EditProfileV from "./components/Pages/Profile/Volunteer/EditProfileV";
+import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
+import PassChangeV from "./components/Pages/Profile/Volunteer/PassChangeV";
+import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistoryV";
+
+
 
 
 
@@ -144,7 +151,7 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />  
+            <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />
 
             {/* <Stack.Screen name="ElderHome" component={ElderHome} /> */}
 
@@ -154,21 +161,21 @@ export default function App() {
             <Stack.Screen name="Suggestions" component={Suggestions} />
             <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
-            <Stack.Screen name="RequestPage"  component={RequestPage} 
-             options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }}/>
+            <Stack.Screen name="RequestPage" component={RequestPage}
+              options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }} />
             <Stack.Screen name="Notification" component={Notifications} />
-            
+
             <Stack.Screen name="ElderChats" component={ElderChats} />
-            
+
             <Stack.Screen name="AvailableVolunteers" component={AvailableVolunteers} />
-            
+
             <Stack.Screen name="ElderVolunteers" component={ElderVolunteers} />
-            
+
             <Stack.Screen name="PendingVolnteerLists" component={PendingVolnteerLists} />
 
             <Stack.Screen options={{ headerShown: false }} name="EditProfileE" component={EditProfileE} />
 
-            <Stack.Screen  options={{ headerShown: false }} name="PaymentHistoryE" component={PaymentHistoryE} />
+            <Stack.Screen options={{ headerShown: false }} name="PaymentHistoryE" component={PaymentHistoryE} />
 
             <Stack.Screen options={{ headerShown: false }} name="ChatHistoryE" component={ChatHistoryE} />
 
@@ -177,7 +184,17 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name="HealthInfo" component={HealthInfo} />
 
             <Stack.Screen options={{ headerShown: false }} name="PassChangeE" component={PassChangeE} />
-            
+  
+
+            <Stack.Screen options={{ headerShown: false }} name="ChatHistoryV" component={ChatHistoryV} />
+
+            <Stack.Screen options={{ headerShown: false }} name="EditProfileV" component={EditProfileV} />
+
+            <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordV" component={ForgetPasswordV} />
+
+            <Stack.Screen options={{ headerShown: false }} name="PassChangeV" component={PassChangeV} />
+
+            <Stack.Screen options={{ headerShown: false }} name="PaymentHistoryV" component={PaymentHistoryV} />
 
 
 
@@ -187,15 +204,14 @@ export default function App() {
 
 
 
+            <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }} />
 
-            <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }}  /> 
-
-            <Stack.Screen name="VolunteerProfile" component={VolunProfile} options={{ headerShown: false }}  /> 
+            <Stack.Screen name="VolunProfile" component={VolunProfile} options={{ headerShown: false }} />
 
           </Stack.Navigator>
 
-         
-          
+
+
 
         </NavigationContainer>
       </AuthContext.Provider>
