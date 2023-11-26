@@ -155,7 +155,7 @@ export default function App() {
 
             {/* <Stack.Screen name="ElderHome" component={ElderHome} /> */}
 
-            <Stack.Screen name="VolunteerHome" component={VolunteerHome} />
+            {/* <Stack.Screen name="VolunteerHome" component={VolunteerHome} /> */}
 
             <Stack.Screen name="Invitations" component={Invitations} />
             <Stack.Screen name="Suggestions" component={Suggestions} />

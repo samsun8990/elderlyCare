@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, Image,StatusBar, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome } from "react-native-vector-icons";
@@ -12,6 +12,8 @@ import ElderHomeSuggestions from './ElderHomeSuggestions';
 import { logo } from '../../../Utils/ImageCommon';
 import { DrawerActions } from '@react-navigation/drawer';
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const ElderHome = ({ }) => {
 
@@ -70,9 +72,9 @@ const ElderHome = ({ }) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={true} >
         <View
           style={{
             flex: 1,
@@ -87,10 +89,10 @@ const ElderHome = ({ }) => {
           <Text></Text>
           <ElderHomeAvailable />
 
-          <View style={{ paddingBottom: 90 }} />
-
         </View>
+        
       </ScrollView>
+      <View style={{ paddingBottom: 70 }} />
     </SafeAreaView>
   )
 }

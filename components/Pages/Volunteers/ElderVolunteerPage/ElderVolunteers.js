@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
@@ -75,8 +75,9 @@ const ElderVolunteers = () => {
     <View  style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
-          <FontAwesome name="search" size={20} style={{ fontSize: 15, padding: 5, color:"grey", top:5 }}>
-            Search volunteers</FontAwesome>
+          <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/>
+          {/* <FontAwesome name="search" size={20} style={{ fontSize: 15, padding: 5, color:"grey", top:5 }}>
+            Search volunteers</FontAwesome> */}
         </View>
         <View style={styles.dropdown}>
           <Dropdown data={data}
