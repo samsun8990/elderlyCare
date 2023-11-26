@@ -52,7 +52,7 @@ const ElderProfile = () => {
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
-                    <Text>{elderUser.date}</Text>
+                    <Text>10/10/2023{elderUser.date}</Text>
                 </View>
                
                 <View style={styles.detailRow}>
