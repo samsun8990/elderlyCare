@@ -1,14 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext, useEffect } from 'react'
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
+import { AuthContext } from '../../../Config/AuthContext';
 
 const EditProfileV = ({ navigation }) => {
   const handleBackPress = () => {
     // Add navigation logic here to go back
     navigation.goBack();
   };
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -21,23 +23,27 @@ const EditProfileV = ({ navigation }) => {
       <View style={styles.profileSection}>
         <View style={styles.profileRow}>
           <MaterialCommunityIcons name="account" size={20} color="black" style={styles.icon} />
-          <Text style={styles.profileText}>Name</Text>
+          <TextInput style={styles.profileText}
+          placeholder={volunteerUser.fullname}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
           <AntDesign name="contacts" size={20} color="black" style={styles.icon} />
-          <Text style={styles.profileText}>Phone</Text>
+          <TextInput style={styles.profileText}
+          placeholder={volunteerUser.phone}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
           <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
-          <Text style={styles.profileText}>Date of Birth</Text>
+          <TextInput style={styles.profileText}
+          placeholder={volunteerUser.date}>10/10/2023</TextInput>
         </View>
         <View style={styles.line} />
 
       </View>
       <View style={styles.dashboardButtons}>
-        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
+        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
+        onPress={()=>navigation.navigate("VolunProfile")}>
           Save
         </Button>
       </View>
@@ -62,7 +68,8 @@ const EditProfileV = ({ navigation }) => {
         />
       </View>
       <View style={styles.dashboardButtons}>
-        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}>
+        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
+          onPress={()=>navigation.navigate("VolunProfile")}>
           Save
         </Button>
       </View>
