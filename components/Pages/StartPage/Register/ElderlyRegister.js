@@ -14,7 +14,7 @@ const ElderlyRegister = ({ route, navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fullname, setFullname] = useState('');
-    const [phone, setPhone] = useState(0);
+    const [phone, setPhone] = useState();
     const [userError, setUserError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [gender, setGender] = useState(null)
@@ -31,6 +31,19 @@ const ElderlyRegister = ({ route, navigation }) => {
         setShowPicker(false)
     }
 
+    const clear=()=>{
+        setEmail()
+        setPassword()
+        setFullname()
+        setPhone()
+        setUserError()
+        setPasswordError()
+        setGender(null)
+        setDob("")
+        setShowPicker(false)
+        setDate(new Date())
+    }
+
     const handleElderlyRegister = async () => {
 
         try {
@@ -45,6 +58,7 @@ const ElderlyRegister = ({ route, navigation }) => {
                         console.log("User registered successfully!");
                         alert("User registered successfully!")
                         navigation.navigate("LoginUser")
+                        clear()
                     })
                     .catch((error) => {
                         console.log(error.message);
@@ -127,8 +141,7 @@ const ElderlyRegister = ({ route, navigation }) => {
                             <FontAwesome5 name="phone-square-alt" size={40}></FontAwesome5>
                             <TextInput
                                 placeholder="Phone"
-                                value={phone.toString()}
-                                inputMode='numeric'
+                                value={phone}
                                 onChangeText={(text) => setPhone(text)}
                                 style={styles.input}
                                 autoCorrect={false}
