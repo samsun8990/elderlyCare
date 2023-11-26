@@ -15,7 +15,7 @@ const VolunteerRegister = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [fullname, setFullname] = useState();
-  const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState();
   const [experience, setExperience] = useState();
   const [dob, setDob] = useState("");
   const [userError, setUserError] = useState('');
@@ -48,8 +48,9 @@ const VolunteerRegister = ({navigation}) => {
           { merge: true })
           .then(() => {
             console.log("User registered successfully!");
-            alert("User registered successfully!")
+            alert("Registered successfully!")
             navigation.navigate("LoginUser")
+            clear()
           })
           .catch((error) => {
             console.log(error.message);
@@ -138,11 +139,10 @@ const VolunteerRegister = ({navigation}) => {
               <FontAwesome5 name="phone-square-alt" size={40}></FontAwesome5>
               <TextInput
                 placeholder="Phone"
-                value={phone.toString()}
+                value={phone}
                 onChangeText={(text) => setPhone(text)}
                 style={styles.input}
                 autoCorrect={false}
-                inputMode='numeric'
               />
             </View>
             <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%', marginBottom: 20 }}>

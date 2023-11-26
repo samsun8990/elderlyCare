@@ -77,18 +77,19 @@ const RequestPage = () => {
                 borderWidth: 1,
                 borderColor: "grey",
                 height: 60,
-                width: 200,
-                borderRadius: 8,
-                backgroundColor: "#EAEAEA",
-                margin: 12,
+                width: 300,
+                borderRadius: 2,
+                backgroundColor: "#E7E7E7",
+                //margin: 12,
                 borderWidth: 1,
-                padding: 10,
+                padding: 5,
                 color: "gray",
+                borderColor:"#E7E7E7"
               }}
-              placeholder="What are you ooking for?"
+              placeholder="What are you looking for?"
             />
           </View>
-
+<Text></Text>
           <View>
             <Text style={styles.requestTitle}>Preferences</Text>
             <Card.Divider />
@@ -125,7 +126,7 @@ const RequestPage = () => {
           <View>
             <Text style={styles.requestTitle}>Set Date Preferences</Text>
             <Card.Divider />
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '90%' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
             <Fontisto name="date" size={20}></Fontisto>
               <TouchableOpacity onPress={() => setShowPicker(true)}>
 
@@ -142,7 +143,8 @@ const RequestPage = () => {
 
               }
             </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '90%' }}>
+            <Text></Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%'  }}>
               <Fontisto name="date" size={20}></Fontisto>
               <TouchableOpacity onPress={() => setShowPicker(true)}>
 
@@ -176,18 +178,20 @@ const RequestPage = () => {
                 borderWidth: 1,
                 padding: 10,
                 color: "gray",
+                borderColor:"#E7E7E7"
               }}
               placeholder="Amount"
             />
           </View>
-
-          <Button title="Request"/>
+          <Text></Text>
+          <Button title="Request"  color="#1B5B7D"/>
 
 
         </View>
-        <View style={{ paddingBottom: 90 }} />
-
+       
       </Card>
+      <View style={{ paddingBottom: 90 }} />
+
      
     </SafeAreaView>
   );

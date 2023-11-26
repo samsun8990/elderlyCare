@@ -93,8 +93,8 @@ export default function App() {
       unsubscribe()
       if (authenticatedUser) {
         // console.log(authenticatedUser);
-        setUser(authenticatedUser)
-        readUser(authenticatedUser.uid, "elderlyUsers", "volunteerUsers", setElderUser, setVolunteerUser)
+        //setUser(authenticatedUser)
+        //readUser(authenticatedUser.uid, "elderlyUsers", "volunteerUsers", setElderUser, setVolunteerUser)
       }
     })
     return () => {
@@ -136,7 +136,7 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />  
 
-            <Stack.Screen name="ElderHome" component={ElderHome} />
+            {/* <Stack.Screen name="ElderHome" component={ElderHome} /> */}
 
             <Stack.Screen name="VolunteerHome" component={VolunteerHome} />
 
@@ -144,7 +144,8 @@ export default function App() {
             <Stack.Screen name="Suggestions" component={Suggestions} />
             <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
-            <Stack.Screen name="RequestPage" component={RequestPage} />
+            <Stack.Screen name="RequestPage"  component={RequestPage} 
+             options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }}/>
             <Stack.Screen name="Notification" component={Notifications} />
             
             <Stack.Screen name="ElderChats" component={ElderChats} />

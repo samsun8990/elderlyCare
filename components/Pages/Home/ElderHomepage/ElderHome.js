@@ -62,6 +62,9 @@ const ElderHome = ({ }) => {
     },
   }
 
+
+  
+
   useEffect(() => {
     navigation.setOptions(headerOptions);
   }, [navigation]);

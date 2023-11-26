@@ -21,4 +21,16 @@ export const readUser = async (userID,collection1,collection2,setElderUser,setVo
   console.log("No such User!");
   }
   }
+
+
+  const readAllElderUsers = async (name,setSuggestions) => {
+    const q = query(collection(db, "elderlyUsers"), where("fullname", "!=", name));
+    const docs = await getDocs(q);
+    docs.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    //console.log(doc.id, " => ", doc.data());
+    setSuggestions({id: doc.id, ...docSnap1.data()})
+    });
+    }
+    
   

@@ -15,9 +15,16 @@ const LoginUser = ({ route, navigation }) => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
+    const clear=()=>{
+        setEmail()
+        setPassword()
+    }
+
+
     const handleLogin = async () => {
         if (email && password) {
             await signIn(email, password)
+            await clear()
         }
         return;
     }
