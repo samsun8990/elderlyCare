@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity ,TextInput} from 'react-native';
 import { MaterialCommunityIcons, AntDesign, FontAwesome5 } from 'react-native-vector-icons';
 import { Button } from '@rneui/themed';
 
@@ -20,12 +20,12 @@ const HealthInfo = ({ navigation }) => {
             <View style={styles.contentContainer}>
                 <View style={styles.passwordItem}>
                     <FontAwesome5 name="first-aid" size={24} color="black" />
-                    <Text>Disease</Text>
+                    <TextInput placeholder='Disease'></TextInput>
                 </View>
                 <View style={styles.line} />
                 <View style={styles.passwordItem}>
                     <FontAwesome5 name="notes-medical" size={24} color="black" />
-                    <Text>Description</Text>
+                    <TextInput placeholder='Description'></TextInput>
                 </View>
                 <View style={styles.line} />
                 <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
