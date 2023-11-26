@@ -1,23 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity,ScrollView } from 'react-native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react'
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../ProfileStyles';
+import { AuthContext } from '../../../Config/AuthContext';
+
 
 
 const ElderProfile = () => {
     const navigation = useNavigation()
+    const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
     return (
 
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.profileContainer}>
                 <Image source={defaultImg} style={styles.profileImage} />
-                <Text>Joined Date: 12 Aug 2022</Text>
-                <Text>Name</Text>
+                <Text>{elderUser.email}</Text>
+                <Text>{elderUser.fullname}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} 
                 onPress={()=>navigation.navigate("EditProfileE")} >
                     <Icon name="edit" color="white" />
@@ -29,11 +32,11 @@ const ElderProfile = () => {
                 <View style={styles.line} />
                 <View style={styles.detailRow}>
                     <Icon name="mail" color="black" size={20} style={styles.icon} />
-                    <Text>Email</Text>
+                    <Text>{elderUser.email}</Text>
                 </View>
                 <View style={styles.detailRow}>
                     <Icon name="lock" color="black" size={20} style={styles.icon} />
-                    <Text>Password</Text>
+                    <Text>*******</Text>
                     <Button 
                         containerStyle={{
                             height: 30,
@@ -47,11 +50,12 @@ const ElderProfile = () => {
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
-                    <Text>Date of Birth</Text>
+                    <Text>{elderUser.date}</Text>
                 </View>
+               
                 <View style={styles.detailRow}>
                     <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
-                    <Text>Phone Number</Text>
+                    <Text>{elderUser.phone}</Text>
                 </View>
             </View>
 
