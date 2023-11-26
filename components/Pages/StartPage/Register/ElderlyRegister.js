@@ -161,8 +161,9 @@ const ElderlyRegister = ({ route, navigation }) => {
                         </TouchableOpacity>
                         {
                             showPicker &&
-                            <DateTimePicker mode="date" value={date} display="default" maximumDate={new Date()} onChange={handleDateChange} />
-
+                            <View>
+                            <DateTimePicker mode="date" value={date}  display={Platform.OS === 'ios' ? 'inline' : 'default'}maximumDate={new Date()} onChange={handleDateChange} />
+                            </View>
                         }
                         </View>
 
@@ -177,7 +178,6 @@ const ElderlyRegister = ({ route, navigation }) => {
                             :
                             null
                         }
-
                     </View>
                     <View style={{ marginTop: 30, alignItems: 'center' }}>
                         <TouchableOpacity style={styles.button}
