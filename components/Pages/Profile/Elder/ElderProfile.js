@@ -29,7 +29,9 @@ const ElderProfile = () => {
             </View>
             <View style={styles.personalDetailsContainer}>
                 <Text style={styles.sectionTitle}>Personal Details</Text>
-                <View style={styles.line} />
+                <Text>  ──────────────</Text>
+
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
                 <View style={styles.detailRow}>
                     <Icon name="mail" color="black" size={20} style={styles.icon} />
                     <Text>{elderUser.email}</Text>
@@ -61,7 +63,8 @@ const ElderProfile = () => {
 
             <View style={styles.cardContainer}>
                 <Text style={styles.sectionTitle}>Dashboard</Text>
-                <View style={styles.line} />
+                <Text>  ──────────────</Text>
+
                 <View style={styles.dashboardButtons}>
                     <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
                      onPress={()=>navigation.navigate("PaymentHistoryE")}  >
@@ -80,7 +83,8 @@ const ElderProfile = () => {
 
             <View style={styles.accountContainer}>
                 <Text style={styles.sectionTitle}>My Account</Text>
-                <View style={styles.line} />
+                <Text>  ──────────────</Text>
+                {/* <View style={styles.line} /> */}
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
                     <Icon size={30} name="logout" color="#1B5B7D" 
