@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../Utils/Common';
 import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
-import { defaultImg } from '../../Utils/ImageCommon.js';
+import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
 import {readTwoElderUsers } from '../../Config/dbcls';
 
@@ -19,7 +19,7 @@ const ElderNetwork = () => {
         headerTitle: '',
         headerLeft: () => (
             <TouchableOpacity>
-                <Image source={require("../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
+                <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
             </TouchableOpacity>
         ),
         headerRight: () => (
@@ -63,7 +63,7 @@ const ElderNetwork = () => {
           }
     }, [navigation]);
 
-    console.log(suggestionList);
+    // console.log(suggestionList);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -108,47 +108,6 @@ const ElderNetwork = () => {
                             </View>
                         </View>
 
-                    </ScrollView>
-                </Card>
-
-                <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
-                    <View style={styles.header}>
-                        <Text style={styles.headerTitles}>Suggestions</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("Suggestions")}>
-                            <FontAwesome name="arrow-right" size={20} color="black" />
-                        </TouchableOpacity>
-                    </View>
-                    <Card.Divider />
-                    <ScrollView>
-                        <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
-                            {
-                                 suggestionList && suggestionList.length > 0 && (
-                                    suggestionList.map((suggest,index)=>                                   
-                                    <View style={styles.suggestions} key={index}>
-                                    <Image source={defaultImg}
-                                        style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                    <Text style={{ fontWeight: "bold" }}>{suggest.fullname}</Text>
-                                    <Text>{suggest.gender}</Text>
-                                    <Text></Text>
-                                    <Button buttonStyle={{
-                                        backgroundColor: '#1B5B7D',
-                                        borderWidth: 2,
-                                        borderColor: '#1B5B7D',
-                                        borderRadius: 30,
-                                    }}
-                                        size="md"
-                                        containerStyle={{
-                                            width: 120,
-                                            height: 35,
-                                        }}
-                                        titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
-    
-                                    >Connect</Button>
-                                </View>
-                                    ))
-                            }
-
-                        </View>
                     </ScrollView>
                 </Card>
 

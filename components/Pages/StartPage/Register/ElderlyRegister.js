@@ -12,6 +12,7 @@ import {
   Keyboard,
   SafeAreaView,
   Modal,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -43,9 +44,16 @@ const ElderlyRegister = ({ route, navigation }) => {
 
   const handleDateChange = ({ type }, selectedDate) => {
     setDate(new Date(selectedDate));
-    setDob(selectedDate.toDateString());
+    if(Platform.OS==="android"){
+      setDob(selectedDate.toDateString());
+      
+    }
     setShowPicker(false);
   };
+  const confirmDateIos=()=>{
+    setDob(date.toDateString())
+    setShowPicker(false);
+  }
 
   const clear = () => {
     setEmail();
@@ -80,8 +88,8 @@ const ElderlyRegister = ({ route, navigation }) => {
             gender: gender,
             avatar: "https://static.thenounproject.com/png/5034901-200.png",
             role: "elder",
-            followers:[],
-            followedBy:[]
+            // followers:[],
+            // followedBy:[]
           },
           { merge: true }
         )
@@ -252,26 +260,26 @@ const ElderlyRegister = ({ route, navigation }) => {
                   <DateTimePicker
                     mode="date"
                     value={date}
-                    display={Platform.OS === "ios" ? "inline" : "default"}
+                    display={Platform.OS === "ios" ? "spinner" : "default"}
                     maximumDate={new Date()}
                     onChange={handleDateChange}
                   />
                 </View>
               )}
-              {Platform.OS === "ios" || Platform.OS === "android"  (
-                <Modal
-                  visible={visible}
-                  onDismiss={() => setState({ visible: false })}
-                >
-                  <DateTimePicker
-                    style={{ width: "100%", backgroundColor: "white" }}
-                    value={this.state.value}
-                    onChange={async (e, value) => {
-                      this.setState({ value });
-                    }}
-                  />
-                </Modal>
+
+              {showPicker && Platform.OS==="ios" && (
+                <View style={{flexDirection:"row",justifyContent:"space-around"}}>
+                  <TouchableOpacity style={[styles.button,styles.pickerBtn,{backgroundColor:"#11182711"}]}
+                  onPress={()=>setShowPicker(false)}>
+                    <Text style={[styles.buttonText,{color:"#075985"}]}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={[styles.button,styles.pickerBtn]}
+                  onPress={confirmDateIos}>
+                    <Text style={[styles.buttonText]}>Confirm</Text>
+                  </TouchableOpacity>
+                </View>
               )}
+            
             </View>
 
             {userError || passwordError ? (
@@ -378,4 +386,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     width: 340,
   },
+  pickerBtn:{
+    paddingHorizontal:20
+  },
+  buttonText:{
+    fontSize:14,
+    fontWeight:"500"
+  }
 });
