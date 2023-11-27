@@ -1,6 +1,8 @@
 
-import { doc, setDoc, getDocs,getDoc, collection, deleteDoc, addDoc,query,where, limit } from "firebase/firestore";
+import { doc, setDoc, getDocs,getDoc, collection, deleteDoc, addDoc,query,where, limit, updateDoc } from "firebase/firestore";
 import { db } from "./config";
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 
 export const readUser = async (userID,collection1,collection2,setElderUser,setVolunteerUser) => {
@@ -54,6 +56,40 @@ export const readUser = async (userID,collection1,collection2,setElderUser,setVo
     let temp = []
     docs.forEach((doc) => temp.push({id: doc.id, ...doc.data()}));
     setSuggestions(temp)
+  }
+
+  export const followUser = async(followId,userId) => {
+
+ 
+    const docRef1 = doc(db,'elderlyUsers', userId);
+
+    await setDoc(docRef1, {
+      followers:[...userId],
+      following:[...followId]
+    },{merge:true})
+    .then((data) => {
+      console.log(data);
+      console.log("data submitted");
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+
+
+    // await updateDoc(docRef1,{
+    //   followers:[...userId]
+    // })
+
+    // const docRef2 = doc(db,'elderlyUsers', userId);
+    // await updateDoc(docRef2,{
+    //   following:[...followId]
+    // })
+    // // Fetch and return updated user data
+    // const updatedUser = doc(db,'elderlyUsers', userId).get()
+    // //await db.collection('elderlyUsers').doc(userId).get();
+    // console.log(updatedUser);
+    // return updatedUser.data()
+
   }
     
     
