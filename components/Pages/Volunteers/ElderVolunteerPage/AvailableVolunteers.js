@@ -10,7 +10,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { headerOptions } from "../../../Utils/Common.js";
-import { Card, Button } from "@rneui/themed";
+import { Card, Button, Avatar } from "@rneui/themed";
 import { styles } from "../VolunteerStyles.js";
 import { Picker } from "@react-native-picker/picker";
 import { Dropdown } from "react-native-element-dropdown";
@@ -49,11 +49,8 @@ const AvailableVolunteers = () => {
                 }}
               >
                 <View style={{ flexDirection: "row", gap: 10 }}>
-                  <Image
-                    ource={{ uri: available.avatar }}
-                    style={{ width: 50, height: 50, borderRadius: 30 }}
-                    resizeMode="cover"
-                  />
+                <Avatar size={48} rounded source={{ uri: available.avatar }} />
+                 
                   <View style={{ margin: 5 }}>
                     <Text style={{ fontWeight: "600", fontSize: 16 }}>
                       {available.fullname}

@@ -45,6 +45,7 @@ import EditProfileV from "./components/Pages/Profile/Volunteer/EditProfileV";
 import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
 import PassChangeV from "./components/Pages/Profile/Volunteer/PassChangeV";
 import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistoryV";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 
 
@@ -124,34 +125,43 @@ export default function App() {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaProvider style={styles.container}>
       <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="StartPage"
+            screenOptions={{headerBackTitleVisible: false }}
           >
 
-            <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false }} />
+            <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false,headerStyle: {
+                  backgroundColor: '#E4EDF2'
+               } }}  />
 
             <Stack.Screen name='LoginUser' component={LoginUser}
-              options={{ headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} /> }} />
+              options={{headerStyle: {
+                backgroundColor: '#E4EDF2'
+             }, headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} /> ,headerBackTitleVisible: false}}    />
 
 
             <Stack.Screen name='ElderlyRegister' component={ElderlyRegister}
-              options={{
-                headerTitle: (props) => <CenteredTitle title="Create User Account" {...props} />
+              options={{headerStyle: {
+                backgroundColor: '#E4EDF2'
+             },
+                headerTitle: (props) => <CenteredTitle title="Create User Account" {...props}  />, headerBackTitleVisible: false
               }} />
 
             <Stack.Screen name='VolunteerRegister' component={VolunteerRegister}
-              options={{
-                headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />
+              options={{headerStyle: {
+                backgroundColor: '#E4EDF2'
+             },
+                headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />,headerBackTitleVisible: false
               }} />
 
-            <Stack.Screen options={{ headerShown: false }} name="elderTabs" component={ElderBottomTabs} />
+            <Stack.Screen options={{ headerShown: false,headerBackTitleVisible: false }} name="elderTabs" component={ElderBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
+            <Stack.Screen options={{ headerShown: false,headerBackTitleVisible: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />
+            <Stack.Screen options={{ headerShown: false,headerBackTitleVisible: false }} name="drawer" component={DrawerTab} />
 
             {/* <Stack.Screen name="ElderHome" component={ElderHome} /> */}
 
@@ -204,7 +214,7 @@ export default function App() {
 
 
 
-            <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }} />
+            <Stack.Screen name="ElderProfile"  component={ElderProfile} options={{ headerShown: false}} />
 
             <Stack.Screen name="VolunProfile" component={VolunProfile} options={{ headerShown: false }} />
 
@@ -215,7 +225,7 @@ export default function App() {
 
         </NavigationContainer>
       </AuthContext.Provider>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -223,9 +233,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#E4EDF2",
-    justifyContent: "space-between",
-    width: windowWidth,
-    height: windowHeight,
+   //justifyContent: "space-between",
+    // width: windowWidth,
+    // height: windowHeight,
   },
   headerTitle: {
     alignItems: 'center',

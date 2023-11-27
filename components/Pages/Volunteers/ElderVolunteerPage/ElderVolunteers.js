@@ -1,9 +1,9 @@
-import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, TextInput, Platform } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 // import { headerOptions } from '../../Utils/Common';
-import { Card, Button } from '@rneui/themed';
+import { Card, Button,SearchBar} from '@rneui/themed';
 import { styles } from '../VolunteerStyles.js';
 import { Picker } from '@react-native-picker/picker'
 import { Dropdown } from 'react-native-element-dropdown';
@@ -17,6 +17,11 @@ const ElderVolunteers = () => {
   const [selectedValue, setSelectedValue] = useState('');
   const [value, setValue] = useState(null)
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+  const [search, setSearch] = useState("");
+
+const updateSearch = (search) => {
+  setSearch(search);
+}
 
   const data = [
     { label: "Sort by Gender", value: 'Gender' },
@@ -75,9 +80,48 @@ const ElderVolunteers = () => {
     <View  style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
-          <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/>
-          {/* <FontAwesome name="search" size={20} style={{ fontSize: 15, padding: 5, color:"grey", top:5 }}>
-            Search volunteers</FontAwesome> */}
+          {/* <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/> */}
+          {
+          Platform.OS === "ios"
+          ?
+          <SearchBar
+          placeholder="Search"
+          onChangeText={updateSearch}
+          value={search}
+          platform='ios'
+          containerStyle={{backgroundColor:"#E4EDF2",width:140, height:20}}
+          inputContainerStyle={{width:350, height:20}}
+          inputStyle={{fontSize:14}}
+          leftIconContainerStyle={{}}
+          rightIconContainerStyle={{}}
+          loadingProps={{}}
+          showCancel={false}
+          //onClearText={() => console.log(onClearText())}
+          placeholderTextColor="#888"
+          cancelButtonTitle="Cancel"
+          cancelButtonProps={{}}
+          //onCancel={() => console.log(onCancel())}
+        />
+        :
+        <SearchBar
+        placeholder="Type Here..."
+        onChangeText={updateSearch}
+        value={search}
+        platform='android'
+        containerStyle={{backgroundColor:"#E4EDF2",width:140, height:20}}
+          inputContainerStyle={{width:350, height:20}}
+          inputStyle={{fontSize:14}}
+          leftIconContainerStyle={{}}
+          rightIconContainerStyle={{}}
+          loadingProps={{}}
+          showCancel={false}
+          //onClearText={() => console.log(onClearText())}
+          placeholderTextColor="#888"
+          cancelButtonTitle="Cancel"
+          cancelButtonProps={{}}
+          //onCancel={() => console.log(onCancel())}
+      />
+          }
         </View>
         <View style={styles.dropdown}>
           <Dropdown data={data}
