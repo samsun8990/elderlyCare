@@ -7,13 +7,14 @@ import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import {readTwoElderUsers } from '../../Config/dbcls';
+import {getUsersInvitation, readTwoElderUsers } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
-    const [suggestionList,setSuggestionList] = useState()
+    //const [suggestionList,setSuggestionList] = useState()
+    const [invitationList,setInvitationList] = useState()
 
     const headerOptions = {
         headerTitle: '',
@@ -59,11 +60,17 @@ const ElderNetwork = () => {
     useEffect(() => {
         navigation.setOptions(headerOptions);
         if (elderUser) {
-            readTwoElderUsers(elderUser.fullname,setSuggestionList)
+            //readTwoElderUsers(elderUser.fullname,setSuggestionList)
+            getUsersInvitation(elderUser,setInvitationList)
+            
           }
     }, [navigation]);
 
-    // console.log(suggestionList);
+//     const originalArray = [invitationList];
+// const fourElements = originalArray.slice(0, 4); // Retrieves the first four elements
+// console.log(fourElements);
+    console.log(invitationList,"invtn");
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -77,12 +84,14 @@ const ElderNetwork = () => {
                     </View>
                     <Card.Divider />
                     <ScrollView>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                        {
+                          invitationList && invitationList.length> 0 && invitationList.slice(0, 4).map((invit,index)=>
+                            <View style={{ flexDirection: "row", justifyContent: "space-around" }} key={index}>
                             <View style={{ flexDirection: "row", gap: 10 }}>
                                 <Image source={defaultImg}
                                     style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
                                 <View>
-                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
+                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>{invit.fullname}</Text>
                                     <Text style={{ color: "#847F7F" }}>1 day ago</Text>
                                 </View>
                             </View>
@@ -92,21 +101,11 @@ const ElderNetwork = () => {
                                 <FontAwesome name="times" size={30} color="#7B7979" />
                             </View>
                         </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                            <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Image source={defaultImg}
-                                    style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
-                                <View>
-                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
-                                    <Text style={{ color: "#847F7F" }}>1 day ago</Text>
-                                </View>
-                            </View>
-
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-                                <FontAwesome name="check" size={30} color="#265F17" />
-                                <FontAwesome name="times" size={30} color="#7B7979" />
-                            </View>
-                        </View>
+                            
+                            )
+                        }
+                    
+                       
 
                     </ScrollView>
                 </Card>

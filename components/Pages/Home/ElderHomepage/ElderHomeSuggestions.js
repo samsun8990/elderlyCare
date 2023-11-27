@@ -13,22 +13,34 @@ import { FontAwesome } from "react-native-vector-icons";
 import { styles } from "../HomeStyle";
 import { defaultImg } from "../../../Utils/ImageCommon";
 import { useNavigation } from "@react-navigation/native";
-import { readAllElderUsers } from "../../../Config/dbcls";
+import { connectUser, getUsersNotFollowedByCurrentUser, readAllElderUsers } from "../../../Config/dbcls";
 import { AuthContext } from "../../../Config/AuthContext";
+import { db } from "../../../Config/config";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 
 const ElderHomeSuggestions = () => {
   const navigation = useNavigation();
 
-  const { user, signIn, signOut, elderUser, volunteerUser, setUser } =
-    useContext(AuthContext);
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
-  const [suggestionList, setSuggestionList] = useState();
+  const [suggestionList, setSuggestionList] = useState()
 
   useEffect(() => {
     if (elderUser) {
-      readAllElderUsers(elderUser.fullname, setSuggestionList);
+      //readAllElderUsers(elderUser.fullname, setSuggestionList);
+      getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
+    
     }
   }, []);
+  
+
+
+  const handleFollowUser = async (follow)=>{
+
+    await connectUser(elderUser,follow)
+    alert(`You Requested ${follow.fullname}`)
+  }
+
 
   return (
     <Card
@@ -51,19 +63,20 @@ const ElderHomeSuggestions = () => {
                 <Avatar size={85} rounded source={{ uri: suggest.avatar }} />
 
                 <Text style={styles.item}>{suggest.fullname}</Text>
-                <Button
+                <Button onPress={()=>handleFollowUser(suggest)}
                   buttonStyle={{
                     backgroundColor: "#1B5B7D",
                     borderWidth: 2,
                     borderColor: "#1B5B7D",
                     borderRadius: 30,
                   }}
+                  disabled={suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? true : false}
                   containerStyle={{
-                    width: 90,
+                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 100 : 90,
                   }}
-                  titleStyle={{ fontWeight: "bold", fontSize: 15 }}
+                  titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                  Connect
+                 {suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 'Requested' : 'Connect'} 
                 </Button>
               </View>
             ))}
