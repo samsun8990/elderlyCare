@@ -36,7 +36,7 @@ const EditProfileV = ({ navigation }) => {
         <View style={styles.profileRow}>
           <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
-          placeholder={volunteerUser.date}>10/10/2023</TextInput>
+          placeholder={volunteerUser.dob}></TextInput>
         </View>
         <View style={styles.line} />
 

@@ -18,7 +18,7 @@ const VolunProfile = () => {
            
             <View style={styles.profileContainer}>
                 <Image source={defaultImg} style={styles.profileImage} />
-                <Text>{volunteerUser.date}Joined Date: 12 Aug 2022</Text>
+                <Text>Joined Date:{volunteerUser.date}</Text>
                 <Text>{volunteerUser.fullname}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
                  onPress={()=>navigation.navigate("EditProfileV")} >
@@ -49,7 +49,7 @@ const VolunProfile = () => {
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
-                    <Text>{volunteerUser.date}10/10/2023</Text>
+                    <Text>{volunteerUser.dob}</Text>
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
