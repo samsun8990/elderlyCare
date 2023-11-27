@@ -10,6 +10,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { AuthContext } from "./components/Config/AuthContext";
 import { auth, db } from "./components/Config/config";
 import { doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc } from "firebase/firestore";
+import { defaultImg } from './components/Utils/ImageCommon.js';
 import StartPage from "./components/Pages/StartPage/StartPage";
 import LoginUser from "./components/Pages/StartPage/Login/LoginUser";
 import ElderlyRegister from "./components/Pages/StartPage/Register/ElderlyRegister";
@@ -32,14 +33,14 @@ import ElderVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/El
 import PendingVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/PendingVolnteerLists";
 import AvailableVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/AvailableVolunteers";
 import ElderChats from "./components/Pages/Chats/ElderChats";
-
+import VolunteerChats from "./components/Pages/Chats/VolunteerChats";
 import EditProfileE from "./components/Pages/Profile/Elder/EditProfileE";
 import PaymentHistoryE from "./components/Pages/Profile/Elder/PaymentHistoryE";
 import ChatHistoryE from "./components/Pages/Profile/Elder/ChatHistoryE";
 import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
 import HealthInfo from "./components/Pages/Profile/Elder/HealthInfo";
 import PassChangeE from "./components/Pages/Profile/Elder/PassChangeE";
-
+import ChatUser from "./components/Pages/Chats/ChatUser";
 import ChatHistoryV from "./components/Pages/Profile/Volunteer/ChatHistoryV";
 import EditProfileV from "./components/Pages/Profile/Volunteer/EditProfileV";
 import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
@@ -128,7 +129,7 @@ export default function App() {
       <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="StartPage"
+            initialRouteName="LoginUser"
           >
 
             <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false }} />
@@ -166,6 +167,12 @@ export default function App() {
             <Stack.Screen name="Notification" component={Notifications} />
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
+
+            <Stack.Screen name="VolunteerChats" component={VolunteerChats} />
+            
+            <Stack.Screen name="ChatUser" component={ChatUser}
+             options={{ headerTitle: () => <Image source={defaultImg}
+             style={{ width: 40, height: 40 }} resizeMode="cover" />}}/>
 
             <Stack.Screen name="AvailableVolunteers" component={AvailableVolunteers} />
 
