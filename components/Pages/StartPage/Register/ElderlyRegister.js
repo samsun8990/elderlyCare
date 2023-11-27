@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   TextInput,
   View,
   Image,
@@ -27,6 +26,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../../Config/config";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { styles } from "../StartPageStyle";
 
 const ElderlyRegister = ({ route, navigation }) => {
   const [email, setEmail] = useState("");
@@ -44,13 +44,13 @@ const ElderlyRegister = ({ route, navigation }) => {
 
   const handleDateChange = ({ type }, selectedDate) => {
     setDate(new Date(selectedDate));
-    if(Platform.OS==="android"){
+    if (Platform.OS === "android") {
       setDob(selectedDate.toDateString());
-      
+
     }
     setShowPicker(false);
   };
-  const confirmDateIos=()=>{
+  const confirmDateIos = () => {
     setDob(date.toDateString())
     setShowPicker(false);
   }
@@ -91,6 +91,7 @@ const ElderlyRegister = ({ route, navigation }) => {
             // followers:[],
             // followedBy:[]
           },
+          { [timestamp]: true },
           { merge: true }
         )
           .then(() => {
@@ -267,19 +268,19 @@ const ElderlyRegister = ({ route, navigation }) => {
                 </View>
               )}
 
-              {showPicker && Platform.OS==="ios" && (
-                <View style={{flexDirection:"row",justifyContent:"space-around"}}>
-                  <TouchableOpacity style={[styles.button,styles.pickerBtn,{backgroundColor:"#11182711"}]}
-                  onPress={()=>setShowPicker(false)}>
-                    <Text style={[styles.buttonText,{color:"#075985"}]}>Cancel</Text>
+              {showPicker && Platform.OS === "ios" && (
+                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+                  <TouchableOpacity style={[styles.button, styles.pickerBtn, { backgroundColor: "#11182711" }]}
+                    onPress={() => setShowPicker(false)}>
+                    <Text style={[styles.buttonText, { color: "#075985" }]}>Cancel</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={[styles.button,styles.pickerBtn]}
-                  onPress={confirmDateIos}>
+                  <TouchableOpacity style={[styles.button, styles.pickerBtn]}
+                    onPress={confirmDateIos}>
                     <Text style={[styles.buttonText]}>Confirm</Text>
                   </TouchableOpacity>
                 </View>
               )}
-            
+
             </View>
 
             {userError || passwordError ? (
@@ -292,12 +293,12 @@ const ElderlyRegister = ({ route, navigation }) => {
             ) : null}
           </View>
           <View style={{ marginTop: 30, alignItems: "center" }}>
-            <TouchableOpacity
-              style={styles.button}
+            <TouchableOpacity style={styles.button}
               onPress={handleElderlyRegister}
             >
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
+
           </View>
         </View>
 
@@ -331,66 +332,3 @@ const ElderlyRegister = ({ route, navigation }) => {
 };
 
 export default ElderlyRegister;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#E4EDF2",
-    // paddingTop: StatusBar.currentHeight,
-  },
-  input: {
-    flex: 1,
-    fontSize: 20,
-
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-  },
-  inputContainer: {
-    width: "90%",
-  },
-  button: {
-    width: 240,
-    alignItems: "center",
-    backgroundColor: "#FAB545",
-    borderRadius: 20,
-    padding: 15,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 30,
-  },
-  buttonOutLine: {
-    width: 250,
-    alignItems: "center",
-    backgroundColor: "#FAB545",
-    borderRadius: 10,
-    padding: 15,
-    marginTop: 15,
-  },
-  buttonText: {
-    fontWeight: "700",
-    color: "white",
-    fontSize: 18,
-  },
-  buttonOutLineText: {
-    fontWeight: "700",
-    color: "white",
-    fontSize: 18,
-  },
-  error: {
-    color: "red",
-    fontSize: 15,
-    width: 340,
-  },
-  pickerBtn:{
-    paddingHorizontal:20
-  },
-  buttonText:{
-    fontSize:14,
-    fontWeight:"500"
-  }
-});

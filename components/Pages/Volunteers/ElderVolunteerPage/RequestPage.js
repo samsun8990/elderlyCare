@@ -9,7 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { FontAwesome,Fontisto } from "react-native-vector-icons";
+import { FontAwesome, Fontisto } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 // import { headerOptions } from '../../Utils/Common';
 import { Card, Button, CheckBox } from "@rneui/themed";
@@ -63,10 +63,10 @@ const RequestPage = () => {
               resizeMode="cover"
             />
             <View>
-              <Text style={{ fontWeight: "bold", fontSize:18, }}>Lorem Lipsum</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 18, }}>Lorem Lipsum</Text>
               <Text style={{ fontSize: 13 }}>lorem@lorem.com</Text>
             </View>
-            <Card.Divider/>
+            <Card.Divider />
           </View>
 
           <View>
@@ -84,12 +84,12 @@ const RequestPage = () => {
                 borderWidth: 1,
                 padding: 5,
                 color: "gray",
-                borderColor:"#E7E7E7"
+                borderColor: "#E7E7E7"
               }}
               placeholder="What are you looking for?"
             />
           </View>
-<Text></Text>
+          <Text></Text>
           <View>
             <Text style={styles.requestTitle}>Preferences</Text>
             <Card.Divider />
@@ -127,7 +127,7 @@ const RequestPage = () => {
             <Text style={styles.requestTitle}>Set Date Preferences</Text>
             <Card.Divider />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
-            <Fontisto name="date" size={20}></Fontisto>
+              <Fontisto name="date" size={20}></Fontisto>
               <TouchableOpacity onPress={() => setShowPicker(true)}>
 
                 <TextInput
@@ -144,7 +144,7 @@ const RequestPage = () => {
               }
             </View>
             <Text></Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%'  }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
               <Fontisto name="date" size={20}></Fontisto>
               <TouchableOpacity onPress={() => setShowPicker(true)}>
 
@@ -178,21 +178,21 @@ const RequestPage = () => {
                 borderWidth: 1,
                 padding: 10,
                 color: "gray",
-                borderColor:"#E7E7E7"
+                borderColor: "#E7E7E7"
               }}
               placeholder="Amount"
             />
           </View>
           <Text></Text>
-          <Button title="Request"  color="#1B5B7D"/>
+          <Button title="Request" color="#1B5B7D" />
 
 
         </View>
-       
+
       </Card>
       <View style={{ paddingBottom: 90 }} />
 
-     
+
     </SafeAreaView>
   );
 };
