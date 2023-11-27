@@ -1,6 +1,6 @@
 import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "@rneui/themed";
+import { Avatar, Button } from "@rneui/themed";
 import { Card } from "@rneui/themed";
 import { FontAwesome } from "react-native-vector-icons";
 import { styles } from "../HomeStyle";
@@ -42,11 +42,8 @@ const ElderHomeAvailable = () => {
             avaiableList.length > 0 &&
             avaiableList.map((available, index) => (
               <View key={index}>
-                <Image
-                  source={{ uri: available.avatar }}
-                  style={{ width: 90, height: 85, borderRadius: 50 }}
-                  resizeMode="cover"
-                />
+                 <Avatar size={85} rounded source={{ uri: available.avatar }} />
+                
                 <Text style={styles.item}>{available.fullname}</Text>
                 <Button
                   onPress={() => navigation.navigate("RequestPage")}
