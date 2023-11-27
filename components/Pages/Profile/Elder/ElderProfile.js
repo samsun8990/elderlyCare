@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity,ScrollView } from 'react-native';
 import React, { useContext, useEffect } from 'react'
-import { Button, Icon } from '@rneui/themed';
+import { Avatar, Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +18,7 @@ const ElderProfile = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.profileContainer}>
-                <Image source={defaultImg} style={styles.profileImage} />
+            <Avatar size={100} rounded source={{ uri: elderUser.avatar }} />
                 <Text>{elderUser.email}</Text>
                 <Text>{elderUser.fullname}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} 
