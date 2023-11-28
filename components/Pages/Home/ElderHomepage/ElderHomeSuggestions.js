@@ -36,9 +36,9 @@ const ElderHomeSuggestions = () => {
 
 
   const handleFollowUser = async (follow)=>{
-
+    await alert(`You Requested ${follow.fullname}`)
     await connectUser(elderUser,follow)
-    alert(`You Requested ${follow.fullname}`)
+   
   }
 
 

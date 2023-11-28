@@ -7,7 +7,7 @@ import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import {getAcceptedUsersForCurrentUsers, getUsersInvitation, readTwoElderUsers } from '../../Config/dbcls';
+import {acceptUserInvitation, getAcceptedUsersForCurrentUsers, getUsersInvitation, readTwoElderUsers } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
@@ -63,13 +63,14 @@ const ElderNetwork = () => {
         if (elderUser) {
             getUsersInvitation(elderUser,setInvitationList)
             
-            getAcceptedUsersForCurrentUsers(elderUser,setAcceptedList)
+            //getAcceptedUsersForCurrentUsers(elderUser,setAcceptedList)
           }
     }, []);
 
 
-    const handleAcceptRequest =(invite)=>{
-        
+    const handleAcceptRequest =async(invite)=>{
+        await acceptUserInvitation(elderUser,setInvitationList)
+
     }
 
 
