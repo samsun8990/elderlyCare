@@ -68,7 +68,6 @@ const ElderNetwork = () => {
 
     const handleAcceptRequest =(invite)=>{
         
-
     }
 
 
@@ -85,7 +84,7 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         {
-                          invitationList && invitationList.length> 0 && invitationList.map((invite,index)=>
+                          invitationList && invitationList.length> 0 && invitationList.slice(0,4).map((invite,index)=>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
                             <View style={{ flexDirection: "row", gap: 10 }}>
                                 <Image source={{uri:invite.avatar}}

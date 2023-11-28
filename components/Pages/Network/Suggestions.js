@@ -58,11 +58,7 @@ const Suggestions = () => {
             suggestionList.length > 0 &&
             suggestionList.map((suggest, index) => (
               <View style={styles.suggestions} key={index}>
-                <Image
-                  source={{uri:suggest.avatar}}
-                  style={{ width: 60, height: 60, borderRadius: 30 }}
-                  resizeMode="cover"
-                />
+                <Avatar size={60} rounded source={{ uri: suggest.avatar }} />
                 <Text style={{ fontWeight: "bold" }}>{suggest.fullname}</Text>
                 <Text>{suggest.gender}</Text>
                 <Text></Text>

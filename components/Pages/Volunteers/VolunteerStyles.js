@@ -4,7 +4,8 @@ export const styles = StyleSheet.create({
     container: {
         // marginTop: 24,
         flex: 1, 
-        backgroundColor: '#E4EDF2'
+        backgroundColor: '#DCEDF6'
+        //'#E4EDF2'
     },
     header: {
         flexDirection: "row",

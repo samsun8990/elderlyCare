@@ -1,12 +1,11 @@
 
 import {
   doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc, query, where, limit, updateDoc,
-  not, arrayContains, onSnapshot, arrayUnion, FieldValue
+  not, arrayContains, onSnapshot, arrayUnion, FieldValue,serverTimestamp, Timestamp
 } from "firebase/firestore";
 import { db } from "./config";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
-import ElderlyRegister from "../Pages/StartPage/Register/ElderlyRegister";
 
 
 export const readUser = async (userID, collection1, collection2, setElderUser, setVolunteerUser) => {
@@ -94,10 +93,8 @@ export const connectUser = async (elderUser, follow) => {
   await onSnapshot(followCurrentUserRef, (docSnapshot) => {
     if (docSnapshot.exists()) {
       updateDoc(followCurrentUserRef, {
-        following: arrayUnion({ id: follow.id, status: "requested", createdAt: FieldValue.serverTimestamp() })
+        following: arrayUnion({ id: follow.id, status: "requested",  createdAt: Timestamp.fromDate(new Date())})
       }, { merge: true })
-        .then(() => console.log("Data Updated"))
-        .catch((error) => console.error('Error updating document:', error));
     } else {
       console.log('Document does not exist');
     }
@@ -106,10 +103,8 @@ export const connectUser = async (elderUser, follow) => {
     if (docSnapshot.exists()) {
 
       updateDoc(updateFollowOtherUserRef, {
-        followers: arrayUnion({ id: elderUser.id, status: "requested", createdAt: FieldValue.serverTimestamp() })
+        followers: arrayUnion({ id: elderUser.id, status: "requested",  createdAt: Timestamp.fromDate(new Date()) })
       }, { merge: true })
-        .then(() => console.log("Data Updated"))
-        .catch((error) => console.error('Error updating document:', error));
     } else {
       console.log('Document does not exist');
     }
@@ -130,7 +125,6 @@ export const getUsersInvitation = async (elderUser, setInvitationList) => {
       let check = temp.filter((user) => user.followers && user.followers.map((follower) => {
         //console.log(follower, "follower");
         if (follower.status === "requested") {
-          console.log(follower);
           fetchFollowersDetails(follower.id, setInvitationList)
         }
         else {
@@ -162,34 +156,25 @@ export const getUsersInvitation = async (elderUser, setInvitationList) => {
   }
 };
 
-// export const acceptUserInvitation = async (elderUser, invitation) => {
-//   const followCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
-//   const updateFollowOtherUserRef = doc(db, 'elderlyUsers', invitation.id);
+export const acceptUserInvitation = async (elderUser, invitation) => {
+  // const followCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
+  // const updateFollowOtherUserRef = doc(db, 'elderlyUsers', invitation.id);
 
-//   await onSnapshot(followCurrentUserRef, (docSnapshot) => {
-//     if (docSnapshot.exists()) {
-//       updateDoc(followCurrentUserRef, {
-//         following: arrayUnion({ id: invitation.id, status: "requested", createdAt: FieldValue.serverTimestamp() })
-//       }, { merge: true })
-//         .then(() => console.log("Data Updated"))
-//         .catch((error) => console.error('Error updating document:', error));
-//     } else {
-//       console.log('Document does not exist');
-//     }
-//   })
-//   await onSnapshot(followCurrentUserRef, (docSnapshot) => {
-//     if (docSnapshot.exists()) {
+  // await onSnapshot(followCurrentUserRef, (docSnapshot) => {
+  //   if (docSnapshot.exists()) {
 
-//       updateDoc(updateFollowOtherUserRef, {
-//         followers: arrayUnion({ id: elderUser.id, status: "requested", createdAt: FieldValue.serverTimestamp() })
-//       }, { merge: true })
-//         .then(() => console.log("Data Updated"))
-//         .catch((error) => console.error('Error updating document:', error));
-//     } else {
-//       console.log('Document does not exist');
-//     }
-//   })
-// }
+  //     updateDoc(updateFollowOtherUserRef, {
+  //       followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+  //     }, { merge: true })
+  //       .then(() => console.log("Data Updated"))
+  //       .catch((error) => console.error('Error updating document:', error));
+  //   } else {
+  //     console.log('Document does not exist');
+  //   }
+  // })
+
+  
+}
 
 export const getAllAcceptedUers = () => {
 
