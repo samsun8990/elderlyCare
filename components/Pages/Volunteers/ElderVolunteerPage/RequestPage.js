@@ -126,41 +126,40 @@ const RequestPage = () => {
           <View>
             <Text style={styles.requestTitle}>Set Date Preferences</Text>
             <Card.Divider />
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
-              <Fontisto name="date" size={20}></Fontisto>
-              <TouchableOpacity onPress={() => setShowPicker(true)}>
+       
+            <TouchableOpacity onPress={() => setShowPicker(true)} style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
+              <Fontisto name="date" size={40}></Fontisto>
+              <TextInput
+                placeholder="Start Date"
+                style={styles.input}
+                value={startDateValue}
+                editable={false}
+              />
+            </TouchableOpacity>
 
-                <TextInput
-                  placeholder="Start Date"
-                  style={styles.input}
-                  value={startDateValue}
-                  editable={false}
-                />
-              </TouchableOpacity>
-              {
-                showPicker &&
-                <DateTimePicker mode="date" value={startDate} display="default" maximumDate={new Date()} onChange={handleStartDateChange} />
 
-              }
-            </View>
+            {
+              showPicker &&
+              <DateTimePicker mode="date" value={startDate} display="default" maximumDate={new Date()} onChange={handleStartDateChange}  />
+
+            }
             <Text></Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
-              <Fontisto name="date" size={20}></Fontisto>
-              <TouchableOpacity onPress={() => setShowPicker(true)}>
-
-                <TextInput
+            <TouchableOpacity onPress={() => setShowPicker(true)} style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, borderBottomWidth: 1, paddingBottom: 4, width: '35%' }}>
+              <Fontisto name="date" size={40}></Fontisto>
+              <TextInput
                   placeholder="End Date"
                   style={styles.input}
                   value={endDateValue}
                   editable={false}
                 />
-              </TouchableOpacity>
-              {
-                showPicker &&
-                <DateTimePicker mode="date" value={endDate} display="default" maximumDate={new Date()} onChange={handleEndDateChange} />
+            </TouchableOpacity>
 
-              }
-            </View>
+
+            {
+              showPicker &&
+              <DateTimePicker mode="date" value={endDate} display="default" maximumDate={new Date()} onChange={handleEndDateChange}  />
+
+            }
           </View>
           <View>
             <Text></Text>

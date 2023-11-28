@@ -21,9 +21,7 @@ const Invitations = () => {
     if (elderUser) {
       getUsersInvitation(elderUser, setInvitationList)
     }
-  }, [navigation]);
-
-  console.log(invitationList, "invtn");
+  }, []);
 
   const handleAcceptRequest = (invite) => {
 

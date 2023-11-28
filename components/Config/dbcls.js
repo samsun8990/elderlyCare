@@ -157,25 +157,63 @@ export const getUsersInvitation = async (elderUser, setInvitationList) => {
 };
 
 export const acceptUserInvitation = async (elderUser, invitation) => {
-  // const followCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
-  // const updateFollowOtherUserRef = doc(db, 'elderlyUsers', invitation.id);
+  const acceptCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
+  const updateFollowOtherUserRef = doc(db, 'elderlyUsers', invitation.id);
 
-  // await onSnapshot(followCurrentUserRef, (docSnapshot) => {
-  //   if (docSnapshot.exists()) {
+  await onSnapshot(acceptCurrentUserRef, (docSnapshot) => {
+    if (docSnapshot.exists()) {
 
-  //     updateDoc(updateFollowOtherUserRef, {
-  //       followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
-  //     }, { merge: true })
-  //       .then(() => console.log("Data Updated"))
-  //       .catch((error) => console.error('Error updating document:', error));
-  //   } else {
-  //     console.log('Document does not exist');
-  //   }
-  // })
-
-  
+      updateDoc(updateFollowOtherUserRef, {
+        followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+      }, { merge: true })
+        .then(() => console.log("Data Updated"))
+        .catch((error) => console.error('Error updating document:', error));
+    } else {
+      console.log('Document does not exist');
+    }
+  })
 }
 
-export const getAllAcceptedUers = () => {
 
+export const getAcceptedUsersForCurrentUsers = async (elderUser, setInvitationList) => {
+  try {
+
+    const q = query(collection(db, "elderlyUsers"), where("fullname", "==", elderUser.fullname));
+
+    await onSnapshot(q, (snapshot) => {
+      let temp = []
+      snapshot.forEach((doc) =>
+        temp.push({ id: doc.id, ...doc.data() }));
+      let check = temp.filter((user) => user.followers && user.followers.map((follower) => {
+        //console.log(follower, "follower");
+        if (follower.status === "accepted") {
+          fetchFollowersDetails(follower.id, setInvitationList)
+        }
+        else {
+          setInvitationList()
+        }
+      }))
+      if (!check) {
+        setInvitationList()
+      }
+
+    })
+
+    // Function to fetch followers' details
+    const fetchFollowersDetails = async (userId, setInvitationList) => {
+      try {
+        const docRef1 = doc(db, 'elderlyUsers', userId);
+        const docSnap1 = await getDoc(docRef1);
+        let temp = []
+        temp.push({ id: docSnap1.id, ...docSnap1.data() })
+        return setInvitationList(temp)
+
+      } catch (error) {
+        console.error('Error fetching followers:', error);
+        return [];
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
 }
