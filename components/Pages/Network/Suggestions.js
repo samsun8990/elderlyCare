@@ -15,7 +15,7 @@ import { Card, Button } from "@rneui/themed";
 import { styles } from "./NetworkStyle.js";
 import { defaultImg } from "../../Utils/ImageCommon.js";
 import { AuthContext } from "../../Config/AuthContext";
-import { readAllElderUsers } from "../../Config/dbcls";
+import { getUsersNotFollowedByCurrentUser, readAllElderUsers } from "../../Config/dbcls";
 
 const Suggestions = () => {
   const navigation = useNavigation();
@@ -26,9 +26,17 @@ const Suggestions = () => {
 
   useEffect(() => {
     if (elderUser) {
-      readAllElderUsers(elderUser.fullname, setSuggestionList);
+      getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
     }
   }, []);
+
+  const handleFollowUser = async (follow)=>{
+
+    await connectUser(elderUser,follow)
+    alert(`You Requested ${follow.fullname}`)
+  }
+
+
   return (
     <SafeAreaView style={styles.container}>
    <Card
@@ -50,32 +58,26 @@ const Suggestions = () => {
             suggestionList.length > 0 &&
             suggestionList.map((suggest, index) => (
               <View style={styles.suggestions} key={index}>
-                <Image
-                  source={{uri:suggest.avatar}}
-                  style={{ width: 60, height: 60, borderRadius: 30 }}
-                  resizeMode="cover"
-                />
+                <Avatar size={60} rounded source={{ uri: suggest.avatar }} />
                 <Text style={{ fontWeight: "bold" }}>{suggest.fullname}</Text>
                 <Text>{suggest.gender}</Text>
                 <Text></Text>
-                <Button
+                <Button onPress={()=>handleFollowUser(suggest)}
                   buttonStyle={{
                     backgroundColor: "#1B5B7D",
                     borderWidth: 2,
                     borderColor: "#1B5B7D",
                     borderRadius: 30,
                   }}
-                  size="md"
+                  // size="md"
+                  disabled={suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? true : false}
                   containerStyle={{
-                    width: 120,
-                    height: 35,
+                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 100 : 90,
+                    height: 39
                   }}
-                  titleStyle={{
-                    fontSize: 12,
-                    padding: 10,
-                  }}
+                  titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                  Connect
+                  {suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 'Requested' : 'Connect'} 
                 </Button>
               </View>
             ))}

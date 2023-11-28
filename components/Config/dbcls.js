@@ -1,7 +1,7 @@
 
 import {
   doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc, query, where, limit, updateDoc,
-  not, arrayContains, onSnapshot, arrayUnion
+  not, arrayContains, onSnapshot, arrayUnion, FieldValue,serverTimestamp, Timestamp
 } from "firebase/firestore";
 import { db } from "./config";
 import firebase from 'firebase/app';
@@ -36,9 +36,6 @@ export const readAllElderUsers = async (name, setSuggestions) => {
     snapshot.docs.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
     setSuggestions(temp)
   })
-
-
-
 }
 
 export const readAllAvailableVolunteers = async (searchquery, setVolunteers) => {
@@ -75,8 +72,14 @@ export const getUsersNotFollowedByCurrentUser = async (currentUser, setSuggestio
     onSnapshot(elderlyUsersCollectionRef, (querySnapshot) => {
       let temp = []
       querySnapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
-      const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id && !currentUser.following.includes(user.id))
-      setSuggestionList(usersNotFollowed)
+      const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id && currentUser.following && !currentUser.following.includes(user.id))
+      if (usersNotFollowed && usersNotFollowed.length > 0) {
+        setSuggestionList(usersNotFollowed)
+      }
+      else {
+        setSuggestionList()
+      }
+
     })
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -90,10 +93,8 @@ export const connectUser = async (elderUser, follow) => {
   await onSnapshot(followCurrentUserRef, (docSnapshot) => {
     if (docSnapshot.exists()) {
       updateDoc(followCurrentUserRef, {
-        following: arrayUnion({ id: follow.id, status: "requested" })
+        following: arrayUnion({ id: follow.id, status: "requested",  createdAt: Timestamp.fromDate(new Date())})
       }, { merge: true })
-        .then(() => console.log("Data Updated"))
-        .catch((error) => console.error('Error updating document:', error));
     } else {
       console.log('Document does not exist');
     }
@@ -101,9 +102,9 @@ export const connectUser = async (elderUser, follow) => {
   await onSnapshot(followCurrentUserRef, (docSnapshot) => {
     if (docSnapshot.exists()) {
 
-      updateDoc(updateFollowOtherUserRef, { followers: arrayUnion({ id: elderUser.id, status: "requested" }) }, { merge: true })
-        .then(() => console.log("Data Updated"))
-        .catch((error) => console.error('Error updating document:', error));
+      updateDoc(updateFollowOtherUserRef, {
+        followers: arrayUnion({ id: elderUser.id, status: "requested",  createdAt: Timestamp.fromDate(new Date()) })
+      }, { merge: true })
     } else {
       console.log('Document does not exist');
     }
@@ -114,28 +115,67 @@ export const connectUser = async (elderUser, follow) => {
 // Function to fetch users with followers having 'status' as 'requested'
 export const getUsersInvitation = async (elderUser, setInvitationList) => {
   try {
-    const usersCollectionRef = doc(db, 'elderlyUsers', elderUser.id);
 
-    await onSnapshot(usersCollectionRef, (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        const usersWithRequestedFollowers = [];
-        docSnapshot.docs.forEach((doc) => {
-          const userData = doc.data();
-          // Check if the user has 'followers' array and if any follower has 'status' as 'requested'
-          if (userData.followers && userData.followers.some((follower) => follower.status === 'requested')) {
-            usersWithRequestedFollowers.push(userData);
-          }
-        });
-        console.log('Users with followers having status as requested:', usersWithRequestedFollowers);
-        setInvitationList(usersWithRequestedFollowers)
-        //return usersWithRequestedFollowers;
+    const q = query(collection(db, "elderlyUsers"), where("fullname", "==", elderUser.fullname));
 
-      } else {
-        console.log('Document does not exist');
+    await onSnapshot(q, (snapshot) => {
+      let temp = []
+      snapshot.forEach((doc) =>
+        temp.push({ id: doc.id, ...doc.data() }));
+      let check = temp.filter((user) => user.followers && user.followers.map((follower) => {
+        //console.log(follower, "follower");
+        if (follower.status === "requested") {
+          fetchFollowersDetails(follower.id, setInvitationList)
+        }
+        else {
+          setInvitationList()
+        }
+      }))
+      if (!check) {
+        setInvitationList()
       }
+
     })
 
+    // Function to fetch followers' details
+    const fetchFollowersDetails = async (userId, setInvitationList) => {
+      try {
+        const docRef1 = doc(db, 'elderlyUsers', userId);
+        const docSnap1 = await getDoc(docRef1);
+        let temp = []
+        temp.push({ id: docSnap1.id, ...docSnap1.data() })
+        return setInvitationList(temp)
+
+      } catch (error) {
+        console.error('Error fetching followers:', error);
+        return [];
+      }
+    }
   } catch (error) {
     console.error('Error fetching users:', error);
   }
 };
+
+export const acceptUserInvitation = async (elderUser, invitation) => {
+  // const followCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
+  // const updateFollowOtherUserRef = doc(db, 'elderlyUsers', invitation.id);
+
+  // await onSnapshot(followCurrentUserRef, (docSnapshot) => {
+  //   if (docSnapshot.exists()) {
+
+  //     updateDoc(updateFollowOtherUserRef, {
+  //       followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+  //     }, { merge: true })
+  //       .then(() => console.log("Data Updated"))
+  //       .catch((error) => console.error('Error updating document:', error));
+  //   } else {
+  //     console.log('Document does not exist');
+  //   }
+  // })
+
+  
+}
+
+export const getAllAcceptedUers = () => {
+
+}

@@ -13,7 +13,6 @@ const ElderNetwork = () => {
     const navigation = useNavigation();
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
-    //const [suggestionList,setSuggestionList] = useState()
     const [invitationList,setInvitationList] = useState()
 
     const headerOptions = {
@@ -60,16 +59,16 @@ const ElderNetwork = () => {
     useEffect(() => {
         navigation.setOptions(headerOptions);
         if (elderUser) {
-            //readTwoElderUsers(elderUser.fullname,setSuggestionList)
             getUsersInvitation(elderUser,setInvitationList)
             
           }
     }, [navigation]);
 
-//     const originalArray = [invitationList];
-// const fourElements = originalArray.slice(0, 4); // Retrieves the first four elements
-// console.log(fourElements);
     console.log(invitationList,"invtn");
+
+    const handleAcceptRequest =(invite)=>{
+        
+    }
 
 
     return (
@@ -85,28 +84,25 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         {
-                          invitationList && invitationList.length> 0 && invitationList.slice(0, 4).map((invit,index)=>
-                            <View style={{ flexDirection: "row", justifyContent: "space-around" }} key={index}>
+                          invitationList && invitationList.length> 0 && invitationList.slice(0,4).map((invite,index)=>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
                             <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Image source={defaultImg}
+                                <Image source={{uri:invite.avatar}}
                                     style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
                                 <View>
-                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>{invit.fullname}</Text>
+                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>
                                     <Text style={{ color: "#847F7F" }}>1 day ago</Text>
                                 </View>
                             </View>
 
                             <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-                                <FontAwesome name="check" size={30} color="#265F17" />
+                                <FontAwesome name="check" size={30} color="#265F17" onPress={()=>handleAcceptRequest(invite)} />
                                 <FontAwesome name="times" size={30} color="#7B7979" />
                             </View>
                         </View>
                             
                             )
                         }
-                    
-                       
-
                     </ScrollView>
                 </Card>
 

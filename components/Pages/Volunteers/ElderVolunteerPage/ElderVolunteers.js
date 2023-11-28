@@ -89,7 +89,7 @@ const updateSearch = (search) => {
           onChangeText={updateSearch}
           value={search}
           platform='ios'
-          containerStyle={{backgroundColor:"#E4EDF2",width:140, height:20}}
+          containerStyle={{backgroundColor:"#E4EDF2",width:140, height:30}}
           inputContainerStyle={{width:350, height:20}}
           inputStyle={{fontSize:14}}
           leftIconContainerStyle={{}}
