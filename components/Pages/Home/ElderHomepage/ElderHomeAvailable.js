@@ -57,7 +57,7 @@ const ElderHomeAvailable = () => {
                     width: 90,
                     height: 45,
                   }}
-                  titleStyle={{ fontWeight: "bold", fontSize: 15 }}
+                  titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
                   Request
                 </Button>

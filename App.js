@@ -130,7 +130,7 @@ export default function App() {
       <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="StartPage"
+            initialRouteName="LoginUser"
           >
 
             <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false,headerStyle: {
