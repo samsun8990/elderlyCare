@@ -7,13 +7,15 @@ import { Card, Button } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import {getUsersInvitation, readTwoElderUsers } from '../../Config/dbcls';
+import {getAcceptedUsersForCurrentUsers, getUsersInvitation, readTwoElderUsers } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
     const [invitationList,setInvitationList] = useState()
+
+    const [acceptedList,setAcceptedList] = useState()
 
     const headerOptions = {
         headerTitle: '',
@@ -61,14 +63,16 @@ const ElderNetwork = () => {
         if (elderUser) {
             getUsersInvitation(elderUser,setInvitationList)
             
+            getAcceptedUsersForCurrentUsers(elderUser,setAcceptedList)
           }
-    }, [navigation]);
+    }, []);
 
-    console.log(invitationList,"invtn");
 
     const handleAcceptRequest =(invite)=>{
         
     }
+
+
 
 
     return (
@@ -116,49 +120,31 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
+                            {acceptedList && acceptedList.length> 0 && acceptedList.slice(0,4).map((accept,index)=>
+                               <View style={styles.suggestions} key={index}>
+                               <Image source={defaultImg}
+                                   style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
+                               <Text style={{ fontWeight: "bold" }}>{accept.fullname}</Text>
+                               <Text>{accept.gender}</Text>
+                               <Text></Text>
+                               <Button buttonStyle={{
+                                   backgroundColor: '#1B5B7D',
+                                   borderWidth: 2,
+                                   borderColor: '#1B5B7D',
+                                   borderRadius: 30,
+                               }}
+                                   size="md"
+                                   containerStyle={{
+                                       width: 120,
+                                       height: 35,
+                                   }}
+                                   titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
+
+                               >View</Button>
+                           </View>
                             
-                            <View style={styles.suggestions}>
-                                <Image source={defaultImg}
-                                    style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-                                <Text>Country</Text>
-                                <Text></Text>
-                                <Button buttonStyle={{
-                                    backgroundColor: '#1B5B7D',
-                                    borderWidth: 2,
-                                    borderColor: '#1B5B7D',
-                                    borderRadius: 30,
-                                }}
-                                    size="md"
-                                    containerStyle={{
-                                        width: 120,
-                                        height: 35,
-                                    }}
-                                    titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
-
-                                >View</Button>
-                            </View>
-
-                            <View style={styles.suggestions}>
-                                <Image source={defaultImg}
-                                    style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-                                <Text>Country</Text>
-                                <Text></Text>
-                                <Button buttonStyle={{
-                                    backgroundColor: '#1B5B7D',
-                                    borderWidth: 2,
-                                    borderColor: '#1B5B7D',
-                                    borderRadius: 30,
-                                }}
-                                    size="md"
-                                    containerStyle={{
-                                        width: 120,
-                                        height: 35,
-                                    }}
-                                    titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
-                                >View</Button>
-                            </View>
+                            )}
+                      
 
                         </View>
                     </ScrollView>

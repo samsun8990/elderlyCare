@@ -130,7 +130,7 @@ const updateSearch = (search) => {
             maxHeight={'70%'}
             // search
             placeholder="Filter"
-            selectedTextStyle={{ fontSize: 30 }}
+            selectedTextStyle={{ fontSize: 13 }}
             onChange={item => setValue(item.value)}
             value={value}
             style={{ fontSize: 18, padding: 5,color:"grey", }}

@@ -10,18 +10,18 @@ const ChatUser = () => {
   
   return (
     <SafeAreaView style={styles.container}>
-      
+      <ScrollView showsVerticalScrollIndicator={true}>
+
+     
       <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
         
         <View>
-        <ScrollView showsVerticalScrollIndicator={true}>
-          <View style={{gap: 10, padding: 10, flexDirection:'column', height:630}}>
+        
+          <View style={{gap: 10, padding: 10, flexDirection:'column', height:500}}>
             <Text style={{ marginBottom:20, borderWidth: 1,borderRadius: 8, padding: 10,backgroundColor:'white', width:'20%', textAlign:'left'}}>Hi</Text>
         </View>
 
-          </ScrollView>
-          <View style={{ justifyContent: "center", alignItems: "center", gap: 10, padding: 10, flexDirection:'row' }}>
-            
+          <View style={{ justifyContent: "space-around", alignItems: "center", gap: 12, padding: 5, flexDirection:'row' }}>
             
             <TextInput
               style={{
@@ -42,7 +42,7 @@ const ChatUser = () => {
         </View>
 
       </Card>
-      
+      </ScrollView>
     </SafeAreaView>
   )
 }

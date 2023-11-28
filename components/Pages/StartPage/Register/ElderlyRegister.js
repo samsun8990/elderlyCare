@@ -43,16 +43,10 @@ const ElderlyRegister = ({ route, navigation }) => {
   const handleShowDatePicker = () => setShowPicker(!showPicker);
 
   const handleDateChange = ({ type }, selectedDate) => {
-    setDate(new Date(selectedDate));
-    if (Platform.OS === "android") {
-      setDob(selectedDate.toDateString());
 
-    }
-    setShowPicker(false);
-  };
-  const confirmDateIos = () => {
-    setDob(date.toDateString())
-    setShowPicker(false);
+    setDate(new Date(selectedDate))
+    setDob(selectedDate.toDateString())
+    setShowPicker(false)
   }
 
   const clear = () => {
@@ -237,51 +231,30 @@ const ElderlyRegister = ({ route, navigation }) => {
               />
             </View>
 
-            <View
-              style={{
+            <TouchableOpacity onPress={() => setShowPicker(true)} style={{
                 flexDirection: "row",
                 alignItems: "center",
                 marginLeft: 20,
                 borderBottomWidth: 1,
                 paddingBottom: 4,
                 width: "90%",
-              }}
-            >
+                marginBottom: 20,
+              }}>
               <Fontisto name="date" size={40}></Fontisto>
-              <TouchableOpacity onPress={() => setShowPicker(true)}>
-                <TextInput
-                  placeholder="Date Of Birth"
-                  style={styles.input}
-                  value={dob}
-                  editable={false}
-                />
-              </TouchableOpacity>
-              {showPicker && (
-                <View>
-                  <DateTimePicker
-                    mode="date"
-                    value={date}
-                    display={Platform.OS === "ios" ? "spinner" : "default"}
-                    maximumDate={new Date()}
-                    onChange={handleDateChange}
-                  />
-                </View>
-              )}
+              <TextInput
+                placeholder="Date Of Birth"
+                style={styles.input}
+                value={dob}
+                editable={false}
+              />
+            </TouchableOpacity>
 
-              {showPicker && Platform.OS === "ios" && (
-                <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                  <TouchableOpacity style={[styles.button, styles.pickerBtn, { backgroundColor: "#11182711" }]}
-                    onPress={() => setShowPicker(false)}>
-                    <Text style={[styles.buttonText, { color: "#075985" }]}>Cancel</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={[styles.button, styles.pickerBtn]}
-                    onPress={confirmDateIos}>
-                    <Text style={[styles.buttonText]}>Confirm</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
 
-            </View>
+            {
+              showPicker &&
+              <DateTimePicker mode="date" value={date} display="default" maximumDate={new Date()} onChange={handleDateChange} />
+
+            }
 
             {userError || passwordError ? (
               <View style={{ alignItems: "center", marginLeft: 40 }}>
