@@ -90,25 +90,14 @@ export const connectUser = async (elderUser, follow) => {
   const followCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
   const updateFollowOtherUserRef = doc(db, 'elderlyUsers', follow.id);
 
-  await onSnapshot(followCurrentUserRef, (docSnapshot) => {
-    if (docSnapshot.exists()) {
-      updateDoc(followCurrentUserRef, {
-        following: arrayUnion({ id: follow.id, status: "requested",  createdAt: Timestamp.fromDate(new Date())})
-      }, { merge: true })
-    } else {
-      console.log('Document does not exist');
-    }
-  })
-  await onSnapshot(followCurrentUserRef, (docSnapshot) => {
-    if (docSnapshot.exists()) {
+  setDoc(followCurrentUserRef, {
+    following: arrayUnion({ id: follow.id, status: "requested",  createdAt: new Date()})
+  }, { merge: true }).then(()=>console.log("Data updated"))
 
-      updateDoc(updateFollowOtherUserRef, {
-        followers: arrayUnion({ id: elderUser.id, status: "requested",  createdAt: Timestamp.fromDate(new Date()) })
-      }, { merge: true })
-    } else {
-      console.log('Document does not exist');
-    }
-  })
+  setDoc(updateFollowOtherUserRef, {
+    followers: arrayUnion({ id: elderUser.id, status: "requested",  createdAt: new Date() })
+  }, { merge: true }).then(()=>console.log("Data updated"))
+
 }
 
 
@@ -122,15 +111,21 @@ export const getUsersInvitation = async (elderUser, setInvitationList) => {
       let temp = []
       snapshot.forEach((doc) =>
         temp.push({ id: doc.id, ...doc.data() }));
-      let check = temp.filter((user) => user.followers && user.followers.map((follower) => {
-        //console.log(follower, "follower");
-        if (follower.status === "requested") {
-          fetchFollowersDetails(follower.id, setInvitationList)
-        }
-        else {
-          setInvitationList()
-        }
-      }))
+        let check = temp.filter((user) => user.following && user.following.map((follower) => follower.status === "requested"))      // let check = temp.filter((user) => user.followers && user.followers.map((follower) => {
+      //  return follower.status === "requested"
+      //   //console.log(follower, "follower");
+      //   // if (follower.status === "requested") {
+      //   //   fetchFollowersDetails(follower.id, setInvitationList)
+      //   // }
+      //   // else {
+      //   //   setInvitationList()
+      //   // }
+      // }))
+      
+      console.log(check,"check");
+
+
+
       if (!check) {
         setInvitationList()
       }
@@ -144,7 +139,8 @@ export const getUsersInvitation = async (elderUser, setInvitationList) => {
         const docSnap1 = await getDoc(docRef1);
         let temp = []
         temp.push({ id: docSnap1.id, ...docSnap1.data() })
-        return setInvitationList(temp)
+        return temp
+        //return setInvitationList(temp)
 
       } catch (error) {
         console.error('Error fetching followers:', error);
@@ -157,21 +153,21 @@ export const getUsersInvitation = async (elderUser, setInvitationList) => {
 };
 
 export const acceptUserInvitation = async (elderUser, invitation) => {
-  const acceptCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
-  const updateFollowOtherUserRef = doc(db, 'elderlyUsers', invitation.id);
+  const updateFollowOtherUserRef = doc(db, 'elderlyUsers', elderUser.id);
+  const acceptCurrentUserRef= doc(db, 'elderlyUsers', invitation.id);
 
-  await onSnapshot(acceptCurrentUserRef, (docSnapshot) => {
-    if (docSnapshot.exists()) {
+  await updateDoc(acceptCurrentUserRef, {
+    followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+  }, { merge: true })
+    .then(() => console.log("Data Updated"))
+    .catch((error) => console.error('Error updating document:', error));
 
-      updateDoc(updateFollowOtherUserRef, {
-        followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
-      }, { merge: true })
-        .then(() => console.log("Data Updated"))
-        .catch((error) => console.error('Error updating document:', error));
-    } else {
-      console.log('Document does not exist');
-    }
-  })
+  await updateDoc(updateFollowOtherUserRef, {
+    following: arrayUnion({ id: invitation.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+  }, { merge: true })
+    .then(() => console.log("Data Updated"))
+    .catch((error) => console.error('Error updating document:', error));
+
 }
 
 

@@ -15,7 +15,7 @@ import { Card, Button } from "@rneui/themed";
 import { styles } from "./NetworkStyle.js";
 import { defaultImg } from "../../Utils/ImageCommon.js";
 import { AuthContext } from "../../Config/AuthContext";
-import { getUsersNotFollowedByCurrentUser, readAllElderUsers } from "../../Config/dbcls";
+import { connectUser, getUsersNotFollowedByCurrentUser, readAllElderUsers } from "../../Config/dbcls";
 
 const Suggestions = () => {
   const navigation = useNavigation();
@@ -26,7 +26,9 @@ const Suggestions = () => {
 
   useEffect(() => {
     if (elderUser) {
-      getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
+      readAllElderUsers(elderUser.fullname, setSuggestionList);
+      //getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
+    
     }
   }, []);
 
