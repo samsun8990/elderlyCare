@@ -13,7 +13,7 @@ import { FontAwesome } from "react-native-vector-icons";
 import { styles } from "../HomeStyle";
 import { defaultImg } from "../../../Utils/ImageCommon";
 import { useNavigation } from "@react-navigation/native";
-import { connectUser, getUsersNotFollowedByCurrentUser, readAllElderUsers } from "../../../Config/dbcls";
+import { connectUser, getUsersNotFollowedByCurrentUser, readAllElders, readAllOtherElderUsers } from "../../../Config/dbcls";
 import { AuthContext } from "../../../Config/AuthContext";
 import { db } from "../../../Config/config";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
@@ -27,7 +27,7 @@ const ElderHomeSuggestions = () => {
 
   useEffect(() => {
     if (elderUser) {
-      readAllElderUsers(elderUser.fullname, setSuggestionList);
+      readAllOtherElderUsers(elderUser.fullname, setSuggestionList);
       //getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
     
     }
@@ -38,6 +38,7 @@ const ElderHomeSuggestions = () => {
   const handleFollowUser = async (follow)=>{
     await alert(`You Requested ${follow.fullname}`)
     await connectUser(elderUser,follow)
+    //await readAllElders()
    
   }
 

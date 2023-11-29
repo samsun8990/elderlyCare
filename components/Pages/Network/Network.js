@@ -3,11 +3,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../Utils/Common';
-import { Card, Button } from '@rneui/themed';
+import { Card, Button, Avatar } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import {acceptUserInvitation, getAcceptedUsersForCurrentUsers, getUsersInvitation, readTwoElderUsers } from '../../Config/dbcls';
+import {acceptUserInvitation, findCreatedAt, getAcceptedUsersForCurrentUsers, getInvitations, readTwoElderUsers } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
@@ -61,18 +61,35 @@ const ElderNetwork = () => {
     useEffect(() => {
         navigation.setOptions(headerOptions);
         if (elderUser) {
-            getUsersInvitation(elderUser,setInvitationList)
+            //getUsersInvitation(elderUser,setInvitationList)
+            getInvitations(elderUser, setInvitationList)
             
-            //getAcceptedUsersForCurrentUsers(elderUser,setAcceptedList)
+            getAcceptedUsersForCurrentUsers(elderUser,setAcceptedList)
           }
     }, []);
 
 
     const handleAcceptRequest =async(invite)=>{
-        await acceptUserInvitation(elderUser,setInvitationList)
+        await alert(`You accepted request from ${invite.fullname}`)
+        await acceptUserInvitation(elderUser,invite)
 
     }
 
+    console.log(acceptedList);
+
+    const findCreatedAt_diffDays = (follow)=>{
+
+        // const userfollowingrequest = follow.find((follower) => follower.id === elderUser.id)
+        // console.log(userfollowingrequest,"2");
+
+        // const inviterequest = userfollowingrequest.createdAt
+        // console.log(inviterequest,"1");
+        // const dt = new Date(inviterequest.seconds * 1000 + inviterequest.nanoseconds / 1000000);
+        // const cdate = Math.floor((new Date(dt) - new Date()) / (1000 * 60 * 60 * 24))
+        // console.log(cdate);
+        // return cdate
+      
+      }
 
 
 
@@ -92,11 +109,14 @@ const ElderNetwork = () => {
                           invitationList && invitationList.length> 0 && invitationList.slice(0,4).map((invite,index)=>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
                             <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Image source={{uri:invite.avatar}}
-                                    style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
+                                <Avatar size={50} rounded source={{ uri: invite.avatar }} />
                                 <View>
                                     <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>
-                                    <Text style={{ color: "#847F7F" }}>1 day ago</Text>
+                                    <Text style={{ color: "#847F7F" }}>
+                                        {/* {invite.followers.map((follower) => follower.createdAt)} */}
+                                        {/* {findCreatedAt_diffDays(invite.following)}  */}
+                                      2 day ago
+                                   </Text>
                                 </View>
                             </View>
 
@@ -121,10 +141,9 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
-                            {acceptedList && acceptedList.length> 0 && acceptedList.slice(0,4).map((accept,index)=>
+                            {acceptedList && acceptedList.length> 0 && acceptedList.slice(0,2).map((accept,index)=>
                                <View style={styles.suggestions} key={index}>
-                               <Image source={defaultImg}
-                                   style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
+                                <Avatar size={60} rounded source={{ uri: accept.avatar }} />
                                <Text style={{ fontWeight: "bold" }}>{accept.fullname}</Text>
                                <Text>{accept.gender}</Text>
                                <Text></Text>
