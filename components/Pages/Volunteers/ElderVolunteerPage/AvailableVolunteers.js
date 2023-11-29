@@ -83,7 +83,7 @@ const AvailableVolunteers = () => {
                       fontSize: 13,
                       padding: 5,
                     }}
-                    onPress={() => navigation.navigate("RequestPage")}
+                    onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   >
                     Request
                   </Button>

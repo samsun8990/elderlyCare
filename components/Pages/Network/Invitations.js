@@ -7,7 +7,7 @@ import { Card, Button, Avatar } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import { acceptUserInvitation, getUsersInvitation } from '../../Config/dbcls.js';
+import { acceptUserInvitation, getInvitations } from '../../Config/dbcls.js';
 
 
 const Invitations = () => {
@@ -19,14 +19,13 @@ const Invitations = () => {
 
   useEffect(() => {
     if (elderUser) {
-      getUsersInvitation(elderUser, setInvitationList)
+      getInvitations(elderUser, setInvitationList)
+    
     }
   }, []);
 
   const handleAcceptRequest = async(invite) => {
-    await acceptUserInvitation(elderUser,setInvitationList)
-
-
+    await acceptUserInvitation(elderUser,invite)
 
   }
 

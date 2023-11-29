@@ -8,7 +8,7 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesome, Fontisto } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 // import { headerOptions } from '../../Utils/Common';
@@ -20,9 +20,18 @@ import AvailableVolunteers from "./AvailableVolunteers.js";
 import RequestedVolunteers from "./RequestedVolunteers.js";
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { defaultImg } from "../../../Utils/ImageCommon.js";
+import { AuthContext } from "../../../Config/AuthContext.js";
 
-const RequestPage = () => {
+const RequestPage = ({route,navigation}) => {
+  const {volUser} = route.params
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+
+  const [description,setDescription] = useState('')
+  const [payment,setPayment] = useState(0)
   const [check1, setCheck1] = useState(false);
+  const [check2, setCheck2] = useState(false);
+  const [check3, setCheck3] = useState(false);
+  const [check4, setCheck4] = useState(false);
   const [showPicker, setShowPicker] = useState(false)
 
   const [startDate, setStartDate] = useState(new Date());
@@ -41,12 +50,18 @@ const RequestPage = () => {
     setShowPicker(false)
   }
 
+  const handleAddRequest = ()=>{
+    
+
+  }
   return (
     <SafeAreaView style={styles.container}>
+      <ScrollView>
       <Card
         containerStyle={{ backgroundColor: "#fff" }}
         wrapperStyle={{ backgroundColor: "#fff" }}
       >
+        <Card.Title>Send Invitation to{volUser.fullname}</Card.Title>
         <View>
           <View
             style={{
@@ -63,8 +78,8 @@ const RequestPage = () => {
               resizeMode="cover"
             />
             <View>
-              <Text style={{ fontWeight: "bold", fontSize: 18, }}>Lorem Lipsum</Text>
-              <Text style={{ fontSize: 13 }}>lorem@lorem.com</Text>
+              <Text style={{ fontWeight: "bold", fontSize: 18, }}>{elderUser.fullname}</Text>
+              <Text style={{ fontSize: 13 }}>{elderUser.email}</Text>
             </View>
             <Card.Divider />
           </View>
@@ -74,19 +89,15 @@ const RequestPage = () => {
             <Card.Divider />
             <TextInput
               style={{
-                borderWidth: 1,
-                borderColor: "grey",
-                height: 60,
-                width: 300,
-                borderRadius: 2,
-                backgroundColor: "#E7E7E7",
+                borderWidth: 1,borderColor: "grey",height: 60,width: 300,
+                borderRadius: 2,backgroundColor: "#E7E7E7",
                 //margin: 12,
                 borderWidth: 1,
-                padding: 5,
-                color: "gray",
-                borderColor: "#E7E7E7"
+                padding: 5, color: "gray",borderColor: "#E7E7E7"
               }}
               placeholder="What are you looking for?"
+              value={description}
+              onChangeText={(text)=>setDescription(text)}
             />
           </View>
           <Text></Text>
@@ -103,22 +114,22 @@ const RequestPage = () => {
               <CheckBox
                 center
                 title="Talking"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
+                checked={check2}
+                onPress={() => setCheck2(!check2)}
               />
             </View>
             <View style={{ flexDirection: "row" }}>
               <CheckBox
                 center
                 title="Playing Games"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
+                checked={check3}
+                onPress={() => setCheck3(!check3)}
               />
               <CheckBox
                 center
                 title="Read/Write"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
+                checked={check4}
+                onPress={() => setCheck4(!check4)}
               />
             </View>
           </View>
@@ -132,7 +143,7 @@ const RequestPage = () => {
               <TextInput
                 placeholder="Start Date"
                 style={styles.input}
-                value={startDateValue}
+                value={startDateValue.toDateString()}
                 editable={false}
               />
             </TouchableOpacity>
@@ -140,7 +151,7 @@ const RequestPage = () => {
 
             {
               showPicker &&
-              <DateTimePicker mode="date" value={startDate} display="default" maximumDate={new Date()} onChange={handleStartDateChange}  />
+              <DateTimePicker mode="date" value={startDate} display="default" onChange={handleStartDateChange}  />
 
             }
             <Text></Text>
@@ -149,7 +160,7 @@ const RequestPage = () => {
               <TextInput
                   placeholder="End Date"
                   style={styles.input}
-                  value={endDateValue}
+                  value={endDateValue.toDateString()}
                   editable={false}
                 />
             </TouchableOpacity>
@@ -157,7 +168,7 @@ const RequestPage = () => {
 
             {
               showPicker &&
-              <DateTimePicker mode="date" value={endDate} display="default" maximumDate={new Date()} onChange={handleEndDateChange}  />
+              <DateTimePicker mode="date" value={endDate} display="default" onChange={handleEndDateChange}  />
 
             }
           </View>
@@ -180,15 +191,19 @@ const RequestPage = () => {
                 borderColor: "#E7E7E7"
               }}
               placeholder="Amount"
+              value={payment}
+              onChangeText={(text)=>setPayment(text)}
             />
           </View>
           <Text></Text>
-          <Button title="Request" color="#1B5B7D" />
+          <Button title="Request" color="#1B5B7D" onPress={handleAddRequest}/>
 
 
         </View>
 
       </Card>
+      </ScrollView>
+     
       <View style={{ paddingBottom: 90 }} />
 
 
