@@ -87,19 +87,14 @@ const ElderProfile = () => {
                 {/* <View style={styles.line} /> */}
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
-                <FontAwesome
-            name="sign-out"
-            color="#1B5B7D"
-            size={24}
-            style={{ marginRight: 15 }}
-            onPress={() => {
-              signOut()
-              setUser(null)
-              navigation.replace("LoginUser")
-            }}
-          />
-           {/* Logout */}
+                    <Icon size={30} name="logout" color="#1B5B7D" 
+                   onPress={() => {
+                    signOut()
+                    setUser(null)
+                    navigation.replace("LoginUser")
+                  }}/> Logout
                 </Text>
+              
                 {/* </Button> */}
             </View>
 
