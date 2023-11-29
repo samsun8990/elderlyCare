@@ -97,7 +97,8 @@ const ElderProfile = () => {
               setUser(null)
               navigation.replace("LoginUser")
             }}
-          /> Logout
+          />
+           {/* Logout */}
                 </Text>
                 {/* </Button> */}
             </View>
