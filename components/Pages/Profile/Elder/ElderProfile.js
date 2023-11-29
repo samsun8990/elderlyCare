@@ -91,7 +91,7 @@ const ElderProfile = () => {
                    onPress={() => {
                     signOut()
                     setUser(null)
-                    navigation.replace("LoginUser")
+                    navigation.navigate("LoginUser")
                   }}/> Logout
                 </Text>
               
