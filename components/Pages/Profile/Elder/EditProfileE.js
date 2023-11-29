@@ -1,17 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 import { AuthContext } from '../../../Config/AuthContext';
 
-
 const EditProfileE = ({ navigation }) => {
+  const authContext = useContext(AuthContext);
+  const { updateUser, elderUser } = authContext;
+
+  const [editedUser, setEditedUser] = useState({
+    fullname: elderUser.fullname,
+    phone: elderUser.phone,
+    date: elderUser.date,
+    // Add other fields you want to edit
+  });
+
+
   const handleBackPress = () => {
-    // Add navigation logic here to go back
     navigation.goBack();
   };
-  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+
+  const handleSave = () => {
+    // Update the user data using the updateUser function from context
+    updateUser(editedUser);
+
+    // Navigate back to ElderProfile or wherever needed
+    navigation.navigate("ElderProfile");
+  };
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,27 +41,27 @@ const EditProfileE = ({ navigation }) => {
         <View style={styles.profileRow}>
           <MaterialCommunityIcons name="account" size={20} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
-          placeholder={elderUser.fullname}></TextInput>
+            placeholder={elderUser.fullname}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
           <AntDesign name="contacts" size={20} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
-          placeholder={elderUser.phone}></TextInput>
+            placeholder={elderUser.phone}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
           <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
-          placeholder={elderUser.date}></TextInput>
+            placeholder={elderUser.date}></TextInput>
         </View>
         <View style={styles.line} />
 
       </View>
       <View style={styles.dashboardButtons}>
         <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
-         onPress={()=>navigation.navigate("ElderProfile")}>
-          Save
+          onPress={handleSave}>
+          Edit
         </Button>
       </View>
       <View style={styles.addSection}>
@@ -70,7 +86,7 @@ const EditProfileE = ({ navigation }) => {
       </View>
       <View style={styles.dashboardButtons}>
         <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
-        onPress={()=>navigation.navigate("ElderProfile")}>
+          onPress={handleSave}>
           Save
         </Button>
       </View>
@@ -167,7 +183,7 @@ const styles = StyleSheet.create({
   dashboardButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
-   
+
 
   },
 
