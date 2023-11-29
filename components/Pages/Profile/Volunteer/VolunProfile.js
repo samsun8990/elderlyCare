@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect } from 'react'
 import { Button, Icon } from '@rneui/themed';
-import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
+import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../../Config/AuthContext';
@@ -15,13 +15,13 @@ const VolunProfile = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-           
+
             <View style={styles.profileContainer}>
                 <Image source={defaultImg} style={styles.profileImage} />
                 <Text>Joined Date:{volunteerUser.date}</Text>
                 <Text>{volunteerUser.fullname}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
-                 onPress={()=>navigation.navigate("EditProfileV")} >
+                    onPress={() => navigation.navigate("EditProfileV")} >
                     <Icon name="edit" color="white" />
                     Edit
                 </Button>
@@ -42,8 +42,8 @@ const VolunProfile = () => {
                             width: 200,
                             marginHorizontal: 50,
                             marginVertical: 5,
-                        }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"} 
-                        onPress={()=>navigation.navigate("PassChangeV")}>
+                        }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"}
+                        onPress={() => navigation.navigate("PassChangeV")}>
                         Change
                     </Button>
                 </View>
@@ -61,11 +61,11 @@ const VolunProfile = () => {
                 <View style={styles.line} />
                 <View style={styles.dashboardButtons}>
                     <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
-                     onPress={()=>navigation.navigate("PaymentHistoryV")}>
+                        onPress={() => navigation.navigate("PaymentHistoryV")}>
                         Payments
                     </Button>
                     <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
-                    onPress={()=>navigation.navigate("ChatHistoryV")}>
+                        onPress={() => navigation.navigate("ChatHistoryV")}>
                         Chat History
                     </Button>
                 </View>
@@ -75,8 +75,17 @@ const VolunProfile = () => {
                 <View style={styles.line} />
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
-                    <Icon size={30} name="logout" color="#1B5B7D" 
-                     onPress={()=>navigation.navigate("StartPage")}/> Logout
+                    <FontAwesome
+                        name="sign-out"
+                        color="#1B5B7D"
+                        size={24}
+                        style={{ marginRight: 15 }}
+                        onPress={() => {
+                            signOut()
+                            setUser(null)
+                            navigation.replace("LoginUser")
+                        }}
+                    /> Logout
                 </Text>
                 {/* </Button> */}
             </View>
