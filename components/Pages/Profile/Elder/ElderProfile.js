@@ -88,13 +88,9 @@ const ElderProfile = () => {
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
                     <Icon size={30} name="logout" color="#1B5B7D" 
-                   onPress={() => {
-                    signOut()
-                    setUser(null)
-                    navigation.navigate("LoginUser")
-                  }}/> Logout
+                    onPress={()=>navigation.navigate("LoginUser")}/> Logout
                 </Text>
-              
+                
                 {/* </Button> */}
             </View>
 
