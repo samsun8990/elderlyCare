@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     TextInput,
   } from "react-native";
-  import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect, useContext } from "react";
   import { FontAwesome } from "react-native-vector-icons";
   import { useNavigation } from "@react-navigation/native";
   // import { headerOptions } from '../../Utils/Common';
@@ -15,10 +15,16 @@ import {
   import { styles } from "../VolunteerStyles.js";
   import { Picker } from "@react-native-picker/picker";
   import { Dropdown } from "react-native-element-dropdown";
-  import AvailableVolunteers from "../AvailableVolunteers.js";
-  import RequestedVolunteers from "../RequestedVolunteers.js";
+import { defaultImg } from "../../../Utils/ImageCommon.js";
+import { AuthContext } from "../../../Config/AuthContext.js";
+const ViewRequestPage = ({navigation,route}) => {
 
-const ViewRequestPage = () => {
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+
+  const {accepted} = route.params
+
+
+
   return (
     <SafeAreaView style={styles.container}>
       <Card
@@ -36,13 +42,13 @@ const ViewRequestPage = () => {
             }}
           >
             <Image
-              source={require("../../../assets/images/defaultuser-img.png")}
+              source={defaultImg}
               style={{ width: 60, height: 60, borderRadius: 20 }}
               resizeMode="cover"
             />
             <View>
-              <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-              <Text style={{ fontSize: 12 }}>lorem@lorem.com</Text>
+              <Text style={{ fontWeight: "bold" }}>{accepted.fullname}</Text>
+              <Text style={{ fontSize: 12 }}>{accepted.gender}</Text>
             </View>
           </View>
 
@@ -100,12 +106,6 @@ const ViewRequestPage = () => {
           </View>
 
           <View>
-            <Text>Timings</Text>
-            <Card.Divider />
-            <Text>11-01-23 - 12-01-23</Text>
-          </View>
-
-          <View>
             <Text>Paymemt Amount</Text>
             <Card.Divider />
            <Text>QR 100</Text>
@@ -117,5 +117,3 @@ const ViewRequestPage = () => {
 }
 
 export default ViewRequestPage
-
-const styles = StyleSheet.create({})

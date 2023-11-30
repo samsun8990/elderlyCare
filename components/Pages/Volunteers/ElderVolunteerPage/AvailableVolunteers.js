@@ -33,7 +33,8 @@ const AvailableVolunteers = ({navigation}) => {
   return (
     <Card>
       <Card.Title style={{ fontSize: 18 }}>
-        View Available Volunteers
+        View All Volunteers ({avaiableList &&
+          avaiableList.length})
       </Card.Title>
       <Card.Divider />
       <ScrollView>
@@ -66,6 +67,7 @@ const AvailableVolunteers = ({navigation}) => {
                   }}
                 >
                   <Button
+                    disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') ? true : false}
                     buttonStyle={{
                       backgroundColor: "#BF3A3A",
                       borderWidth: 2,
@@ -84,7 +86,7 @@ const AvailableVolunteers = ({navigation}) => {
                     }}
                     onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   >
-                    Request
+                    {available.requests && available.requests.map((vol) => vol.status === 'pending') ? 'Pending' : 'Request'} 
                   </Button>
                 </View>
               </View>
@@ -92,6 +94,7 @@ const AvailableVolunteers = ({navigation}) => {
             </View>
           ))}
       </ScrollView>
+      <View style={{ paddingBottom: 30 }} />
     </Card>
   );
 };

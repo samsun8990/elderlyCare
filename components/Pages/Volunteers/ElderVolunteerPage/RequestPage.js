@@ -108,7 +108,14 @@ const RequestPage = ({ route, navigation }) => {
     await setDoc(
       elderusrRef,
       {
-        volunteers: arrayUnion({ id: volUser.id, status: "pending", requestedAt: new Date() })
+        volunteers: arrayUnion({ id: volUser.id, status: "pending", requestedAt: new Date(), details:{
+          description: description,
+          startDate: startDate,
+          endDate: endDate,
+          requestDate: new Date(),
+          activities: checkedItems,
+          amount: payment
+        } })
       },
       { merge: true }
     )

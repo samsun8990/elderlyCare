@@ -75,7 +75,7 @@ const ElderNetwork = () => {
 
     }
 
-    console.log(acceptedList);
+    //console.log(acceptedList);
 
     const findCreatedAt_diffDays = (follow)=>{
 

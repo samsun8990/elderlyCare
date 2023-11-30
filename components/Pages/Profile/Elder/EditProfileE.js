@@ -5,15 +5,21 @@ import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 import { AuthContext } from '../../../Config/AuthContext';
 
 const EditProfileE = ({ navigation }) => {
-  const authContext = useContext(AuthContext);
-  const { updateUser, elderUser } = authContext;
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser,updateElderUser } = useContext(AuthContext);
+  //const { updateUser, elderUser } = authContext;
 
-  const [editedUser, setEditedUser] = useState({
+  // const [editedUser, setEditedUser] = useState({
+    // fullname: elderUser.fullname,
+    // phone: elderUser.phone,
+    // date: elderUser.date,
+  //   // Add other fields you want to edit
+  // })
+  
+  const editedUser = {
     fullname: elderUser.fullname,
     phone: elderUser.phone,
     date: elderUser.date,
-    // Add other fields you want to edit
-  });
+  }
 
 
   const handleBackPress = () => {
@@ -22,7 +28,7 @@ const EditProfileE = ({ navigation }) => {
 
   const handleSave = () => {
     // Update the user data using the updateUser function from context
-    updateUser(editedUser);
+    updateElderUser(editedUser);
 
     // Navigate back to ElderProfile or wherever needed
     navigation.navigate("ElderProfile");
