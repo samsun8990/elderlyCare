@@ -18,9 +18,8 @@ import { defaultImg } from "../../../Utils/ImageCommon.js";
 import { AuthContext } from "../../../Config/AuthContext.js";
 import { readAllAvailableVolunteers } from "../../../Config/dbcls.js";
 
-const AvailableVolunteers = () => {
-  const navigation = useNavigation();
-
+const AvailableVolunteers = ({navigation}) => {
+  
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } =
     useContext(AuthContext);
   const [avaiableList, setAvailableList] = useState();

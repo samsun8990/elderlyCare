@@ -168,6 +168,7 @@ export default function App() {
             {/* <Stack.Screen name="VolunteerHome" component={VolunteerHome} /> */}
 
             <Stack.Screen name="Invitations" component={Invitations} />
+            <Stack.Screen name="AvailableVolnteers" component={AvailableVolunteers} />
             <Stack.Screen name="Suggestions" component={Suggestions} />
             <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />

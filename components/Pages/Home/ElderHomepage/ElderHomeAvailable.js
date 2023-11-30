@@ -46,7 +46,7 @@ const ElderHomeAvailable = () => {
                 
                 <Text style={styles.item}>{available.fullname}</Text>
                 <Button
-                  onPress={() => navigation.navigate("RequestPage")}
+                  onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   buttonStyle={{
                     backgroundColor: "#BF3A3A",
                     borderWidth: 2,
