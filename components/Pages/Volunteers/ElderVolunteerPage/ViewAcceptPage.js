@@ -24,7 +24,6 @@ const ViewAcceptPage = ({ navigation, route }) => {
 
     const { accepted } = route.params
 
-    const [details, setDetails] = useState()
 
     const getRequestsByUserId = (userObj, requestedByUserId) => {
         const matchingRequest = userObj.requests.find(
@@ -34,81 +33,108 @@ const ViewAcceptPage = ({ navigation, route }) => {
     };
 
     const requestsForUser = getRequestsByUserId(accepted, elderUser.id);
-    console.log('Requests by userId:', requestsForUser);
 
-    //   const findDetails= accepted.requests.find((ac)=>ac.requestedBy === elderUser.id )
-    //   console.log(findDetails.requests,"fndv");
+    const timestamp_startData = {
+        "nanoseconds": requestsForUser.startDate.nanoseconds,
+        "seconds": requestsForUser.startDate.seconds
+    };
+    const timestamp_endData = {
+        "nanoseconds": requestsForUser.endDate.nanoseconds,
+        "seconds": requestsForUser.endDate.seconds
+    };
+
+    const milliseconds1 = timestamp_startData.seconds * 1000 + timestamp_startData.nanoseconds / 1000000;
+    const startdate = new Date(milliseconds1).toDateString()
+
+    const milliseconds2 = timestamp_endData.seconds * 1000 + timestamp_endData.nanoseconds / 1000000;
+    const enddate = new Date(milliseconds2).toDateString()
 
 
     return (
         <SafeAreaView style={styles.container}>
-            <Card
-                containerStyle={{ backgroundColor: "#fff" }}
-                wrapperStyle={{ backgroundColor: "#fff" }}
-            >
-                <View>
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            gap: 10,
-                            padding: 10,
-                        }}
-                    >
-                        <Avatar source={{uri:accepted.avatar}} size={60}/>
-                  
+            <ScrollView>
+                <Card
+                    containerStyle={{ backgroundColor: "#fff" }}
+                    wrapperStyle={{ backgroundColor: "#fff" }}
+                >
+                    <View>
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                gap: 10,
+                                padding: 10,
+                            }}
+                        >
+                            <Avatar source={{ uri: accepted.avatar }} size={60} />
+
+                            <View>
+                                <Text style={{ fontWeight: "bold", fontSize: 18, }}>{accepted.fullname}</Text>
+                                <Text style={{ fontSize: 15 }}>{accepted.gender}</Text>
+                            </View>
+                        </View>
+                        <Text></Text>
                         <View>
-                            <Text style={{ fontWeight: "bold", fontSize: 18, }}>{accepted.fullname}</Text>
-                            <Text style={{ fontSize: 15 }}>{accepted.gender}</Text>
+                            <Text style={styles.requestTitle}>Description</Text>
+                            <Card.Divider />
+                            <Text></Text>
+                            <Text style={{ fontSize: 15 }} >{requestsForUser && requestsForUser.description}</Text>
+                        </View>
+                        <Text></Text>
+
+                        <View>
+                            <Text style={styles.requestTitle}>Preferences</Text>
+                            <Card.Divider />
+                            <View style={{ flexDirection: "row" }}>
+                                {
+                                    requestsForUser &&
+                                    requestsForUser.activities.slice(0, 2).map((x, index) =>
+                                        <CheckBox
+                                            key={index}
+                                            center
+                                            title={x}
+                                            checked={x}
+                                        />
+                                    )
+                                }
+
+                            </View>
+                            <View style={{ flexDirection: "row" }}>
+                                {
+                                    requestsForUser && requestsForUser.length > 2 &&
+                                    requestsForUser.activities.slice(-2).map((x, index) =>
+                                        <CheckBox
+                                            key={index}
+                                            center
+                                            title={x}
+                                            checked={x}
+                                        />
+                                    )
+                                }
+                            </View>
+                        </View>
+                        <Text></Text>
+                        <View>
+                            <Text style={styles.requestTitle}>Date Preferences</Text>
+                            <Card.Divider />
+                            <Text></Text>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                                <Text style={{ fontSize: 15 }}>From: {startdate}</Text>
+                                <Text style={{ fontSize: 15 }}>To: {enddate}</Text>
+                            </View>
+
+                        </View>
+                        <Text></Text>
+                        <View>
+                            <Text style={styles.requestTitle}>Payment Amount</Text>
+                            <Card.Divider />
+                            <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
                         </View>
                     </View>
+                </Card>
+            </ScrollView>
 
-                    <View>
-                        <Text style={styles.requestTitle}>Description</Text>
-                        <Card.Divider />
-                        <Text >{requestsForUser && requestsForUser.description}</Text>
-                    </View>
-
-                    <View>
-                        <Text style={styles.requestTitle}>Preferences</Text>
-                        <Card.Divider />
-                        <View style={{ flexDirection: "row" }}>
-                            {
-                                requestsForUser &&
-                                requestsForUser.activities.slice(0,2).map((x, index) =>
-                                    <CheckBox
-                                        key={index}
-                                        center
-                                        title={x}
-                                        checked={x}
-                                    />
-                                )
-                            }
-
-                        </View>
-                        <View style={{ flexDirection: "row" }}>
-                        {
-                                requestsForUser && requestsForUser.length > 2 &&
-                                requestsForUser.activities.slice(-2).map((x, index) =>
-                                    <CheckBox
-                                        key={index}
-                                        center
-                                        title={x}
-                                        checked={x}
-                                    />
-                                )
-                            }
-                        </View>
-                    </View>
-
-                    <View>
-                        <Text style={styles.requestTitle}>Paymemt Amount</Text>
-                        <Card.Divider />
-                        <Text>QR {requestsForUser.amount}</Text>
-                    </View>
-                </View>
-            </Card>
         </SafeAreaView>
     )
 }

@@ -47,7 +47,7 @@ const VolunteerRegister = ({ navigation }) => {
         await setDoc(docRef,
           {
             email: email, fullname: fullname, password: password, phone: phone, gender: gender, avatar: "https://static.thenounproject.com/png/5034901-200.png", role: "volunteer", status: "available",
-            experience: experience, dob: dob
+            experience: experience, dob: dob,joinDate:new Date()
           },
           { merge: true })
           .then(() => {

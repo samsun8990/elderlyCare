@@ -47,7 +47,7 @@ const RequestedVolunteers = () => {
           <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
             <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top: 10 }}>
               <Entypo name="eye" size={30} onPress={() => navigation.navigate("ViewAcceptPage",{accepted:accept})}/>
-              <MaterialIcons name="feedback" size={30} onPress={() => navigation.navigate({ "name": "Feedback" })} />
+              <MaterialIcons name="feedback" size={30} onPress={() => navigation.navigate("Feedback",{accepted:accept})}/>
               <Entypo name="chat" size={30} />
               <Entypo name="cross" size={30} />
             </View>

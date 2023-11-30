@@ -91,8 +91,8 @@ const updateSearch = (search) => {
           onChangeText={updateSearch}
           value={search}
           platform='ios'
-          containerStyle={{backgroundColor:"#E4EDF2",width:140, height:30}}
-          inputContainerStyle={{width:350, height:20}}
+          containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
+          inputContainerStyle={{width:350, height:35}}
           inputStyle={{fontSize:14}}
           leftIconContainerStyle={{}}
           rightIconContainerStyle={{}}
@@ -110,8 +110,8 @@ const updateSearch = (search) => {
         onChangeText={updateSearch}
         value={search}
         platform='android'
-        containerStyle={{backgroundColor:"#E4EDF2",width:140, height:20}}
-          inputContainerStyle={{width:350, height:20}}
+        containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
+          inputContainerStyle={{width:350, height:35}}
           inputStyle={{fontSize:14}}
           leftIconContainerStyle={{}}
           rightIconContainerStyle={{}}

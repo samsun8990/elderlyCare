@@ -6,7 +6,9 @@ import { FontAwesome,Entypo, MaterialCommunityIcons } from "react-native-vector-
 import { white } from 'color-name';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-const ChatUser = () => {
+const ChatUser = ({navigation,route}) => {
+
+  const {network} = route.params
   
   return (
     <SafeAreaView style={styles.container}>
