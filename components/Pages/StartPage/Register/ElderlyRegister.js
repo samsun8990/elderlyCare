@@ -82,6 +82,7 @@ const ElderlyRegister = ({ route, navigation }) => {
             gender: gender,
             avatar: "https://static.thenounproject.com/png/5034901-200.png",
             role: "elder",
+            joinDate:new Date()
             // followers:[],
             // followedBy:[]
           },

@@ -151,7 +151,7 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
           docSnap1.then((result) => {
             //console.log(result.data());
             getInvitedUsers.push(result.data())
-            console.log(getInvitedUsers,"getacceptedUsers");
+            //console.log(getInvitedUsers,"getacceptedUsers");
             setAcceptedList(getInvitedUsers)
           }
           ).catch((error)=>console.log(error))
@@ -190,7 +190,7 @@ export const getInvitations = async (elderUser, setinvitation) => {
         docSnap1.then((result) => {
           //console.log(result.data());
           getInvitedUsers.push({id:result.id, ...result.data()})
-          console.log(getInvitedUsers);
+          //console.log(getInvitedUsers);
           setinvitation(getInvitedUsers)
         }
         ).catch((error)=>console.log(error))
@@ -207,5 +207,11 @@ export const findCreatedAt = (id,follow)=>{
 
   const x = follow.map((follower) => follower.createdAt)
   console.log(x,"X");
+
+}
+
+export const addRequest = (elderuser,volunUser)=>{
+
+  
 
 }
