@@ -80,6 +80,11 @@ export const styles = StyleSheet.create({
         width:126
 
     },
+    viewallrequestbtn:{
+        borderRadius:15,
+        backgroundColor:"#1B5B7D",
+        width:146
+    },
     viewrequested:{
         borderRadius:15,
         backgroundColor:"#1B5B7D",

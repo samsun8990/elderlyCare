@@ -56,6 +56,11 @@ export const readAllAvailableVolunteers = async (searchquery, setVolunteers) => 
     setVolunteers(temp)
   })
 }
+export const updatedVolunteerStatus = async () => {
+ 
+}
+
+
 
 export const readAllRequesteedVolunteers = async (searchquery, setVolunteers) => {
   const q = query(collection(db, "volunteerUsers"), where("status", "==", searchquery));
@@ -210,8 +215,41 @@ export const findCreatedAt = (id,follow)=>{
 
 }
 
-export const addRequest = (elderuser,volunUser)=>{
+export const viewAcceptedVolunteersByElder=async(elderUser,setAcceptedList)=>{
+  try {
 
+    const q = query(collection(db, "elderlyUsers"), where("fullname", "==", elderUser.fullname));
+
+
+    await onSnapshot(q, (snapshot) => {
+      let temp = []
+      snapshot.forEach((doc) =>temp.push({ id: doc.id, ...doc.data() }) )
   
+      let getInvitedUsers = []
+      let checkElders = temp.filter((user) => user.volunteers && user.volunteers.map((vol) => vol.status === "accepted"))
+      //console.log(checkElders,"aceptedes");
+      if (checkElders.length > 0) {
+        let a3 = checkElders.flatMap((x) => { return x.volunteers })
+        //console.log(a3,"a3");
+        a3.forEach((a) => {
+          const docRef1 = doc(db, 'volunteerUsers', a.id);
+          const docSnap1 = getDoc(docRef1);
+          docSnap1.then((result) => {
+            getInvitedUsers.push(result.data())
+            //console.log(getInvitedUsers,"getacceptedUsers");
+            setAcceptedList(getInvitedUsers)
+          }
+          ).catch((error)=>console.log(error))
+        })
+       
+      }
+      else {
+        setAcceptedList()
+      }
+    })
 
-}
+
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+} 

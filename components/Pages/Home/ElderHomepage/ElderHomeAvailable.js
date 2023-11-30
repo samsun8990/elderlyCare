@@ -23,6 +23,7 @@ const ElderHomeAvailable = () => {
   }, []);
 
   return (
+
     <Card
       containerStyle={{ backgroundColor: "#F5F5F5" }}
       wrapperStyle={{ backgroundColor: "#F5F5F5" }}
@@ -45,7 +46,8 @@ const ElderHomeAvailable = () => {
                  <Avatar size={85} rounded source={{ uri: available.avatar }} />
                 
                 <Text style={styles.item}>{available.fullname}</Text>
-                <Button
+                <Button 
+                 disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') ? true : false}
                   onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   buttonStyle={{
                     backgroundColor: "#BF3A3A",
@@ -59,7 +61,7 @@ const ElderHomeAvailable = () => {
                   }}
                   titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                  Request
+                  {available.requests && available.requests.map((vol) => vol.status === 'pending') ? 'Pending' : 'Request'} 
                 </Button>
               </View>
             ))}

@@ -18,6 +18,10 @@ const ElderVolunteers = () => {
   const [value, setValue] = useState(null)
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
   const [search, setSearch] = useState("");
+  
+  const [viewAllChoice,setViewAllChoice] = useState(true)
+  const [viewRequestedChoice,setViewRequestedChoice] = useState(false)
+
 
 const updateSearch = (search) => {
   setSearch(search);
@@ -72,8 +76,6 @@ const updateSearch = (search) => {
   useEffect(() => {
     navigation.setOptions(headerOptions);
   }, [navigation]);
-
-  const [viewAllChoice,setViewAllChoice] = useState(false)
 
 
   return (
@@ -138,8 +140,12 @@ const updateSearch = (search) => {
         </View>
       </View>
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-        <Button buttonStyle={styles.viewallbtn} titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true)}}>View All</Button>
-        <Button buttonStyle={styles.viewrequested} titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>setViewAllChoice(!viewAllChoice)}>View Requested</Button>
+        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true);setViewRequestedChoice(false)}}>
+          View All</Button>
+        <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewRequestedChoice(true);setViewAllChoice(false)}}>
+          View Accepted</Button>
       </View>
 
       {

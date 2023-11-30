@@ -47,6 +47,8 @@ import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPassword
 import PassChangeV from "./components/Pages/Profile/Volunteer/PassChangeV";
 import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistoryV";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import ViewRequestPage from "./components/Pages/Volunteers/ElderVolunteerPage/ViewRequestPage.js";
+import ViewAcceptPage from "./components/Pages/Volunteers/ElderVolunteerPage/ViewAcceptPage.js";
 
 
 
@@ -104,6 +106,14 @@ export default function App() {
     }
   };
 
+  const updateElderUser = async(updatedUser) => {
+    // Implement logic to update the user in your context
+    // For example:
+     setElderUser({ ...elderUser, ...updatedUser });
+  };
+
+
+
   useEffect(() => {
     let unsubscribe = () => { }
     // Check if a user is already authenticated
@@ -127,7 +137,7 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
+      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser,updateElderUser }}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="LoginUser"
@@ -174,6 +184,9 @@ export default function App() {
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
             <Stack.Screen name="RequestPage" component={RequestPage}
               options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }} />
+
+            <Stack.Screen name="ViewRequestPage" component={ViewRequestPage}/>
+            <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage}/>
             <Stack.Screen name="Notification" component={Notifications} />
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
