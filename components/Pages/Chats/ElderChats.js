@@ -8,9 +8,8 @@ import { AuthContext } from '../../Config/AuthContext.js';
 import { defaultImg } from '../../Utils/ImageCommon.js';
 import { getAcceptedUsersForCurrentUsers } from '../../Config/dbcls.js';
 
-const ElderChats = () => {
+const ElderChats = ({navigation,route}) => {
 
-  const navigation = useNavigation();
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
   const headerOptions = {
@@ -22,14 +21,6 @@ const ElderChats = () => {
     ),
     headerRight: () => (
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <FontAwesome
-            name="bell"
-            color="#1B5B7D"
-            size={24}
-            style={{ marginRight: 15 }}
-          />
-        </TouchableOpacity>
         <TouchableOpacity>
           <FontAwesome
             name="sign-out"
@@ -90,7 +81,6 @@ const ElderChats = () => {
               </View>
               <Card.Divider />
             </View>
-
           )
           :
           null
