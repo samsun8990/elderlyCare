@@ -75,7 +75,5 @@ export const readAllPendingElders = async(volunUser,setAcceptedList)=>{
     else{
       setAcceptedList()
     }
-   
   })
-
 }

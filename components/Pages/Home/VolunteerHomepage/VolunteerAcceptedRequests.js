@@ -51,7 +51,7 @@ const VolunteerAcceptedRequests = ({navigation}) => {
                       <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:accept.id})}>
                         <Text style={styles.item}>{accept.fullname}</Text>
                       </TouchableOpacity>
-                      <Button buttonStyle={{
+                      <Button  buttonStyle={{
                           backgroundColor: '#1B5B7D',
                           borderWidth: 2,
                           borderColor: '#1B5B7D',

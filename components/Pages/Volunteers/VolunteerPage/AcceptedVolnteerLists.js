@@ -38,16 +38,16 @@ const AcceptedVolnteerLists = ({navigation}) => {
           <View style={{ flexDirection: "row", justifyContent: "space-between" ,bottom:5, padding:5}}>
         <View style={{ flexDirection: "row", gap: 10,alignItems:"center"}}>
           <Avatar size={50} source={{uri:accept.avatar}}/>
-          <TouchableOpacity style={{margin:5}} onPress={()=>navigation.navigate("RequestPage")}>
+          <TouchableOpacity style={{margin:5}} >
             <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
             {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top:10 }}> 
-            <Entypo name="eye" size={30}/>
-            <MaterialIcons name="feedback" size={30} onPress={()=>navigation.navigate("")}/>
-            <Entypo name="chat" size={30}/>
+          <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10, top:10 }}> 
+            <Entypo name="eye" size={30} onPress={()=>navigation.navigate("ViewAcceptPage",{accepted:accept})}/>
+            <MaterialIcons name="feedback" size={30} onPress={()=> navigation.navigate("UserFeedback", { feedback: accept })}/>
+            <Entypo name="chat" size={30} onPress={()=> navigation.navigate("ChatUser", { network: accept })}/>
           
           </View>
         </View>
