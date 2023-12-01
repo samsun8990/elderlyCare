@@ -1,9 +1,9 @@
-import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, Platform } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 // import { headerOptions } from '../../Utils/Common';
-import { Card, Button } from '@rneui/themed';
+import { Card, Button, SearchBar } from '@rneui/themed';
 import { styles } from '../VolunteerStyles.js';
 import { Picker } from '@react-native-picker/picker'
 import { Dropdown } from 'react-native-element-dropdown';
@@ -11,12 +11,17 @@ import AcceptedVolnteerLists from './AcceptedVolnteerLists.js';
 import PendingVolnteerLists from './PendingVolnteerLists.js';
 import { logo } from '../../../Utils/ImageCommon.js';
 
-const VolunteerPage = () => {
+const VolunteerPage = ({navigation}) => {
     
-  const navigation = useNavigation();
   const [selectedValue, setSelectedValue] = useState('');
   const [value, setValue] = useState(null)
+  const [search, setSearch] = useState("");
 
+
+  const updateSearch = (search) => {
+    setSearch(search);
+  }
+  
   const data = [
     { label: "Sort by Gender", value: 'Gender' },
     { label: "Sort by Age", value: 'Age' }
@@ -57,14 +62,56 @@ const VolunteerPage = () => {
     navigation.setOptions(headerOptions);
   }, [navigation]);
 
-  const [viewAllChoice,setViewAllChoice] = useState(false)
+  
+  const [viewAllChoice,setViewAllChoice] = useState(true)
+  const [viewRequestedChoice,setViewRequestedChoice] = useState(false)
   return (
-    <View>
+    <View style={{ flex:1, backgroundColor: '#DCEDF6'}}>
     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-      <View style={styles.search}>
-        <FontAwesome name="search" size={20} style={{ fontSize: 15, padding: 5, color:"grey", top:5 }}>
-          Search volunteers</FontAwesome>
-      </View>
+    <View style={styles.search}>
+          {/* <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/> */}
+          {
+          Platform.OS === "ios"
+          ?
+          <SearchBar
+          placeholder="Search"
+          onChangeText={updateSearch}
+          value={search}
+          platform='ios'
+          containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
+          inputContainerStyle={{width:350, height:35}}
+          inputStyle={{fontSize:14}}
+          leftIconContainerStyle={{}}
+          rightIconContainerStyle={{}}
+          loadingProps={{}}
+          showCancel={false}
+          //onClearText={() => console.log(onClearText())}
+          placeholderTextColor="#888"
+          cancelButtonTitle="Cancel"
+          cancelButtonProps={{}}
+          //onCancel={() => console.log(onCancel())}
+        />
+        :
+        <SearchBar
+        placeholder="Type Here..."
+        onChangeText={updateSearch}
+        value={search}
+        platform='android'
+        containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
+          inputContainerStyle={{width:350, height:35}}
+          inputStyle={{fontSize:14}}
+          leftIconContainerStyle={{}}
+          rightIconContainerStyle={{}}
+          loadingProps={{}}
+          showCancel={false}
+          //onClearText={() => console.log(onClearText())}
+          placeholderTextColor="#888"
+          cancelButtonTitle="Cancel"
+          cancelButtonProps={{}}
+          //onCancel={() => console.log(onCancel())}
+      />
+          }
+        </View>
       <View style={styles.dropdown}>
         <Dropdown data={data}
           labelField="label"
@@ -80,16 +127,19 @@ const VolunteerPage = () => {
       </View>
     </View>
     <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-      <Button buttonStyle={styles.viewallbtn} titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true)}}>View All</Button>
-      <Button buttonStyle={styles.viewrequested} titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>setViewAllChoice(!viewAllChoice)}>View Requested</Button>
-    </View>
-
+        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true);setViewRequestedChoice(false)}}>
+          View Accepted</Button>
+        <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewRequestedChoice(true);setViewAllChoice(false)}}>
+          View Pending</Button>
+      </View>
     {
       viewAllChoice
       ?
-      <AcceptedVolnteerLists/>
+      <AcceptedVolnteerLists navigation={navigation}/>
       :
-      <PendingVolnteerLists/>
+      <PendingVolnteerLists navigation={navigation}/>
     }
 
 

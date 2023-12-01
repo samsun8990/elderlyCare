@@ -48,6 +48,9 @@ import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistory
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import ViewRequestPage from "./components/Pages/Volunteers/ElderVolunteerPage/ViewRequestPage.js";
 import ViewAcceptPage from "./components/Pages/Volunteers/ElderVolunteerPage/ViewAcceptPage.js";
+import AcceptedVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/AcceptedVolnteerLists.js";
+import VolunteerPendingRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerPendingRequests.js";
+import VolunteerAcceptedRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerAcceptedRequests.js";
 
 
 
@@ -184,12 +187,22 @@ export default function App() {
             <Stack.Screen name="RequestPage" component={RequestPage}
               options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }} />
 
-            <Stack.Screen name="ViewRequestPage" component={ViewRequestPage}/>
+            <Stack.Screen name="ViewRequestPage" options={{ headerTitle: (props) => <CenteredTitle title="View Request" {...props} /> }}
+            component={ViewRequestPage}/>
             <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage}/>
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
 
             <Stack.Screen name="VolunteerChats" component={VolunteerChats} />
+
+            <Stack.Screen name="VolunteerHomeAcceptedRequests" component={VolunteerAcceptedRequests} />
+            <Stack.Screen name="VolunteerHomePendingRequests" component={VolunteerPendingRequests} />
+            <Stack.Screen name="AcceptedVolnteerLists"
+             options={{ headerTitle: (props) => <CenteredTitle title="Accepted Requests" {...props} /> }}
+            component={AcceptedVolnteerLists} />
+            <Stack.Screen name="PendingVolnteerLists" 
+             options={{ headerTitle: (props) => <CenteredTitle title="Pending Requests" {...props} /> }}
+            component={PendingVolnteerLists} />
             
             <Stack.Screen name="ChatUser" component={ChatUser}
              options={{ headerTitle: () => <Image source={defaultImg}
@@ -199,7 +212,6 @@ export default function App() {
 
             <Stack.Screen name="ElderVolunteers" component={ElderVolunteers} />
 
-            <Stack.Screen name="PendingVolnteerLists" component={PendingVolnteerLists} />
 
             <Stack.Screen options={{ headerShown: false }} name="EditProfileE" component={EditProfileE} />
 
