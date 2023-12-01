@@ -10,7 +10,7 @@ import { AuthContext } from '../../../Config/AuthContext';
 
 
 
-const ElderProfile = () => {
+const ElderProfile = ({replace}) => {
     const navigation = useNavigation()
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
     return (
