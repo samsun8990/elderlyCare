@@ -61,7 +61,9 @@ const Suggestions = () => {
             suggestionList.map((suggest, index) => (
               <View style={styles.suggestions} key={index}>
                 <Avatar size={60} rounded source={{ uri: suggest.avatar }} />
-                <Text style={{ fontWeight: "bold" }}>{suggest.fullname}</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: suggest.id })}>
+                  <Text style={{ fontWeight: "600" }}>{suggest.fullname}</Text>
+                </TouchableOpacity>
                 <Text>{suggest.gender}</Text>
                 <Text></Text>
                 <Button onPress={()=>handleFollowUser(suggest)}

@@ -40,7 +40,10 @@ const RequestedVolunteers = () => {
             <Avatar size={50} source={{uri:accept.avatar}}/>
            
             <TouchableOpacity style={{ margin: 5 }} onPress={() => navigation.navigate("RequestPage")}>
-              <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accept.id })}>
+                <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
+              </TouchableOpacity>
+             
               <Text style={{ color: "#847F7F" }}>{accept.gender}</Text>
             </TouchableOpacity>
           </View>

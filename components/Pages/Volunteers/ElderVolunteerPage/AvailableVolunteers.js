@@ -52,9 +52,9 @@ const AvailableVolunteers = ({navigation}) => {
                 <Avatar size={48} rounded source={{ uri: available.avatar }} />
                  
                   <View style={{ margin: 5 }}>
-                    <Text style={{ fontWeight: "600", fontSize: 16 }}>
-                      {available.fullname}
-                    </Text>
+                  <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: available.id })}>
+                      <Text style={{ fontWeight: "600", fontSize: 16}}>{available.fullname}</Text>
+                  </TouchableOpacity>
                     <Text style={{ color: "#847F7F" }}>{available.gender}</Text>
                   </View>
                 </View>

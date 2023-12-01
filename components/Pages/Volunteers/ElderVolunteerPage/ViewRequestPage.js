@@ -11,7 +11,7 @@ import {
   import { FontAwesome } from "react-native-vector-icons";
   import { useNavigation } from "@react-navigation/native";
   // import { headerOptions } from '../../Utils/Common';
-  import { Card, Button, CheckBox } from "@rneui/themed";
+  import { Card, Button, CheckBox, Avatar } from "@rneui/themed";
   import { styles } from "../VolunteerStyles.js";
   import { Picker } from "@react-native-picker/picker";
   import { Dropdown } from "react-native-element-dropdown";
@@ -41,13 +41,11 @@ const ViewRequestPage = ({navigation,route}) => {
               padding: 10,
             }}
           >
-            <Image
-              source={defaultImg}
-              style={{ width: 60, height: 60, borderRadius: 20 }}
-              resizeMode="cover"
-            />
+            <Avatar source={defaultImg} size={60}/>
             <View>
-              <Text style={{ fontWeight: "bold" }}>{accepted.fullname}</Text>
+              <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>
+                  <Text style={{ fontWeight: "bold" }}>{accepted.fullname}</Text>
+              </TouchableOpacity>
               <Text style={{ fontSize: 12 }}>{accepted.gender}</Text>
             </View>
           </View>

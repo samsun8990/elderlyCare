@@ -33,6 +33,7 @@ const ElderProfile = () => {
             <View style={styles.profileContainer}>
             <Avatar size={100} rounded source={{ uri: elderUser.avatar }} />
                 <Text style={{fontSize:18,fontWeight:"bold"}}>{elderUser.fullname}</Text>
+                <Text style={{fontSize:14,fontWeight:"bold"}}>{elderUser.gender}</Text>
                 <Text style={{fontSize:13,fontWeight:"bold"}}>Joined on: {joiningDate}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} 
                 onPress={()=>navigation.navigate("EditProfileE")} >
