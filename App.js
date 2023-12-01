@@ -36,13 +36,13 @@ import VolunteerChats from "./components/Pages/Chats/VolunteerChats";
 import EditProfileE from "./components/Pages/Profile/Elder/EditProfileE";
 import PaymentHistoryE from "./components/Pages/Profile/Elder/PaymentHistoryE";
 import ChatHistoryE from "./components/Pages/Profile/Elder/ChatHistoryE";
-import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
+// import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
 import HealthInfo from "./components/Pages/Profile/Elder/HealthInfo";
 import PassChangeE from "./components/Pages/Profile/Elder/PassChangeE";
 import ChatUser from "./components/Pages/Chats/ChatUser";
 import ChatHistoryV from "./components/Pages/Profile/Volunteer/ChatHistoryV";
 import EditProfileV from "./components/Pages/Profile/Volunteer/EditProfileV";
-import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
+// import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
 import PassChangeV from "./components/Pages/Profile/Volunteer/PassChangeV";
 import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistoryV";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -52,6 +52,8 @@ import AcceptedVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/A
 import VolunteerPendingRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerPendingRequests.js";
 import VolunteerAcceptedRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerAcceptedRequests.js";
 import UserProfile from "./components/Pages/Profile/UserProfile.js";
+import UserFeedbackPage from "./components/Pages/Volunteers/VolunteerPage/UserFeedbackPage.js";
+import ForgotPassword from "./components/Pages/StartPage/ForgotPassword.js";
 
 
 
@@ -179,6 +181,7 @@ export default function App() {
             <Stack.Screen name="Suggestions" component={Suggestions} />
             <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
+            <Stack.Screen name="UserFeedback" component={UserFeedbackPage} options={{ title: "Feedbacks" }} />
             <Stack.Screen name="RequestPage" component={RequestPage}
               options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }} />
 
@@ -216,18 +219,22 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="ChatHistoryE" component={ChatHistoryE} />
 
-            <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordE" component={ForgetPasswordE} />
+            {/* <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordE" component={ForgetPasswordE} /> */}
 
             <Stack.Screen options={{ headerShown: false }} name="HealthInfo" component={HealthInfo} />
 
             <Stack.Screen options={{ headerShown: false }} name="PassChangeE" component={PassChangeE} />
+
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} 
+             options={{headerStyle: { backgroundColor: '#E4EDF2'
+            }, headerTitle: (props) => <CenteredTitle title="Forgot Password" {...props} /> ,headerBackTitleVisible: false}}/>
   
 
             <Stack.Screen options={{ headerShown: false }} name="ChatHistoryV" component={ChatHistoryV} />
 
             <Stack.Screen options={{ headerShown: false }} name="EditProfileV" component={EditProfileV} />
 
-            <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordV" component={ForgetPasswordV} />
+            {/* <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordV" component={ForgetPasswordV} /> */}
 
             <Stack.Screen options={{ headerShown: false }} name="PassChangeV" component={PassChangeV} />
 
