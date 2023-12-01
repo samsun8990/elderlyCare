@@ -48,7 +48,9 @@ const VolunteerPendingRequests = ({navigation}) => {
             pendingList.map((pending,index)=>
             <View key={index}>
             <Avatar size={85} source={{uri:pending.avatar}}/>
-            <Text style={styles.item}>{pending.fullname}</Text>
+            <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:pending.id})}>
+              <Text style={styles.item}>{pending.fullname}</Text>
+            </TouchableOpacity>
             <Button buttonStyle={{
                 backgroundColor: '#1B5B7D',
                 borderWidth: 2,

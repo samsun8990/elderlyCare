@@ -70,7 +70,9 @@ const ViewAcceptPage = ({ navigation, route }) => {
                             <Avatar source={{ uri: accepted.avatar }} size={60} />
 
                             <View>
-                                <Text style={{ fontWeight: "bold", fontSize: 18, }}>{accepted.fullname}</Text>
+                                <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>
+                                    <Text style={{ fontWeight: "bold", fontSize: 18 }}>{accepted.fullname}</Text>
+                                </TouchableOpacity>
                                 <Text style={{ fontSize: 15 }}>{accepted.gender}</Text>
                             </View>
                         </View>

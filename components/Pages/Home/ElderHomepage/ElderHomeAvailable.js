@@ -44,8 +44,10 @@ const ElderHomeAvailable = () => {
             avaiableList.map((available, index) => (
               <View key={index}>
                  <Avatar size={85} rounded source={{ uri: available.avatar }} />
+                <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:available.id})}>
+                  <Text style={styles.item}>{available.fullname}</Text>
+                </TouchableOpacity>
                 
-                <Text style={styles.item}>{available.fullname}</Text>
                 <Button 
                  disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') ? true : false}
                   onPress={() => navigation.navigate("RequestPage",{volUser:available})}

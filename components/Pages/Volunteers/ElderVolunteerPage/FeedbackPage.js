@@ -1,5 +1,5 @@
 import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../../Utils/Common.js';
@@ -11,9 +11,11 @@ import { Rating } from 'react-native-ratings';
 import { defaultImg } from '../../../Utils/ImageCommon.js';
 import { addDoc, collection, setDoc } from 'firebase/firestore';
 import { db } from '../../../Config/config.js';
+import { AuthContext } from '../../../Config/AuthContext.js';
 
 
 const FeedbackPage = ({ navigation, route }) => {
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
   const { accepted } = route.params
 
@@ -21,13 +23,16 @@ const FeedbackPage = ({ navigation, route }) => {
   const [feedback, setFeedback] = useState()
 
   const handleFeedback = async () => {
-    alert("Feedback submitted!")
-    await setDoc(collection(db, "feedbacks"), {
+  
+    await addDoc(collection(db, "feedbacks"), {
+      feedBackFor:accepted.id,
       acceptName: accepted.fullname,
       acceptEmail: accepted.email,
+      feedBackBy:elderUser.id,
       rating: rating,
       feedback: feedback
     }).then(()=>{
+      alert("Feedback submitted!")
       setRating()
       setFeedback()
     })

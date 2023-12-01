@@ -51,6 +51,7 @@ import ViewAcceptPage from "./components/Pages/Volunteers/ElderVolunteerPage/Vie
 import AcceptedVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/AcceptedVolnteerLists.js";
 import VolunteerPendingRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerPendingRequests.js";
 import VolunteerAcceptedRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerAcceptedRequests.js";
+import UserProfile from "./components/Pages/Profile/UserProfile.js";
 
 
 
@@ -235,6 +236,10 @@ export default function App() {
             <Stack.Screen name="ElderProfile"  component={ElderProfile} options={{ headerShown: false}} />
 
             <Stack.Screen name="VolunProfile" component={VolunProfile} options={{ headerShown: false }} />
+
+            <Stack.Screen name="UserProfile" component={UserProfile}
+              options={{title:"Profile"}}
+            />
 
           </Stack.Navigator>
 

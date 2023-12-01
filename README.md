@@ -11,3 +11,4 @@ Components
   - SearchBar
   - Button
   - Avatar
+  - Checkbox

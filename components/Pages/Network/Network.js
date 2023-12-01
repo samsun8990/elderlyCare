@@ -7,7 +7,7 @@ import { Card, Button, Avatar } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import { acceptUserInvitation, findCreatedAt, getAcceptedUsersForCurrentUsers, getInvitations, readTwoElderUsers, removeRequestById } from '../../Config/dbcls';
+import { acceptUserInvitation, findCreatedAt, findCreatedAt_diffDays, getAcceptedUsersForCurrentUsers, getInvitations, readTwoElderUsers, removeRequestById } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
@@ -66,10 +66,9 @@ const ElderNetwork = () => {
     }
 
     const handleDeclineRequest = async(elderuser,inviteuser)=>{
-
         await removeRequestById(elderuser,inviteuser)
-
     }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={true}>
@@ -88,11 +87,13 @@ const ElderNetwork = () => {
                                     <View style={{ flexDirection: "row", gap: 10 }}>
                                         <Avatar size={50} rounded source={{ uri: invite.avatar }} />
                                         <View>
+                                        <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: invite.id })}>
                                             <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>
+                                        </TouchableOpacity>
+
                                             <Text style={{ color: "#847F7F" }}>
-                                                {/* {invite.followers.map((follower) => follower.createdAt)} */}
-                                                {/* {findCreatedAt_diffDays(invite.following)}  */}
-                                                2 day ago
+                                                {findCreatedAt_diffDays(invite)}
+                                             
                                             </Text>
                                         </View>
                                     </View>

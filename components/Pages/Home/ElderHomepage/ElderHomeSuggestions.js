@@ -62,8 +62,9 @@ const ElderHomeSuggestions = () => {
             suggestionList.map((suggest, index) => (
               <View key={index}>
                 <Avatar size={85} rounded source={{ uri: suggest.avatar }} />
-
-                <Text style={styles.item}>{suggest.fullname}</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:suggest.id})}>
+                  <Text style={styles.item}>{suggest.fullname}</Text>
+                </TouchableOpacity>
                 <Button onPress={()=>handleFollowUser(suggest)}
                   buttonStyle={{
                     backgroundColor: "#1B5B7D",

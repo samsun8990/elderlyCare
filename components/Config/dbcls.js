@@ -213,10 +213,16 @@ export const getInvitations = async (elderUser, setinvitation) => {
   })
 }
 
-export const findCreatedAt = (id, follow) => {
-
-  const x = follow.map((follower) => follower.createdAt)
-  //console.log(x,"X");
+export const findCreatedAt_diffDays =(invite)=>{
+  const get_seconds = invite.followers.map((follower) => follower.createdAt.seconds)
+  const get_nanoseconds = invite.followers.map((follower) => follower.createdAt.nanoseconds)
+  const get_date = new Date(get_seconds * 1000 + get_nanoseconds/ 1000000).toDateString()
+  const date = new Date(get_date);
+  const currentDate = new Date();
+  const differenceInTime = currentDate.getTime() - date.getTime();
+  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+  const timeAgo = `${differenceInDays} day${differenceInDays !== 1 ? 's' : ''} ago`;
+  return timeAgo
 
 }
 
@@ -281,3 +287,18 @@ export const removeRequestById = async (elderUser, inviteuser) => {
     console.error('Error removing request:', error);
   }
 };
+
+export const getUserDetails = async(userID,setUserDetails)=>{
+  const docRef1 = doc(db, "elderlyUsers", userID);
+  const docSnap1 = await getDoc(docRef1);
+
+  const docRef2 = doc(db, "volunteerUsers", userID);
+  const docSnap2 = await getDoc(docRef2);
+
+  if (docSnap1.exists()) {
+    setUserDetails({ id: userID, ...docSnap1.data() })
+  }
+  else if (docSnap2.exists()) {
+    setUserDetails({ id: userID, ...docSnap2.data() })
+  }
+}
