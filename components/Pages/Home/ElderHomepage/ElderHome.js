@@ -31,15 +31,6 @@ const ElderHome = ({ }) => {
     ),
     headerRight: () => (
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <FontAwesome
-            name="bell"
-            color="#1B5B7D"
-            size={24}
-            style={{ marginRight: 15 }}
-
-          />
-        </TouchableOpacity>
         <TouchableOpacity>
           <FontAwesome
             name="sign-out"

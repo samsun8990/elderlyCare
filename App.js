@@ -18,7 +18,6 @@ import VolunteerRegister from "./components/Pages/StartPage/Register/VolunteerRe
 import ElderBottomTabs from "./components/Utils/BottomTabs";
 import VolunteerBottomTabs from "./components/Utils/VolunteerBottomTabs";
 import ElderHome from "./components/Pages/Home/ElderHomepage/ElderHome";
-import Notifications from "./components/Pages/Notifications/Notifications";
 import FeedbackPage from "./components/Pages/Volunteers/ElderVolunteerPage/FeedbackPage";
 import RequestedVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/RequestedVolunteers";
 import Invitations from "./components/Pages/Network/Invitations";
@@ -187,7 +186,6 @@ export default function App() {
 
             <Stack.Screen name="ViewRequestPage" component={ViewRequestPage}/>
             <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage}/>
-            <Stack.Screen name="Notification" component={Notifications} />
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
 
