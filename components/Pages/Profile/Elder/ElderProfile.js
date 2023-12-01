@@ -84,8 +84,6 @@ const ElderProfile = ({replace}) => {
             <View style={styles.accountContainer}>
                 <Text style={styles.sectionTitle}>My Account</Text>
                 <Text>  ──────────────</Text>
-                {/* <View style={styles.line} /> */}
-                {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
                     <Icon size={30} name="logout" color="#1B5B7D" 
                     onPress={() => {
@@ -95,8 +93,6 @@ const ElderProfile = ({replace}) => {
                       }}/> Logout
                 </Text>
 
-               
-                {/* </Button> */}
             </View>
 
             <View style={{ paddingBottom: 90 }} />
