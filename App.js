@@ -146,26 +146,20 @@ export default function App() {
           >
 
             <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false,headerStyle: {
-                  backgroundColor: '#E4EDF2'
-               } }}  />
+                  backgroundColor: '#E4EDF2'} }}  />
 
             <Stack.Screen name='LoginUser' component={LoginUser}
-              options={{headerStyle: {
-                backgroundColor: '#E4EDF2'
+              options={{headerStyle: { backgroundColor: '#E4EDF2'
              }, headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} /> ,headerBackTitleVisible: false}}    />
-
 
             <Stack.Screen name='ElderlyRegister' component={ElderlyRegister}
               options={{headerStyle: {
-                backgroundColor: '#E4EDF2'
-             },
+                backgroundColor: '#E4EDF2'},
                 headerTitle: (props) => <CenteredTitle title="Create User Account" {...props}  />, headerBackTitleVisible: false
               }} />
 
             <Stack.Screen name='VolunteerRegister' component={VolunteerRegister}
-              options={{headerStyle: {
-                backgroundColor: '#E4EDF2'
-             },
+              options={{headerStyle: {backgroundColor: '#E4EDF2'},
                 headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />,headerBackTitleVisible: false
               }} />
 
@@ -205,8 +199,10 @@ export default function App() {
             component={PendingVolnteerLists} />
             
             <Stack.Screen name="ChatUser" component={ChatUser}
-             options={{ headerTitle: () => <Image source={defaultImg}
-             style={{ width: 40, height: 40 }} resizeMode="cover" />}}/>
+            options={({ route }) => ({
+              title: route.params.network.fullname
+            })}
+             />
 
             <Stack.Screen name="AvailableVolunteers" component={AvailableVolunteers} />
 
@@ -235,14 +231,6 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name="PassChangeV" component={PassChangeV} />
 
             <Stack.Screen options={{ headerShown: false }} name="PaymentHistoryV" component={PaymentHistoryV} />
-
-
-
-
-
-
-
-
 
             <Stack.Screen name="ElderProfile"  component={ElderProfile} options={{ headerShown: false}} />
 

@@ -17,22 +17,28 @@ export const readAllAcceptedElders = async(volunUser,setAcceptedList)=>{
       temp.push({ id: doc.id, ...doc.data() }));
 
     let getInvitedUsers = []
-    let a3 = temp.flatMap((x) => { return x.requests })
-    let check = a3.filter((follower) => follower.status == "accepted")
-    if(check.length > 0){
-      check.forEach((a) => {
-        const docRef1 = doc(db, 'elderlyUsers', a.requestedBy);
-        const docSnap1 = getDoc(docRef1);
-        docSnap1.then((result) => {
-          getInvitedUsers.push({id:result.id, ...result.data()})
-          setAcceptedList(getInvitedUsers)
-        }
-        ).catch((error)=>console.log(error))
-      })
+    let a3 = temp.flatMap((x) => { return x.requests &&x.requests })
+    if(a3.length > 0){
+      let check = a3.filter((follower) => follower && follower.status == "accepted")
+      if(check.length > 0){
+        check.forEach((a) => {
+          const docRef1 = doc(db, 'elderlyUsers', a.requestedBy);
+          const docSnap1 = getDoc(docRef1);
+          docSnap1.then((result) => {
+            getInvitedUsers.push({id:result.id, ...result.data()})
+            setAcceptedList(getInvitedUsers)
+          }
+          ).catch((error)=>console.log(error))
+        })
+      }
+      else{
+        setAcceptedList()
+      }
     }
     else{
       setAcceptedList()
     }
+   
   })
 
 }
@@ -47,23 +53,29 @@ export const readAllPendingElders = async(volunUser,setAcceptedList)=>{
       temp.push({ id: doc.id, ...doc.data() }));
 
     let getInvitedUsers = []
-    let a3 = temp.flatMap((x) => { return x.requests })
-    let check = a3.filter((follower) => follower.status == "pending")
-    //console.log(check,"check");
-    if(check.length > 0){
-      check.forEach((a) => {
-        const docRef1 = doc(db, 'elderlyUsers', a.requestedBy);
-        const docSnap1 = getDoc(docRef1);
-        docSnap1.then((result) => {
-          getInvitedUsers.push({id:result.id, ...result.data()})
-          setAcceptedList(getInvitedUsers)
-        }
-        ).catch((error)=>console.log(error))
-      })
+    let a3 = temp.flatMap((x) => { return x.requests && x.requests })
+    if(a3.length > 0){
+      let check = a3.filter((follower) => follower && follower.status == "pending")
+      //console.log(check,"check");
+      if(check.length > 0){
+        check.forEach((a) => {
+          const docRef1 = doc(db, 'elderlyUsers', a.requestedBy);
+          const docSnap1 = getDoc(docRef1);
+          docSnap1.then((result) => {
+            getInvitedUsers.push({id:result.id, ...result.data()})
+            setAcceptedList(getInvitedUsers)
+          }
+          ).catch((error)=>console.log(error))
+        })
+      }
+      else{
+        setAcceptedList()
+      }
     }
     else{
       setAcceptedList()
     }
+   
   })
 
 }

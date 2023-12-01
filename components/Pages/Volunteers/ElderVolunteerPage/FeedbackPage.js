@@ -22,13 +22,16 @@ const FeedbackPage = ({ navigation, route }) => {
 
   const handleFeedback = async () => {
     alert("Feedback submitted!")
-    const docRef = await setDoc(collection(db, "feedbacks"), {
+    await setDoc(collection(db, "feedbacks"), {
       acceptName: accepted.fullname,
       acceptEmail: accepted.email,
       rating: rating,
       feedback: feedback
-    });
-    console.log("Document written with ID: ", docRef.id);
+    }).then(()=>{
+      setRating()
+      setFeedback()
+    })
+
   }
 
 
