@@ -7,7 +7,7 @@ import { Card, Button, Avatar } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import { acceptUserInvitation, getInvitations } from '../../Config/dbcls.js';
+import { acceptUserInvitation, getInvitations, removeRequestById } from '../../Config/dbcls.js';
 
 
 const Invitations = () => {
@@ -29,6 +29,10 @@ const Invitations = () => {
 
   }
 
+  const handleDeclineRequest = async(elderuser,inviteuser)=>{
+    await removeRequestById(elderuser,inviteuser)
+}
+
   return (
     <View style={styles.container}>
       <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
@@ -48,7 +52,7 @@ const Invitations = () => {
                   </View>
                   <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
                     <FontAwesome name="check" size={30} color="#265F17" onPress={() => handleAcceptRequest(invite)} />
-                    <FontAwesome name="times" size={30} color="#7B7979" />
+                    <FontAwesome name="times" size={30} color="#7B7979" onPress={()=>handleDeclineRequest(elderUser,invite)}/>
                   </View>
                 </View>
                 <Card.Divider />

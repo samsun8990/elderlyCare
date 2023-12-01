@@ -1,7 +1,7 @@
 
 import {
   doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc, query, where, limit, updateDoc,
-  not, arrayContains, onSnapshot, arrayUnion, FieldValue, serverTimestamp, Timestamp
+  not, arrayContains, onSnapshot, arrayUnion, FieldValue, serverTimestamp, Timestamp, arrayRemove
 } from "firebase/firestore";
 import { db } from "./config";
 import firebase from 'firebase/app';
@@ -145,27 +145,28 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
       snapshot.forEach((doc) =>temp.push({ id: doc.id, ...doc.data() }) )
   
       let getInvitedUsers = []
-      let check = temp.filter((user) => user.following && user.following.map((follower) => follower.status === "accepted"))
-      console.log(check);
-      if (check.length > 0) {
-        let a3 = check.flatMap((x) => { return x.following })
-        // console.log(a3,"a3");
-        a3.forEach((a) => {
-          const docRef1 = doc(db, 'elderlyUsers', a.id);
-          const docSnap1 = getDoc(docRef1);
-          docSnap1.then((result) => {
-            //console.log(result.data());
-            getInvitedUsers.push(result.data())
-            //console.log(getInvitedUsers,"getacceptedUsers");
-            setAcceptedList(getInvitedUsers)
-          }
-          ).catch((error)=>console.log(error))
-        })
+   
+      let a3 = temp.flatMap((x) => { return x.following })
+      let check = a3.filter((follower) => follower.status === "accepted")
+   if(check > 0){
+    check.forEach((a) => {
+      const docRef1 = doc(db, 'elderlyUsers', a.id);
+      const docSnap1 = getDoc(docRef1);
+      docSnap1.then((result) => {
+        //console.log(result.data());
+        getInvitedUsers.push({id:a.id,...result.data()})
+        //console.log(getInvitedUsers,"getacceptedUsers");
+        setAcceptedList(getInvitedUsers)
+      }
+      ).catch((error)=>console.log(error))
+    })
+   }
+   else{
+    setAcceptedList()
+   }
+    
        
-      }
-      else {
-        setAcceptedList()
-      }
+      
     })
 
   } catch (error) {
@@ -184,18 +185,15 @@ export const getInvitations = async (elderUser, setinvitation) => {
       temp.push({ id: doc.id, ...doc.data() }));
 
     let getInvitedUsers = []
-    let check = temp.filter((user) => user.followers && user.followers.map((follower) => follower.status === "requested"))
-    // console.log(check);
+    let a3 = check.flatMap((x) => { return x.followers })
+    let check = a3.filter((follower) => follower.status === "requested")
     if (check.length > 0) {
-      let a3 = check.flatMap((x) => { return x.following })
-      // console.log(a3,"a3");
-      a3.forEach((a) => {
+  
+      check.forEach((a) => {
         const docRef1 = doc(db, 'elderlyUsers', a.id);
         const docSnap1 = getDoc(docRef1);
         docSnap1.then((result) => {
-          //console.log(result.data());
           getInvitedUsers.push({id:result.id, ...result.data()})
-          //console.log(getInvitedUsers);
           setinvitation(getInvitedUsers)
         }
         ).catch((error)=>console.log(error))
@@ -211,7 +209,7 @@ export const getInvitations = async (elderUser, setinvitation) => {
 export const findCreatedAt = (id,follow)=>{
 
   const x = follow.map((follower) => follower.createdAt)
-  console.log(x,"X");
+  //console.log(x,"X");
 
 }
 
@@ -226,12 +224,11 @@ export const viewAcceptedVolunteersByElder=async(elderUser,setAcceptedList)=>{
       snapshot.forEach((doc) =>temp.push({ id: doc.id, ...doc.data() }) )
   
       let getInvitedUsers = []
-      let checkElders = temp.filter((user) => user.volunteers && user.volunteers.map((vol) => vol.status === "accepted"))
-      //console.log(checkElders,"aceptedes");
+      let a3 = checkElders.flatMap((x) => { return x.volunteers })
+      let checkElders = a3.filter((vol) => vol.status === "accepted")
       if (checkElders.length > 0) {
-        let a3 = checkElders.flatMap((x) => { return x.volunteers })
-        //console.log(a3,"a3");
-        a3.forEach((a) => {
+        
+        checkElders.forEach((a) => {
           const docRef1 = doc(db, 'volunteerUsers', a.id);
           const docSnap1 = getDoc(docRef1);
           docSnap1.then((result) => {
@@ -253,3 +250,20 @@ export const viewAcceptedVolunteersByElder=async(elderUser,setAcceptedList)=>{
     console.error('Error fetching users:', error);
   }
 } 
+
+export const removeRequestById = async (elderUser,inviteuser) => {
+
+  const userRef = doc(db, 'elderlyUsers', elderUser.id);
+  const inviteUserRef = doc(db, 'elderlyUsers', inviteuser.id)
+  try {
+    await updateDoc(userRef, {
+      followers: arrayRemove(inviteuser.id)
+    },{ merge: true });
+    await updateDoc(inviteUserRef, {
+      following: arrayRemove(elderUser.id)
+    },{ merge: true });
+    console.log('Request removed successfully.');
+  } catch (error) {
+    console.error('Error removing request:', error);
+  }
+};

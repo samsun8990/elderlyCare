@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Card, Button, Avatar } from '@rneui/themed';
 import { FontAwesome, Entypo, MaterialCommunityIcons } from "react-native-vector-icons";
 import { AuthContext } from '../../Config/AuthContext.js';
-import { defaultImg } from '../../Utils/ImageCommon.js';
+import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { getAcceptedUsersForCurrentUsers } from '../../Config/dbcls.js';
 
 const ElderChats = ({navigation,route}) => {
@@ -16,7 +16,7 @@ const ElderChats = ({navigation,route}) => {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
-        <Image source={require("../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
+        <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
     headerRight: () => (

@@ -72,7 +72,7 @@ const updateSearch = (search) => {
 
 
   return (
-    <View  style={styles.container}>
+    <View style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
           {/* <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/> */}

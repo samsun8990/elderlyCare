@@ -7,15 +7,15 @@ import { Card, Button, Avatar } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
-import {acceptUserInvitation, findCreatedAt, getAcceptedUsersForCurrentUsers, getInvitations, readTwoElderUsers } from '../../Config/dbcls';
+import { acceptUserInvitation, findCreatedAt, getAcceptedUsersForCurrentUsers, getInvitations, readTwoElderUsers, removeRequestById } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
-    const [invitationList,setInvitationList] = useState()
+    const [invitationList, setInvitationList] = useState()
 
-    const [acceptedList,setAcceptedList] = useState()
+    const [acceptedList, setAcceptedList] = useState()
 
     const headerOptions = {
         headerTitle: '',
@@ -26,7 +26,7 @@ const ElderNetwork = () => {
         ),
         headerRight: () => (
             <View style={{ flexDirection: "row" }}>
-               
+
                 <TouchableOpacity>
                     <FontAwesome
                         name="sign-out"
@@ -37,7 +37,7 @@ const ElderNetwork = () => {
                             signOut()
                             setUser(null)
                             navigation.replace("LoginUser")
-                          }}
+                        }}
                     />
                 </TouchableOpacity>
             </View>
@@ -54,38 +54,22 @@ const ElderNetwork = () => {
     useEffect(() => {
         navigation.setOptions(headerOptions);
         if (elderUser) {
-            //getUsersInvitation(elderUser,setInvitationList)
             getInvitations(elderUser, setInvitationList)
-            
-            getAcceptedUsersForCurrentUsers(elderUser,setAcceptedList)
-          }
+
+            getAcceptedUsersForCurrentUsers(elderUser, setAcceptedList)
+        }
     }, []);
 
-
-    const handleAcceptRequest =async(invite)=>{
+    const handleAcceptRequest = async (invite) => {
         await alert(`You accepted request from ${invite.fullname}`)
-        await acceptUserInvitation(elderUser,invite)
-
+        await acceptUserInvitation(elderUser, invite)
     }
 
-    //console.log(acceptedList);
+    const handleDeclineRequest = async(elderuser,inviteuser)=>{
 
-    const findCreatedAt_diffDays = (follow)=>{
+        await removeRequestById(elderuser,inviteuser)
 
-        // const userfollowingrequest = follow.find((follower) => follower.id === elderUser.id)
-        // console.log(userfollowingrequest,"2");
-
-        // const inviterequest = userfollowingrequest.createdAt
-        // console.log(inviterequest,"1");
-        // const dt = new Date(inviterequest.seconds * 1000 + inviterequest.nanoseconds / 1000000);
-        // const cdate = Math.floor((new Date(dt) - new Date()) / (1000 * 60 * 60 * 24))
-        // console.log(cdate);
-        // return cdate
-      
-      }
-
-
-
+    }
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={true}>
@@ -99,26 +83,26 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         {
-                          invitationList && invitationList.length> 0 && invitationList.slice(0,4).map((invite,index)=>
-                            <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
-                            <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Avatar size={50} rounded source={{ uri: invite.avatar }} />
-                                <View>
-                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>
-                                    <Text style={{ color: "#847F7F" }}>
-                                        {/* {invite.followers.map((follower) => follower.createdAt)} */}
-                                        {/* {findCreatedAt_diffDays(invite.following)}  */}
-                                      2 day ago
-                                   </Text>
-                                </View>
-                            </View>
+                            invitationList && invitationList.length > 0 && invitationList.slice(0, 4).map((invite, index) =>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
+                                    <View style={{ flexDirection: "row", gap: 10 }}>
+                                        <Avatar size={50} rounded source={{ uri: invite.avatar }} />
+                                        <View>
+                                            <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>
+                                            <Text style={{ color: "#847F7F" }}>
+                                                {/* {invite.followers.map((follower) => follower.createdAt)} */}
+                                                {/* {findCreatedAt_diffDays(invite.following)}  */}
+                                                2 day ago
+                                            </Text>
+                                        </View>
+                                    </View>
 
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-                                <FontAwesome name="check" size={30} color="#265F17" onPress={()=>handleAcceptRequest(invite)} />
-                                <FontAwesome name="times" size={30} color="#7B7979" />
-                            </View>
-                        </View>
-                            
+                                    <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
+                                        <FontAwesome name="check" size={30} color="#265F17" onPress={() => handleAcceptRequest(invite)} />
+                                        <FontAwesome name="times" size={30} color="#7B7979" onPress={() => handleDeclineRequest(elderUser,invite)} />
+                                    </View>
+                                </View>
+
                             )
                         }
                     </ScrollView>
@@ -134,31 +118,29 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
-                            {acceptedList && acceptedList.length> 0 && acceptedList.slice(0,2).map((accept,index)=>
-                               <View style={styles.suggestions} key={index}>
-                                <Avatar size={60} rounded source={{ uri: accept.avatar }} />
-                               <Text style={{ fontWeight: "bold" }}>{accept.fullname}</Text>
-                               <Text>{accept.gender}</Text>
-                               <Text></Text>
-                               <Button buttonStyle={{
-                                   backgroundColor: '#1B5B7D',
-                                   borderWidth: 2,
-                                   borderColor: '#1B5B7D',
-                                   borderRadius: 30,
-                               }}
-                                   size="md"
-                                   containerStyle={{
-                                       width: 120,
-                                       height: 35,
-                                   }}
-                                   titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
+                            {acceptedList && acceptedList.length > 0 && acceptedList.slice(0, 2).map((accept, index) =>
+                                <View style={styles.suggestions} key={index}>
+                                    <Avatar size={60} rounded source={{ uri: accept.avatar }} />
+                                    <Text style={{ fontWeight: "bold" }}>{accept.fullname}</Text>
+                                    <Text>{accept.gender}</Text>
+                                    <Text></Text>
+                                    <Button onPress={() => navigation.navigate("ChatUser", { network: accept })}
+                                        buttonStyle={{
+                                            backgroundColor: '#1B5B7D',
+                                            borderWidth: 2,
+                                            borderColor: '#1B5B7D',
+                                            borderRadius: 30,
+                                        }}
+                                        size="md"
+                                        containerStyle={{
+                                            width: 120,
+                                            height: 38,
+                                        }}
+                                        titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
 
-                               >View</Button>
-                           </View>
-                            
+                                    >Message</Button>
+                                </View>
                             )}
-                      
-
                         </View>
                     </ScrollView>
                 </Card>

@@ -12,14 +12,15 @@ import VolunteerAcceptedRequests from './VolunteerAcceptedRequests';
 import VolunteerPendingRequests from './VolunteerPendingRequests';
 
 
-const VolunteerHome = () => {
-    const navigation = useNavigation();
+const VolunteerHome = ({navigation}) => {
 
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext)
+   
   const headerOptions = {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
-        <Image source={require("../../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
+        <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
     headerRight: () => (
@@ -31,7 +32,9 @@ const VolunteerHome = () => {
             size={24}
             style={{ marginRight: 15 }}
             onPress={() => {
-              // Handle logout logic here
+              signOut()
+              setUser(null)
+              navigation.replace("LoginUser")
             }}
           />
         </TouchableOpacity>
@@ -61,9 +64,9 @@ const VolunteerHome = () => {
         }}
       >
         <Welcome/>
-        <VolunteerAcceptedRequests/>
+        <VolunteerAcceptedRequests navigation={navigation}/>
         <Text></Text>
-        <VolunteerPendingRequests/>
+        <VolunteerPendingRequests  navigation={navigation}/>
 
         <View style={{ paddingBottom: 90 }} />
         

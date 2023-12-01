@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect } from 'react'
-import { Button, Icon } from '@rneui/themed';
+import { Avatar, Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
@@ -13,13 +13,26 @@ const VolunProfile = () => {
     const navigation = useNavigation()
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
+    const timestamp_Data = {
+        "nanoseconds": volunteerUser.joinDate.nanoseconds,
+        "seconds": volunteerUser.joinDate.seconds
+    }
+
+    const milliseconds1 = timestamp_Data.seconds * 1000 + timestamp_Data.nanoseconds / 1000000;
+    const joiningDate = new Date(milliseconds1).toDateString()
+
+    const dateObj = new Date(volunteerUser.dob);
+    const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getFullYear()}`;
+
+
+
     return (
         <SafeAreaView style={styles.container}>
            
             <View style={styles.profileContainer}>
-                <Image source={defaultImg} style={styles.profileImage} />
-                <Text>Joined Date:{volunteerUser.date}</Text>
-                <Text>{volunteerUser.fullname}</Text>
+                <Avatar size={100} source={{uri:volunteerUser.avatar}} />
+                <Text style={{fontSize:18,fontWeight:"bold"}}>{volunteerUser.fullname}</Text>
+                <Text style={{fontSize:13,fontWeight:"bold"}}>Joined on: {joiningDate}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
                  onPress={()=>navigation.navigate("EditProfileV")} >
                     <Icon name="edit" color="white" />
@@ -49,7 +62,7 @@ const VolunProfile = () => {
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
-                    <Text>{volunteerUser.dob}</Text>
+                    <Text>{formattedDate}</Text>
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
