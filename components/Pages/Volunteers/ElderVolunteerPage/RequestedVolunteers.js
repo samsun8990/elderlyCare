@@ -52,7 +52,6 @@ const RequestedVolunteers = () => {
               <Entypo name="eye" size={30} onPress={() => navigation.navigate("ViewAcceptPage",{accepted:accept})}/>
               <MaterialIcons name="feedback" size={30} onPress={() => navigation.navigate("Feedback",{accepted:accept})}/>
               <Entypo name="chat" size={30} onPress={() => navigation.navigate("ChatUser",{network:accept})} />
-              <Entypo name="cross" size={30} />
             </View>
           </View>
         </View>

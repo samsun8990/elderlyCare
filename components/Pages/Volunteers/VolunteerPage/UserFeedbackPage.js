@@ -39,7 +39,7 @@ const UserFeedbackPage = ({ navigation, route }) => {
                    </Card>
                    )
                    :
-                   null 
+                   <Text>No feeedbacks found</Text>
                 }
             </ScrollView>
         </View>

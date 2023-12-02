@@ -78,8 +78,8 @@ const VolunteerChats = () => {
         </View>
         <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top:10 }}> 
-            <Entypo name="chat" size={30} onPress={()=>navigation.navigate("ChatUser")}/>
-            <MaterialCommunityIcons name="more" size={30} />
+            <Entypo name="chat" size={30} onPress={()=>navigation.navigate("ChatUser", { network: accept })}/>
+            {/* <MaterialCommunityIcons name="more" size={30} /> */}
           </View>
         </View>
       </View>

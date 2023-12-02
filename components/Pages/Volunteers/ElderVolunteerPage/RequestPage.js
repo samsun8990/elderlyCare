@@ -235,7 +235,7 @@ const RequestPage = ({ route, navigation }) => {
             </View>
             <Text></Text>
             <Card.Divider />
-            <View>
+            {/* <View>
 
               <Text style={styles.requestTitle}>Payment Amount</Text>
               <TextInput
@@ -256,7 +256,7 @@ const RequestPage = ({ route, navigation }) => {
                 value={payment.toString()}
                 onChangeText={(text) => setPayment(text)}
               />
-            </View>
+            </View> */}
             <Text></Text>
             <Button title="Request" color="#1B5B7D" onPress={handleAddRequest} />
           </View>

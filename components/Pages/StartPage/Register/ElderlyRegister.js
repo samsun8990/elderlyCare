@@ -86,7 +86,6 @@ const ElderlyRegister = ({ route, navigation }) => {
             // followers:[],
             // followedBy:[]
           },
-          { [timestamp]: true },
           { merge: true }
         )
           .then(() => {

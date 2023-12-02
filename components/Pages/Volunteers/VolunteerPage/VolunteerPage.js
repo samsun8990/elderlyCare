@@ -143,9 +143,9 @@ const VolunteerPage = ({navigation}) => {
     {
       viewAllChoice
       ?
-      <AcceptedVolnteerLists/>
+      <AcceptedVolnteerLists navigation={navigation}/>
       :
-      <PendingVolnteerLists/>
+      <PendingVolnteerLists navigation={navigation}/>
     }
 
 

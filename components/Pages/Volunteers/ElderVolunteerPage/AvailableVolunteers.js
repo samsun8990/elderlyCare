@@ -18,19 +18,23 @@ import { defaultImg } from "../../../Utils/ImageCommon.js";
 import { AuthContext } from "../../../Config/AuthContext.js";
 import { readAllAvailableVolunteers } from "../../../Config/dbcls.js";
 
-const AvailableVolunteers = ({navigation}) => {
+const AvailableVolunteers = ({navigation}) => {  
   
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } =
     useContext(AuthContext);
   const [avaiableList, setAvailableList] = useState();
 
   useEffect(() => {
-    if (elderUser) {
+    if (elderUser ) {
+
       readAllAvailableVolunteers("available", setAvailableList);
+
+
     }
   }, []);
 
   return (
+    <>
     <Card>
       <Card.Title style={{ fontSize: 18 }}>
         View All Volunteers ({avaiableList &&
@@ -67,7 +71,14 @@ const AvailableVolunteers = ({navigation}) => {
                   }}
                 >
                   <Button
-                    disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') ? true : false}
+                    disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') 
+                    ? 
+                    true
+                    :
+                    available.requests && available.requests.map((vol) => vol.status === 'accepted') 
+                    ?
+                    true
+                     : false} 
                     buttonStyle={{
                       backgroundColor: "#BF3A3A",
                       borderWidth: 2,
@@ -86,16 +97,26 @@ const AvailableVolunteers = ({navigation}) => {
                     }}
                     onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   >
-                    {available.requests && available.requests.map((vol) => vol.status === 'pending') ? 'Pending' : 'Request'} 
+                    {available.requests && available.requests.map((vol) => vol.status === 'pending') 
+                    ? 
+                    'Pending'
+                    :
+                    available.requests && available.requests.map((vol) => vol.status === 'accepted') 
+                    ?
+                    'Accepted'
+                     : 'Request'} 
                   </Button>
                 </View>
               </View>
               <Card.Divider />
             </View>
           ))}
+           <View style={{ paddingBottom: 20 }} />
       </ScrollView>
-      <View style={{ paddingBottom: 30 }} />
+     
     </Card>
+    <View style={{ paddingBottom: 50 }} />
+    </>
   );
 };
 

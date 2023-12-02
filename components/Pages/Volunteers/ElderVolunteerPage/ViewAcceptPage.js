@@ -128,11 +128,11 @@ const ViewAcceptPage = ({ navigation, route }) => {
 
                         </View>
                         <Text></Text>
-                        <View>
+                        {/* <View>
                             <Text style={styles.requestTitle}>Payment Amount</Text>
                             <Card.Divider />
                             <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
-                        </View>
+                        </View> */}
                     </View>
                 </Card>
             </ScrollView>

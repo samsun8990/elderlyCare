@@ -37,6 +37,7 @@ const EditProfileE = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={{marginTop:2}}></Text>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleBackPress}>
           <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
@@ -45,19 +46,19 @@ const EditProfileE = ({ navigation }) => {
       </View>
       <View style={styles.profileSection}>
         <View style={styles.profileRow}>
-          <MaterialCommunityIcons name="account" size={20} color="black" style={styles.icon} />
+          <MaterialCommunityIcons name="account" size={25} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
             placeholder={elderUser.fullname}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
-          <AntDesign name="contacts" size={20} color="black" style={styles.icon} />
+          <AntDesign name="contacts" size={25} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
             placeholder={elderUser.phone}></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.profileRow}>
-          <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
+          <AntDesign name="calendar" size={25} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
             placeholder={elderUser.date}></TextInput>
         </View>
@@ -96,6 +97,7 @@ const EditProfileE = ({ navigation }) => {
           Save
         </Button>
       </View>
+      <View style={{paddingBottom:20}}/>
     </SafeAreaView>
   )
 }
@@ -134,7 +136,7 @@ const styles = StyleSheet.create({
     gap: 10
   },
   profileText: {
-    fontSize: 16,
+    fontSize: 18,
     marginRight: 10,
   },
   icon: {
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     borderRadius: 10,
-    backgroundColor: '#ebebe0'
+    backgroundColor: '#F2F2F2'
   },
   dashboardButtons: {
     flexDirection: 'row',

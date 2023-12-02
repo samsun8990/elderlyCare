@@ -18,7 +18,29 @@ const ChatUser = ({ navigation, route }) => {
   const { network } = route.params
 
   const [messages, setMessages] = useState([])
+  const getAllMessages = async () => {
+    const chatid = uid > user.uid ? user.uid+"-"+uid : uid+"-"+user.uid   
+    const msgResponse = await firestore().collection('Chats')
+    .doc(chatid)
+    .collection('messages')
+    .orderBy('createdAt', "desc")
+    .get()
+    const allTheMsgs = msgResponse.docs.map(docSanp => {
+      return {
+        ...docSanp.data(),
+        createdAt:docSanp.data().createdAt.toDate()
+      }
+    })
+    setMessages(allTheMsgs)
+  }
+  
+  useEffect(() => {
+    getAllMessages()
+  },[])
 
+  useEffect(() => {
+    getAllMessages()
+  },[])
   // useEffect(()=>{
 
   //   const collectionRef = collection(db,"chats")
@@ -54,9 +76,7 @@ const ChatUser = ({ navigation, route }) => {
   }, [])
 
   const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
-    )
+    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
 
   const sendChat = async (newMessages = []) => {
@@ -77,51 +97,14 @@ const ChatUser = ({ navigation, route }) => {
   }
 
   return (
-    <GiftedChat
-      messages={messages}
-      onSend={messages => onSend(messages)}
-      alwaysShowSend={true}
-      user={user && elderUser? {
-        _id: elderUser.id,name:elderUser.fullname,avatar:elderUser.avatar
-      }:  {
-        _id: volunteerUser.id,name:volunteerUser.fullname,avatar:volunteerUser.avatar
-      }}
+    <GiftedChat 
+    style={{flex: 1}}
+    messages={messages}
+    onSend={text => onSend(text)}
+    user={{ 
+      _id: network.id,
+    }}
     />
-    // <SafeAreaView style={styles.container}>
-    //   <ScrollView showsVerticalScrollIndicator={true}>
-
-
-    //     <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
-
-    //       {/* <View>
-
-    //       <View style={{gap: 10, padding: 10, flexDirection:'column', height:500}}>
-    //         <Text style={{ marginBottom:20, borderWidth: 1,borderRadius: 8, padding: 10,backgroundColor:'white', width:'20%', textAlign:'left'}}>Hi</Text>
-    //     </View>
-
-    //       <View style={{ justifyContent: "space-around", alignItems: "center", gap: 12, padding: 5, flexDirection:'row' }}>
-
-    //         <TextInput
-    //           style={{
-    //             borderWidth: 1, borderColor: "grey", height: 60, width: 300, borderRadius: 8, backgroundColor: "#EAEAEA",
-    //             margin: 12,
-    //             padding: 10,
-    //             color:"gray"
-    //           }}
-    //           placeholder='Type a message'
-    //         />
-
-    //         <FontAwesome name="send" size={30} color="green" />
-
-
-
-    //       </View>
-
-    //     </View> */}
-
-    //     </Card>
-    //   </ScrollView>
-    // </SafeAreaView>
   )
 }
 

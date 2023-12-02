@@ -10,6 +10,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { defaultImg } from '../../../Utils/ImageCommon.js';
 import { AuthContext } from '../../../Config/AuthContext.js';
 import { readAllPendingElders } from '../../../Config/volunteer_dbcls.js';
+import { removeVolRequestById } from '../../../Config/dbcls.js';
 
 
 const PendingVolnteerLists = ({navigation}) => {
@@ -25,6 +26,11 @@ const PendingVolnteerLists = ({navigation}) => {
     }
   }, []);
 
+  const handleDeclineRequest = async(inviteuser)=>{
+    alert("Deleted Request")
+    await removeVolRequestById(volunteerUser,inviteuser)
+}
+
   
   return (
     <Card >
@@ -38,16 +44,16 @@ const PendingVolnteerLists = ({navigation}) => {
       <View style={{ flexDirection: "row", justifyContent: "space-between" ,bottom:5, padding:5}}>
         <View style={{ flexDirection: "row", gap: 10 , alignItems:"center"}}>
           <Avatar source={{uri:pending.avatar}} size={50}/>
-          <TouchableOpacity style={{margin:5}} onPress={()=>navigation.navigate("RequestPage")}>
+          <TouchableOpacity style={{margin:5}}>
             <Text style={{ fontWeight: "600", fontSize: 16 }}>{pending.fullname}</Text>
             {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
           </TouchableOpacity>
         </View>
         <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top:10 }}> 
-            <Entypo name="eye" size={30}/>
+            <Entypo name="eye" size={30} onPress={()=>navigation.navigate("ViewVolRequestPage",{pending:pending})}/>
             <FontAwesome name="check" size={30} color="#265F17" />
-            <Entypo name="cross" size={30}/>
+            <Entypo name="cross" size={30} onPress={()=>handleDeclineRequest(pending)}/>
           </View>
         </View>
       </View>

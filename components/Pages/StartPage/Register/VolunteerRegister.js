@@ -137,6 +137,7 @@ const VolunteerRegister = ({ navigation }) => {
                 onChangeText={(text) => setPassword(text)}
                 style={styles.input}
                 autoCorrect={false}
+                secureTextEntry
               />
             </View>
             <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%', marginBottom: 20 }}>

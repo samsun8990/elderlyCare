@@ -92,8 +92,7 @@ const ElderNetwork = () => {
                                         </TouchableOpacity>
 
                                             <Text style={{ color: "#847F7F" }}>
-                                                {findCreatedAt_diffDays(invite)}
-                                             
+                                                {/* {findCreatedAt_diffDays(invite)} */}
                                             </Text>
                                         </View>
                                     </View>
