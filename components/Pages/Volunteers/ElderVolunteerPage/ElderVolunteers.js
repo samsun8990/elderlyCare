@@ -11,6 +11,7 @@ import AvailableVolunteers from './AvailableVolunteers.js';
 import RequestedVolunteers from './RequestedVolunteers.js';
 import { logo } from '../../../Utils/ImageCommon.js';
 import { AuthContext } from '../../../Config/AuthContext.js';
+import PendigVolunteer from './PendigVolunteer.js';
 
 const ElderVolunteers = () => {
   const navigation = useNavigation();
@@ -21,6 +22,7 @@ const ElderVolunteers = () => {
   
   const [viewAllChoice,setViewAllChoice] = useState(true)
   const [viewRequestedChoice,setViewRequestedChoice] = useState(false)
+  const [viewPendingChoice,setViewPendingChoice] = useState(false)
 
 
 const updateSearch = (search) => {
@@ -132,21 +134,48 @@ const updateSearch = (search) => {
           />
         </View>
       </View>
+   
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
-        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true);setViewRequestedChoice(false)}}>
+      <ScrollView horizontal >
+      <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
+          setViewPendingChoice(false),setViewAllChoice(true);setViewRequestedChoice(false)}}>
           View All</Button>
+          <Text>  </Text>
         <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested} 
-        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewRequestedChoice(true);setViewAllChoice(false)}}>
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
+          setViewPendingChoice(false),setViewRequestedChoice(true);setViewAllChoice(false)}}>
           View Accepted</Button>
+          <Text>  </Text>
+          <Button buttonStyle={viewPendingChoice ? styles.viewallrequestbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
+          setViewPendingChoice(true),setViewRequestedChoice(false);setViewAllChoice(false)}}>
+          View Pending</Button>
+
+      </ScrollView>
+     
       </View>
 
       {
+        viewRequestedChoice
+        ?
+        <RequestedVolunteers navigation={navigation}/>
+        :
+        null
+      }
+      {
+         viewPendingChoice
+         ?
+         <PendigVolunteer navigation={navigation}/>
+         :
+         null
+      }
+      {
         viewAllChoice
         ?
-        <AvailableVolunteers/>
+        <AvailableVolunteers navigation={navigation}/>
         :
-        <RequestedVolunteers/>
+        null
       }
 
 

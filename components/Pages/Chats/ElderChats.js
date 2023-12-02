@@ -70,13 +70,11 @@ const ElderChats = ({ navigation, route }) => {
                     <Avatar source={{ uri: connect.avatar }} size={50} />
                     <TouchableOpacity style={{ margin: 5 }} >
                       <Text style={{ fontWeight: "500", fontSize: 15, top: 5 }}>{connect.fullname}</Text>
-                      {/* <Text style={{ color: "#847F7F" }}>1 day ago</Text> */}
                     </TouchableOpacity>
                   </View>
                   <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top: 10 }}>
                       <Entypo name="chat" size={30} onPress={() => navigation.navigate("ChatUser", { network: connect })} />
-                      <MaterialCommunityIcons name="more" size={30} />
                     </View>
                   </View>
                 </View>

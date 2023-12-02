@@ -76,9 +76,9 @@ const ElderHome = ({ }) => {
          <Welcome  />
           
        
-          <ElderHomeSuggestions />
+          <ElderHomeSuggestions navigation={navigation} />
           <Text></Text>
-          <ElderHomeAvailable />
+          <ElderHomeAvailable navigation={navigation}/>
 
         </View>
         

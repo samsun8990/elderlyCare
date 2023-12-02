@@ -11,6 +11,7 @@ const PassChangeV = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={{marginTop:20}}></Text>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={handleBackPress}>
           <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
@@ -20,13 +21,13 @@ const PassChangeV = ({ navigation }) => {
       <View style={styles.contentContainer}>
         <View style={styles.passwordItem}>
           <AntDesign name="lock" size={24} color="black" />
-          <TextInput
+          <TextInput style={{fontSize:18}}
           placeholder='New Password'></TextInput>
         </View>
         <View style={styles.line} />
         <View style={styles.passwordItem}>
           <AntDesign name="lock" size={24} color="black" />
-          <TextInput
+          <TextInput style={{fontSize:18}}
           placeholder='Retype Password'></TextInput>
         </View>
         <View style={styles.line} />
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   saveButton: {
     alignSelf: 'center',
     marginTop: 20,
-    width:200
+    width:100
     
   },
 });

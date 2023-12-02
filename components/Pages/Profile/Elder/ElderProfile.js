@@ -45,11 +45,11 @@ const ElderProfile = () => {
                 <Text style={styles.sectionTitle}>Personal Details</Text>
                 <Card.Divider style={{flex: 1, height: 1, backgroundColor: 'gray'}}/>
                 <View style={styles.detailRow}>
-                    <Icon name="mail" color="black" size={20} style={styles.icon} />
+                    <Icon name="mail" color="black" size={25} style={styles.icon} />
                     <Text>{elderUser.email}</Text>
                 </View>
                 <View style={styles.detailRow}>
-                    <Icon name="lock" color="black" size={20} style={styles.icon} />
+                    <Icon name="lock" color="black" size={25} style={styles.icon} />
                     <Text>*******</Text>
                     <Button 
                         containerStyle={{
@@ -63,12 +63,12 @@ const ElderProfile = () => {
                     </Button>
                 </View>
                 <View style={styles.detailRow}>
-                    <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
+                    <AntDesign name="calendar" color="black" size={25} style={styles.icon} />
                     <Text>{formattedDate}</Text>
                 </View>
                
                 <View style={styles.detailRow}>
-                    <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
+                    <AntDesign name="contacts" color="black" size={25} style={styles.icon} />
                     <Text>{elderUser.phone}</Text>
                 </View>
             </View>
@@ -97,7 +97,7 @@ const ElderProfile = () => {
                 <Text style={styles.sectionTitle}>My Account</Text>
                 <Card.Divider style={{flex: 1, height: 1, backgroundColor: 'gray'}}/>
                 <Text style={{ fontSize: 16}}>
-                    <Icon size={30} name="logout" color="#1B5B7D" 
+                    <Icon size={25} name="logout" color="#1B5B7D" 
                     onPress={() => {
                         signOut()
                         setUser(null)

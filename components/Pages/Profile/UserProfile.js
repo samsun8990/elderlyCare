@@ -5,17 +5,21 @@ import { Avatar, Button, Card, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from './ProfileStyles';
-import { getUserDetails } from '../../Config/dbcls'
+import { getUserDetails, getUserProfileDetails } from '../../Config/dbcls'
 
 const UserProfile = ({navigation,route}) => {
 
     const {userid} = route.params
 
+
     const [userDetails,setUserDetails] = useState()
 
     useEffect(()=>{
-        getUserDetails(userid,setUserDetails)
+        getUserProfileDetails(userid,setUserDetails)
     },[])
+
+    
+    console.log(userDetails);
 
     const timestamp_Data = {
         "nanoseconds": userDetails && userDetails.joinDate.nanoseconds,

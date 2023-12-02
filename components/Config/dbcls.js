@@ -59,7 +59,36 @@ export const readAllAvailableVolunteers = async (searchquery, setVolunteers) => 
 }
 export const updatedVolunteerStatus = async () => {
 
+  const userRef = doc(db, 'elderlyUsers', elderUser.id);
+  
+  const userDoc = await getDoc(userRef)
+  const currentVolunteers = userDoc.data().volunteers || []
+
+  setData(currentVolunteers)
+
 }
+
+
+export const getUserProfileDetails = async (userID,setProfile) => {
+
+  
+  const docRef1 = doc(db, "elderlyUsers", userID);
+  const docSnap1 = await getDoc(docRef1);
+
+  const docRef2 = doc(db, "volunteerUsers", userID);
+  const docSnap2 = await getDoc(docRef2);
+
+  if (docSnap1.exists()) {
+    setProfile({ id: userID, ...docSnap1.data() })
+  }
+  else if (docSnap2.exists()) {
+    setProfile({ id: userID, ...docSnap2.data() })
+  }
+
+}
+
+
+
 
 
 
@@ -121,13 +150,13 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
   const acceptCurrentUserRef = doc(db, 'elderlyUsers', invitation.id);
 
   await updateDoc(acceptCurrentUserRef, {
-    followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+    followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: new Date() })
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
 
   await updateDoc(updateFollowOtherUserRef, {
-    following: arrayUnion({ id: invitation.id, status: "accepted", updatedAt: Timestamp.fromDate(new Date()) })
+    following: arrayUnion({ id: invitation.id, status: "accepted", updatedAt:new Date() })
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
@@ -215,8 +244,18 @@ export const getInvitations = async (elderUser, setinvitation) => {
 }
 
 export const findCreatedAt_diffDays = (invite) => {
-  const get_seconds = invite.followers.map((follower) => follower.createdAt.seconds)
-  const get_nanoseconds = invite.followers.map((follower) => follower.createdAt.nanoseconds)
+  //console.log(invite);
+//   const getRequestsByUserId = (userObj, requestedByUserId) => {
+//     const matchingRequest = userObj.followers.find(
+//         (request) => request.id === requestedByUserId
+//     );
+//     return matchingRequest || null; // Return null if no matching request found
+// };
+
+// const requestsForUser = getRequestsByUserId(invite, elderUser.id);
+  const get_seconds = invite.followers.map((follower) => follower && follower.createdAt.seconds)
+  console.log(get_seconds);
+  const get_nanoseconds = invite.followers.map((follower) => follower && follower.createdAt.nanoseconds)
   const get_date = new Date(get_seconds * 1000 + get_nanoseconds / 1000000).toDateString()
   const date = new Date(get_date);
   const currentDate = new Date();
@@ -239,8 +278,50 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
       let getInvitedUsers = []
       let a3 = temp.flatMap((x) => { return x.volunteers && x.volunteers })
       if (a3.length > 0) {
-
         let checkElders = a3.filter((vol) => vol && vol.status === "accepted")
+        if (checkElders.length > 0) {
+
+          checkElders.forEach(a => {
+            const docRef1 = doc(db, 'volunteerUsers', a.id);
+            const docSnap1 = getDoc(docRef1);
+            docSnap1.then((result) => {
+              getInvitedUsers.push({ id: a.id, ...result.data() })
+              //console.log(getInvitedUsers,"getacceptedUsers");
+              setAcceptedList(getInvitedUsers)
+            }
+            ).catch((error) => console.log(error))
+          })
+
+        }
+        else {
+          setAcceptedList()
+        }
+      }
+      else {
+        setAcceptedList()
+      }
+
+    })
+
+
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+}
+export const viewPendingVolunteersByElder = async(elderUser, setAcceptedList)=>{
+  try {
+
+    const q = query(collection(db, "elderlyUsers"), where("fullname", "==", elderUser.fullname));
+
+
+    await onSnapshot(q, (snapshot) => {
+      let temp = []
+      snapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }))
+      let getInvitedUsers = []
+      let a3 = temp.flatMap((x) => { return x.volunteers && x.volunteers })
+      if (a3.length > 0) {
+
+        let checkElders = a3.filter((vol) => vol && vol.status === "pending")
         console.log(checkElders, "chleld");
         if (checkElders.length > 0) {
 
@@ -275,20 +356,65 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
 export const removeRequestById = async (elderUser, inviteuser) => {
 
   const userRef = doc(db, 'elderlyUsers', elderUser.id);
-  const inviteUserRef = doc(db, 'elderlyUsers', inviteuser.id)
-  try {
-    await updateDoc(userRef, {
-      followers: arrayRemove(inviteuser.id)
-    }, { merge: true });
-    await updateDoc(inviteUserRef, {
-      following: arrayRemove(elderUser.id)
-    }, { merge: true });
-    console.log('Request removed successfully.');
-  } catch (error) {
-    console.error('Error removing request:', error);
-  }
+  const inviteUserRef = doc(db, 'volunteerUsers', inviteuser.id)
+
+  const userDoc = await getDoc(userRef);
+  const currentFollowers = userDoc.data().followers || [];
+  const updatedFollowers = currentFollowers.filter(followuser => followuser.id !== inviteuser.id);
+  await updateDoc(userRef, {
+    followers: updatedFollowers
+  });
+
+  // Remove elderUser.id from the requests array
+  const inviteUserDoc = await getDoc(inviteUserRef);
+  const currentRequests = inviteUserDoc.data().following || [];
+  const updatedRequests = currentRequests.filter(followng => followng.id !== elderUser.id);
+  await updateDoc(inviteUserRef, {
+    requests: updatedRequests
+  });
 };
 
+export const removeVolRequestById = async (elderUser, inviteuser) => {
+
+  const userRef = doc(db, 'elderlyUsers');
+  const inviteUserRef = doc(db, 'volunteerUsers', inviteuser.id)
+
+  // const userDoc = await getDoc(userRef);
+  // const currentFollowers = userDoc.data().volunteers || [];
+  // const updatedFollowers = currentFollowers.filter(followuser => followuser.id !== inviteuser.id);
+  // await updateDoc(userRef, {
+  //   volunteers: updatedFollowers
+  // });
+
+  // Remove elderUser.id from the requests array
+  const inviteUserDoc = await getDoc(inviteUserRef);
+  const currentRequests = inviteUserDoc.data().requests || [];
+  const updatedRequests = currentRequests.filter(followng => followng.id !== requestedBy.id);
+  await updateDoc(inviteUserRef, {
+    requests: updatedRequests
+  });
+};
+
+
+export const removePendingRequestById = async (elderUser, inviteuser) => {
+  const userRef = doc(db, 'elderlyUsers', elderUser.id);
+  const inviteUserRef = doc(db, 'volunteerUsers', inviteuser.id)
+  
+  const userDoc = await getDoc(userRef);
+  const currentVolunteers = userDoc.data().volunteers || [];
+  const updatedVolunteers = currentVolunteers.filter(volunteerId => volunteerId.id !== inviteuser.id);
+  await updateDoc(userRef, {
+    volunteers: updatedVolunteers
+  });
+
+  // Remove elderUser.id from the requests array
+  const inviteUserDoc = await getDoc(inviteUserRef);
+  const currentRequests = inviteUserDoc.data().requests || [];
+  const updatedRequests = currentRequests.filter(requestId => requestId.id !== elderUser.id);
+  await updateDoc(inviteUserRef, {
+    requests: updatedRequests
+  });
+};
 export const getUserDetails = async (email, setUserDetails,setAuthuser) => {
 
   const eldr_q = query(collection(db, "elderlyUsers"), where("email", "==", email));
@@ -302,8 +428,6 @@ export const getUserDetails = async (email, setUserDetails,setAuthuser) => {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           setUserDetails({id: doc.id, data:doc.data()})
-          // signInWithEmailAndPassword(auth, doc.data().email, doc.data().password).then((user)=>setAuthuser(user))
-
         });
       })
     // setUserDetails(temp)

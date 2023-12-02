@@ -21,96 +21,123 @@ const ViewRequestPage = ({navigation,route}) => {
 
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
-  const {accepted} = route.params
+  const { accepted } = route.params
+
+
+  const getRequestsByUserId = (userObj, requestedByUserId) => {
+      const matchingRequest = userObj.requests.find(
+          (request) => request.requestedBy === requestedByUserId
+      );
+      return matchingRequest || null; // Return null if no matching request found
+  };
+
+  const requestsForUser = getRequestsByUserId(accepted, elderUser.id);
+
+  const timestamp_startData = {
+      "nanoseconds": requestsForUser.startDate.nanoseconds,
+      "seconds": requestsForUser.startDate.seconds
+  };
+  const timestamp_endData = {
+      "nanoseconds": requestsForUser.endDate.nanoseconds,
+      "seconds": requestsForUser.endDate.seconds
+  };
+
+  const milliseconds1 = timestamp_startData.seconds * 1000 + timestamp_startData.nanoseconds / 1000000;
+  const startdate = new Date(milliseconds1).toDateString()
+
+  const milliseconds2 = timestamp_endData.seconds * 1000 + timestamp_endData.nanoseconds / 1000000;
+  const enddate = new Date(milliseconds2).toDateString()
 
 
 
   return (
     <SafeAreaView style={styles.container}>
-      <Card
-        containerStyle={{ backgroundColor: "#fff" }}
-        wrapperStyle={{ backgroundColor: "#fff" }}
-      >
-        <View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: 10,
-              padding: 10,
-            }}
-          >
-            <Avatar source={defaultImg} size={60}/>
+    <ScrollView>
+        <Card
+            containerStyle={{ backgroundColor: "#fff" }}
+            wrapperStyle={{ backgroundColor: "#fff" }}
+        >
             <View>
-              <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>
-                  <Text style={{ fontWeight: "bold" }}>{accepted.fullname}</Text>
-              </TouchableOpacity>
-              <Text style={{ fontSize: 12 }}>{accepted.gender}</Text>
-            </View>
-          </View>
+                <View
+                    style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: 10,
+                    }}
+                >
+                    <Avatar source={{ uri: accepted.avatar }} size={60} />
 
-          <View>
-            <Text>Description</Text>
-            <Card.Divider />
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: "grey",
-                height: 60,
-                width: 190,
-                borderRadius: 8,
-                backgroundColor: "#EAEAEA",
-                margin: 12,
-                borderWidth: 1,
-                padding: 10,
-                color: "gray",
-              }}
-              placeholder="What are you ooking for?"
-            />
-          </View>
+                    <View>
+                        <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>
+                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>{accepted.fullname}</Text>
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 15 }}>{accepted.gender}</Text>
+                    </View>
+                </View>
+                <Text></Text>
+                <View>
+                    <Text style={styles.requestTitle}>Description</Text>
+                    <Card.Divider />
+                    <Text></Text>
+                    <Text style={{ fontSize: 15 }} >{requestsForUser && requestsForUser.description}</Text>
+                </View>
+                <Text></Text>
 
-          <View>
-            <Text>Preferences</Text>
-            <Card.Divider />
-            <View style={{ flexDirection: "row" }}>
-              <CheckBox
-                center
-                title="Walking"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
-              />
-              <CheckBox
-                center
-                title="Talking"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
-              />
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <CheckBox
-                center
-                title="Playing Games"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
-              />
-              <CheckBox
-                center
-                title="Read/Write"
-                checked={check1}
-                onPress={() => setCheck1(!check1)}
-              />
-            </View>
-          </View>
+                <View>
+                    <Text style={styles.requestTitle}>Preferences</Text>
+                    <Card.Divider />
+                    <View style={{ flexDirection: "row" }}>
+                        {
+                            requestsForUser &&
+                            requestsForUser.activities.slice(0, 2).map((x, index) =>
+                                <CheckBox
+                                    key={index}
+                                    center
+                                    title={x}
+                                    checked={x}
+                                />
+                            )
+                        }
 
-          <View>
-            <Text>Paymemt Amount</Text>
-            <Card.Divider />
-           <Text>QR 100</Text>
-          </View>
-        </View>
-      </Card>
-    </SafeAreaView>
+                    </View>
+                    <View style={{ flexDirection: "row" }}>
+                        {
+                            requestsForUser && requestsForUser.length > 2 &&
+                            requestsForUser.activities.slice(-2).map((x, index) =>
+                                <CheckBox
+                                    key={index}
+                                    center
+                                    title={x}
+                                    checked={x}
+                                />
+                            )
+                        }
+                    </View>
+                </View>
+                <Text></Text>
+                <View>
+                    <Text style={styles.requestTitle}>Date Preferences</Text>
+                    <Card.Divider />
+                    <Text></Text>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                        <Text style={{ fontSize: 15 }}>From: {startdate}</Text>
+                        <Text style={{ fontSize: 15 }}>To: {enddate}</Text>
+                    </View>
+
+                </View>
+                <Text></Text>
+                {/* <View>
+                    <Text style={styles.requestTitle}>Payment Amount</Text>
+                    <Card.Divider />
+                    <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
+                </View> */}
+            </View>
+        </Card>
+    </ScrollView>
+
+</SafeAreaView>
   )
 }
 

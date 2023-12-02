@@ -55,6 +55,7 @@ import UserProfile from "./components/Pages/Profile/UserProfile.js";
 import UserFeedbackPage from "./components/Pages/Volunteers/VolunteerPage/UserFeedbackPage.js";
 import ForgotPassword from "./components/Pages/StartPage/ForgotPassword.js";
 import ViewVolnAcceptPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolnAcceptPage.js";
+import ViewVolRequestPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolRequestPage.js";
 
 
 
@@ -112,10 +113,10 @@ export default function App() {
     }
   };
 
-  const updateElderUser = async(updatedUser) => {
+  const updateElderUser = async (updatedUser) => {
     // Implement logic to update the user in your context
     // For example:
-     setElderUser({ ...elderUser, ...updatedUser });
+    setElderUser({ ...elderUser, ...updatedUser });
   };
 
 
@@ -143,35 +144,44 @@ export default function App() {
 
   return (
     <SafeAreaProvider style={styles.container}>
-      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser,updateElderUser }}>
+      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser, updateElderUser }}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="LoginUser"
           >
 
-            <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false,headerStyle: {
-                  backgroundColor: '#E4EDF2'} }}  />
+            <Stack.Screen name="StartPage" component={StartPage} options={{
+              headerShown: false, headerStyle: {
+                backgroundColor: '#E4EDF2'
+              }
+            }} />
 
             <Stack.Screen name='LoginUser' component={LoginUser}
-              options={{headerStyle: { backgroundColor: '#E4EDF2'
-             }, headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} /> ,headerBackTitleVisible: false}}    />
+              options={{
+                headerStyle: {
+                  backgroundColor: '#E4EDF2'
+                }, headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} />, headerBackTitleVisible: false
+              }} />
 
             <Stack.Screen name='ElderlyRegister' component={ElderlyRegister}
-              options={{headerStyle: {
-                backgroundColor: '#E4EDF2'},
-                headerTitle: (props) => <CenteredTitle title="Create User Account" {...props}  />, headerBackTitleVisible: false
+              options={{
+                headerStyle: {
+                  backgroundColor: '#E4EDF2'
+                },
+                headerTitle: (props) => <CenteredTitle title="Create User Account" {...props} />, headerBackTitleVisible: false
               }} />
 
             <Stack.Screen name='VolunteerRegister' component={VolunteerRegister}
-              options={{headerStyle: {backgroundColor: '#E4EDF2'},
-                headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />,headerBackTitleVisible: false
+              options={{
+                headerStyle: { backgroundColor: '#E4EDF2' },
+                headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />, headerBackTitleVisible: false
               }} />
 
-            <Stack.Screen options={{ headerShown: false,headerBackTitleVisible: false }} name="elderTabs" component={ElderBottomTabs} />
+            <Stack.Screen options={{ headerShown: false, headerBackTitleVisible: false }} name="elderTabs" component={ElderBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false,headerBackTitleVisible: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
+            <Stack.Screen options={{ headerShown: false, headerBackTitleVisible: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false,headerBackTitleVisible: false }} name="drawer" component={DrawerTab} />
+            <Stack.Screen options={{ headerShown: false, headerBackTitleVisible: false }} name="drawer" component={DrawerTab} />
 
             {/* <Stack.Screen name="ElderHome" component={ElderHome} /> */}
 
@@ -187,11 +197,11 @@ export default function App() {
               options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }} />
 
             <Stack.Screen name="ViewRequestPage" options={{ headerTitle: (props) => <CenteredTitle title="View Request" {...props} /> }}
-            component={ViewRequestPage}/>
-            <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage}/>
-            
+              component={ViewRequestPage} />
+            <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage} />
+
             <Stack.Screen name="ViewVolnAcceptPage" component={ViewVolnAcceptPage}
-            options={{ headerTitle: (props) => <CenteredTitle title="View Accepted Requests" {...props} /> }}/>
+              options={{ headerTitle: (props) => <CenteredTitle title="View Accepted Requests" {...props} /> }} />
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
 
@@ -200,17 +210,17 @@ export default function App() {
             <Stack.Screen name="VolunteerHomeAcceptedRequests" component={VolunteerAcceptedRequests} />
             <Stack.Screen name="VolunteerHomePendingRequests" component={VolunteerPendingRequests} />
             <Stack.Screen name="AcceptedVolnteerLists"
-             options={{ headerTitle: (props) => <CenteredTitle title="Accepted Requests" {...props} /> }}
-            component={AcceptedVolnteerLists} />
-            <Stack.Screen name="PendingVolnteerLists" 
-             options={{ headerTitle: (props) => <CenteredTitle title="Pending Requests" {...props} /> }}
-            component={PendingVolnteerLists} />
-            
+              options={{ headerTitle: (props) => <CenteredTitle title="Accepted Requests" {...props} /> }}
+              component={AcceptedVolnteerLists} />
+            <Stack.Screen name="PendingVolnteerLists"
+              options={{ headerTitle: (props) => <CenteredTitle title="Pending Requests" {...props} /> }}
+              component={PendingVolnteerLists} />
+
             <Stack.Screen name="ChatUser" component={ChatUser}
-            options={({ route }) => ({
-              title: route.params.network.fullname
-            })}
-             />
+              options={({ route }) => ({
+                title: route.params.network.fullname
+              })}
+            />
 
             <Stack.Screen name="AvailableVolunteers" component={AvailableVolunteers} />
 
@@ -229,10 +239,13 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="PassChangeE" component={PassChangeE} />
 
-            <Stack.Screen name="ForgotPassword" component={ForgotPassword} 
-             options={{headerStyle: { backgroundColor: '#E4EDF2'
-            }, headerTitle: (props) => <CenteredTitle title="Forgot Password" {...props} /> ,headerBackTitleVisible: false}}/>
-  
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#E4EDF2'
+                }, headerTitle: (props) => <CenteredTitle title="Forgot Password" {...props} />, headerBackTitleVisible: false
+              }} />
+
 
             <Stack.Screen options={{ headerShown: false }} name="ChatHistoryV" component={ChatHistoryV} />
 
@@ -244,13 +257,18 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="PaymentHistoryV" component={PaymentHistoryV} />
 
-            <Stack.Screen name="ElderProfile"  component={ElderProfile} options={{ headerShown: false}} />
+            <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }} />
 
             <Stack.Screen name="VolunProfile" component={VolunProfile} options={{ headerShown: false }} />
 
             <Stack.Screen name="UserProfile" component={UserProfile}
-              options={{title:"Profile"}}
+              options={{ title: "Profile" }}
             />
+
+
+            <Stack.Screen name="ViewVolRequestPage" component={ViewVolRequestPage} options={{ headerShown: false }} />
+
+
 
           </Stack.Navigator>
 
@@ -267,7 +285,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#E4EDF2",
-   //justifyContent: "space-between",
+    //justifyContent: "space-between",
     // width: windowWidth,
     // height: windowHeight,
   },
