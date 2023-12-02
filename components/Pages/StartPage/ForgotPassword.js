@@ -6,8 +6,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { Fontisto } from 'react-native-vector-icons'
 import { doc, setDoc, getDocs, collection, deleteDoc, addDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { getUserDetails } from '../../Config/dbcls';
+import { getUserDetails, updateUserDetails } from '../../Config/dbcls';
+import { getAuth, updatePassword,getUserByEmail } from 'firebase/auth';
+import { auth } from '../../Config/config';
 
+const authr = getAuth();
 
 const ForgotPassword = ({ navigation }) => {
 
@@ -16,20 +19,28 @@ const ForgotPassword = ({ navigation }) => {
     const [saveOption, setSaveOption] = useState(true)
     const [userDetails, setUserDetails] = useState()
 
+    const [authUser,setAuthuser] = useState()
 
 
     const handleSave = async () => {
-        await getUserDetails(email,setUserDetails)
+        await getUserDetails(email,setUserDetails,setAuthuser)
+   // console.log(authUser,"authusr");
+      
+        
         setSaveOption(false)
+
     }
     const handleUpdate = async () => {
-        console.log(userDetails,"usrdet");
-        await updateDoc(updateFollowOtherUserRef, {
-           password:password
-          }, { merge: true })
-            .then(() => console.log("Data Updated"))
-            .catch((error) => console.error('Error updating document:', error));
-
+        console.log(authUser,"authsr");
+        //await updateUserDetails(userDetails.id,password)
+        // await updatePassword(userDetails.id, password)
+        // .then(() => {
+        //   console.log('Password updated successfully');
+        // })
+        // .catch((error) => {
+        //   console.error('Error updating password:', error);
+        // });
+       
     }
 
     return (

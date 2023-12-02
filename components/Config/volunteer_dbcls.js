@@ -77,3 +77,27 @@ export const readAllPendingElders = async(volunUser,setAcceptedList)=>{
     }
   })
 }
+
+
+export const getFeedbackByUserId =(accepted,setFeedbackList,volUser)=>{
+
+  const feedbackCollectionRef = collection(db, 'feedbacks');
+  try {
+    onSnapshot(feedbackCollectionRef, (querySnapshot) => {
+      let temp = []
+      querySnapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
+      const userFeedback = temp.filter((user) => user.feedBackBy == accepted.id && user.feedBackFor == volUser.id)
+      if(userFeedback){
+        setFeedbackList(userFeedback)
+      }
+      else{
+        setFeedbackList()
+      }
+      
+
+    })
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+  
+}

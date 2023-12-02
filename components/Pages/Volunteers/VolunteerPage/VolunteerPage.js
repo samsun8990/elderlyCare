@@ -1,5 +1,5 @@
 import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity, Platform } from 'react-native'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 // import { headerOptions } from '../../Utils/Common';
@@ -10,8 +10,12 @@ import { Dropdown } from 'react-native-element-dropdown';
 import AcceptedVolnteerLists from './AcceptedVolnteerLists.js';
 import PendingVolnteerLists from './PendingVolnteerLists.js';
 import { logo } from '../../../Utils/ImageCommon.js';
+import { AuthContext } from '../../../Config/AuthContext.js';
 
 const VolunteerPage = ({navigation}) => {
+
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+
     
   const [selectedValue, setSelectedValue] = useState('');
   const [value, setValue] = useState(null)
@@ -42,7 +46,9 @@ const VolunteerPage = ({navigation}) => {
             size={24}
             style={{ marginRight: 15 }}
             onPress={() => {
-              // Handle logout logic here
+              signOut()
+              setUser(null)
+              navigation.replace("LoginUser")
             }}
           />
         </TouchableOpacity>
@@ -137,9 +143,9 @@ const VolunteerPage = ({navigation}) => {
     {
       viewAllChoice
       ?
-      <AcceptedVolnteerLists navigation={navigation}/>
+      <AcceptedVolnteerLists/>
       :
-      <PendingVolnteerLists navigation={navigation}/>
+      <PendingVolnteerLists/>
     }
 
 

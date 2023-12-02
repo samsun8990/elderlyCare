@@ -11,7 +11,9 @@ import { defaultImg } from '../../../Utils/ImageCommon.js';
 import { AuthContext } from '../../../Config/AuthContext.js';
 import { readAllAcceptedElders } from '../../../Config/volunteer_dbcls.js';
 
-const AcceptedVolnteerLists = ({navigation}) => {
+const AcceptedVolnteerLists = ({route}) => {
+
+  const navigation = useNavigation()
 
 
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
@@ -45,8 +47,8 @@ const AcceptedVolnteerLists = ({navigation}) => {
         </View>
         <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10, top:10 }}> 
-            <Entypo name="eye" size={30} onPress={()=>navigation.navigate("ViewAcceptPage",{accepted:accept})}/>
-            <MaterialIcons name="feedback" size={30} onPress={()=> navigation.navigate("UserFeedback", { feedback: accept })}/>
+            <Entypo name="eye" size={30} onPress={()=>navigation.navigate("ViewVolnAcceptPage",{accepted:accept})}/>
+            <MaterialIcons name="feedback" size={30} onPress={()=> navigation.navigate("UserFeedback", { accepted: accept })}/>
             <Entypo name="chat" size={30} onPress={()=> navigation.navigate("ChatUser", { network: accept })}/>
           
           </View>

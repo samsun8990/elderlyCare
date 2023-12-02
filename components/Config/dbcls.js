@@ -3,9 +3,10 @@ import {
   doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc, query, where, limit, updateDoc,
   not, arrayContains, onSnapshot, arrayUnion, FieldValue, serverTimestamp, Timestamp, arrayRemove
 } from "firebase/firestore";
-import { db } from "./config";
+import { auth, db } from "./config";
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const readAllElders = (setCallback) => {
   const unsubscribe = onSnapshot(collection(db, "elderlyUsers"), (snapshot) => {
@@ -146,7 +147,7 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
       let getInvitedUsers = []
       let a3 = temp.flatMap((x) => { return x.following && x.following })
       if (a3.length > 0) {
-       
+
         let check = a3.filter((follower) => follower && follower.status === "accepted")
         if (check.length > 0) {
           check.forEach(a => {
@@ -181,15 +182,15 @@ export const getInvitations = async (elderUser, setinvitation) => {
   const q = query(collection(db, "elderlyUsers"), where("fullname", "==", elderUser.fullname));
   await onSnapshot(q, (snapshot) => {
     let temp = []
-    snapshot.forEach((doc) =>temp.push({ id: doc.id, ...doc.data() }));
-    
+    snapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
+
     let getInvitedUsers = []
     let a3 = temp.flatMap((x) => { return x.followers && x.followers })
-    if(a3.length > 0){
-     
+    if (a3.length > 0) {
+
       let check = a3.filter((follower) => follower && follower.status === "requested")
       if (check.length > 0) {
-  
+
         check.forEach(a => {
           const docRef1 = doc(db, 'elderlyUsers', a.id);
           const docSnap1 = getDoc(docRef1);
@@ -199,24 +200,24 @@ export const getInvitations = async (elderUser, setinvitation) => {
           }
           ).catch((error) => console.log(error))
         })
-  
+
       }
       else {
         setinvitation()
       }
     }
-    else{
+    else {
       setinvitation()
     }
 
-  
+
   })
 }
 
-export const findCreatedAt_diffDays =(invite)=>{
+export const findCreatedAt_diffDays = (invite) => {
   const get_seconds = invite.followers.map((follower) => follower.createdAt.seconds)
   const get_nanoseconds = invite.followers.map((follower) => follower.createdAt.nanoseconds)
-  const get_date = new Date(get_seconds * 1000 + get_nanoseconds/ 1000000).toDateString()
+  const get_date = new Date(get_seconds * 1000 + get_nanoseconds / 1000000).toDateString()
   const date = new Date(get_date);
   const currentDate = new Date();
   const differenceInTime = currentDate.getTime() - date.getTime();
@@ -235,34 +236,34 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
     await onSnapshot(q, (snapshot) => {
       let temp = []
       snapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }))
-       let getInvitedUsers = []
-       let a3 = temp.flatMap((x) => { return x.volunteers && x.volunteers })
-      if(a3.length > 0){
-       
+      let getInvitedUsers = []
+      let a3 = temp.flatMap((x) => { return x.volunteers && x.volunteers })
+      if (a3.length > 0) {
+
         let checkElders = a3.filter((vol) => vol && vol.status === "accepted")
-        console.log(checkElders,"chleld");
+        console.log(checkElders, "chleld");
         if (checkElders.length > 0) {
-  
+
           checkElders.forEach(a => {
             const docRef1 = doc(db, 'volunteerUsers', a.id);
             const docSnap1 = getDoc(docRef1);
             docSnap1.then((result) => {
-              getInvitedUsers.push({id:a.id,...result.data()})
+              getInvitedUsers.push({ id: a.id, ...result.data() })
               //console.log(getInvitedUsers,"getacceptedUsers");
               setAcceptedList(getInvitedUsers)
             }
             ).catch((error) => console.log(error))
           })
-  
+
         }
         else {
           setAcceptedList()
         }
       }
-      else{
+      else {
         setAcceptedList()
       }
-   
+
     })
 
 
@@ -288,7 +289,47 @@ export const removeRequestById = async (elderUser, inviteuser) => {
   }
 };
 
-export const getUserDetails = async(userID,setUserDetails)=>{
+export const getUserDetails = async (email, setUserDetails,setAuthuser) => {
+
+  const eldr_q = query(collection(db, "elderlyUsers"), where("email", "==", email));
+
+  const volq = query(collection(db, "volunteerUsers"), where("email", "==", email));
+
+
+  if (eldr_q) {
+    let temp = []
+    getDocs(eldr_q)
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setUserDetails({id: doc.id, data:doc.data()})
+          // signInWithEmailAndPassword(auth, doc.data().email, doc.data().password).then((user)=>setAuthuser(user))
+
+        });
+      })
+    // setUserDetails(temp)
+  }
+  else if (volq.length > 0) {
+    let temp =[]
+    getDocs(volq)
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // console.log('User found:', doc.id, doc.data());
+          setUserDetails({id: doc.id, data:doc.data()})
+          signInWithEmailAndPassword(auth, email, doc.data().password).then((user)=>setAuthuser(user))
+
+          //temp.push(doc.id, ...doc.data())
+          // Access user properties like doc.id, doc.data().displayName, etc.
+        });
+      })
+  }
+  else {
+    console.log("No doc found")
+  }
+
+}
+
+export const updateUserDetails = async (userID, password) => {
+
   const docRef1 = doc(db, "elderlyUsers", userID);
   const docSnap1 = await getDoc(docRef1);
 
@@ -296,9 +337,9 @@ export const getUserDetails = async(userID,setUserDetails)=>{
   const docSnap2 = await getDoc(docRef2);
 
   if (docSnap1.exists()) {
-    setUserDetails({ id: userID, ...docSnap1.data() })
+    await updateDoc(docRef1, { password: password }, { merge: true }).then(() => console.log("password updated"))
   }
   else if (docSnap2.exists()) {
-    setUserDetails({ id: userID, ...docSnap2.data() })
+    await updateDoc(docRef2, { password: password }, { merge: true });
   }
 }
