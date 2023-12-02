@@ -29,6 +29,7 @@ const FeedbackPage = ({ navigation, route }) => {
       acceptName: accepted.fullname,
       acceptEmail: accepted.email,
       feedBackBy:elderUser.id,
+      avatar:elderUser.avatar,
       rating: rating,
       feedback: feedback
     }).then(()=>{

@@ -54,6 +54,7 @@ import VolunteerAcceptedRequests from "./components/Pages/Home/VolunteerHomepage
 import UserProfile from "./components/Pages/Profile/UserProfile.js";
 import UserFeedbackPage from "./components/Pages/Volunteers/VolunteerPage/UserFeedbackPage.js";
 import ForgotPassword from "./components/Pages/StartPage/ForgotPassword.js";
+import ViewVolnAcceptPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolnAcceptPage.js";
 
 
 
@@ -188,6 +189,9 @@ export default function App() {
             <Stack.Screen name="ViewRequestPage" options={{ headerTitle: (props) => <CenteredTitle title="View Request" {...props} /> }}
             component={ViewRequestPage}/>
             <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage}/>
+            
+            <Stack.Screen name="ViewVolnAcceptPage" component={ViewVolnAcceptPage}
+            options={{ headerTitle: (props) => <CenteredTitle title="View Accepted Requests" {...props} /> }}/>
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
 
