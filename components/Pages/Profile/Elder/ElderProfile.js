@@ -78,10 +78,10 @@ const ElderProfile = () => {
                 <Card.Divider style={{flex: 1, height: 1, backgroundColor: 'gray'}}/>
 
                 <View style={styles.dashboardButtons}>
-                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
+                    {/* <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
                      onPress={()=>navigation.navigate("PaymentHistoryE")}  >
                         Payments
-                    </Button>
+                    </Button> */}
                     <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
                     onPress={()=>navigation.navigate("ChatHistoryE")}>
                         Chat History
@@ -101,7 +101,7 @@ const ElderProfile = () => {
                     onPress={() => {
                         signOut()
                         setUser(null)
-                        navigation.replace("LoginUser")
+                        navigation.navigate("StartPage")
                       }}/> Logout
                 </Text>
             </View>
