@@ -36,13 +36,13 @@ import ElderChats from "./components/Pages/Chats/ElderChats";
 import EditProfileE from "./components/Pages/Profile/Elder/EditProfileE";
 import PaymentHistoryE from "./components/Pages/Profile/Elder/PaymentHistoryE";
 import ChatHistoryE from "./components/Pages/Profile/Elder/ChatHistoryE";
-import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
+// import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
 import HealthInfo from "./components/Pages/Profile/Elder/HealthInfo";
 import PassChangeE from "./components/Pages/Profile/Elder/PassChangeE";
 
 import ChatHistoryV from "./components/Pages/Profile/Volunteer/ChatHistoryV";
 import EditProfileV from "./components/Pages/Profile/Volunteer/EditProfileV";
-import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
+// import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
 import PassChangeV from "./components/Pages/Profile/Volunteer/PassChangeV";
 import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistoryV";
 
@@ -179,7 +179,7 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="ChatHistoryE" component={ChatHistoryE} />
 
-            <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordE" component={ForgetPasswordE} />
+            {/* <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordE" component={ForgetPasswordE} /> */}
 
             <Stack.Screen options={{ headerShown: false }} name="HealthInfo" component={HealthInfo} />
 
@@ -190,7 +190,7 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="EditProfileV" component={EditProfileV} />
 
-            <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordV" component={ForgetPasswordV} />
+            {/* <Stack.Screen options={{ headerShown: false }} name="ForgetPasswordV" component={ForgetPasswordV} /> */}
 
             <Stack.Screen options={{ headerShown: false }} name="PassChangeV" component={PassChangeV} />
 

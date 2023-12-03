@@ -66,10 +66,10 @@ const ElderProfile = () => {
                 <Text>  ──────────────</Text>
 
                 <View style={styles.dashboardButtons}>
-                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
+                    {/* <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
                      onPress={()=>navigation.navigate("PaymentHistoryE")}  >
                         Payments
-                    </Button>
+                    </Button> */}
                     <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
                     onPress={()=>navigation.navigate("ChatHistoryE")}>
                         Chat History
@@ -88,7 +88,11 @@ const ElderProfile = () => {
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
                     <Icon size={30} name="logout" color="#1B5B7D" 
-                    onPress={()=>navigation.navigate("LoginUser")}/> Logout
+                    onPress={() => {
+                        signOut()
+                        setUser(null)
+                        navigation.replace("LoginUser")
+                      }}/> Logout
                 </Text>
                 
                 {/* </Button> */}
