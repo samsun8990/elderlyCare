@@ -118,14 +118,13 @@ export const getUsersNotFollowedByCurrentUser = async (currentUser, setSuggestio
       querySnapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
       const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id &&
       (!currentUser.following || !currentUser.following.includes(user.id))
-      //currentUser.following && !currentUser.following.includes(user.id)
       )
-      if (usersNotFollowed && usersNotFollowed.length > 0) {
-        setSuggestionList(usersNotFollowed)
-      }
-      else {
-        setSuggestionList()
-      }
+      // if (usersNotFollowed && usersNotFollowed.length > 0) {
+      //   setSuggestionList(usersNotFollowed)
+      // }
+      // else {
+      //   setSuggestionList()
+      // }
 
     })
   } catch (error) {
@@ -152,14 +151,35 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
   const updateFollowOtherUserRef = doc(db, 'elderlyUsers', elderUser.id);
   const acceptCurrentUserRef = doc(db, 'elderlyUsers', invitation.id);
 
+  const elderSnap = await getDoc(updateFollowOtherUserRef);
+  const otherSnap = await getDoc(acceptCurrentUserRef);
+    
+  let acceptedOtherUserUpdate = otherSnap.data().followers.map(follower => {
+    if (follower.id === elderSnap.id) {
+      // console.log(follower);
+      follower.status = "accepted"
+      return follower
+    }
+    return follower;
+  });
+
+  let acceptedUserUpdate = elderSnap.data().following.map(follower => {
+    if (follower.id === otherSnap.id) {
+      // console.log(follower);
+      follower.status = "accepted"
+      return follower
+    }
+    return follower;
+  });
+
   await setDoc(acceptCurrentUserRef, {
-    followers: arrayUnion({ id: elderUser.id, status: "accepted" })
+    followers: acceptedOtherUserUpdate
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
 
   await setDoc(updateFollowOtherUserRef, {
-    following: arrayUnion({ id: invitation.id, status: "accepted" })
+    following: acceptedUserUpdate
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
