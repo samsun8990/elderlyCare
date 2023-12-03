@@ -27,8 +27,8 @@ const ElderHomeSuggestions = () => {
 
   useEffect(() => {
     if (elderUser) {
-      readAllOtherElderUsers(elderUser.fullname, setSuggestionList);
-      //getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
+      //readAllOtherElderUsers(elderUser.fullname, setSuggestionList);
+      getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
     
     }
   }, []);

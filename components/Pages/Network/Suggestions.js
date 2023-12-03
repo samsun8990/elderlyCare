@@ -11,7 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { headerOptions } from "../../Utils/Common";
-import { Card, Button } from "@rneui/themed";
+import { Card, Button, Avatar } from "@rneui/themed";
 import { styles } from "./NetworkStyle.js";
 import { defaultImg } from "../../Utils/ImageCommon.js";
 import { AuthContext } from "../../Config/AuthContext";
@@ -65,7 +65,6 @@ const Suggestions = () => {
                   <Text style={{ fontWeight: "600" }}>{suggest.fullname}</Text>
                 </TouchableOpacity>
                 <Text>{suggest.gender}</Text>
-                <Text></Text>
                 <Button onPress={()=>handleFollowUser(suggest)}
                   buttonStyle={{
                     backgroundColor: "#1B5B7D",
@@ -74,20 +73,34 @@ const Suggestions = () => {
                     borderRadius: 30,
                   }}
                   // size="md"
-                  disabled={suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? true : false}
+                  disabled={suggest.followers && suggest.followers.map((follower) => follower.status === 'requested')
+                  || suggest.followers && suggest.followers.map((follower) => follower.status === 'accepted')
+                  ? true : false}
                   containerStyle={{
-                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 100 : 90,
+                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested')
+                    || suggest.followers && suggest.followers.map((follower) => follower.status === 'accepted')
+                     ? 100 : 90,
                     height: 39
                   }}
                   titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                  {suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 'Requested' : 'Connect'} 
+                  {suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') 
+                  ?
+                  'Requested' :
+                  suggest.followers && suggest.followers.map((follower) => follower.status === 'accepted') 
+                  ?
+                  'Accepted'
+                  :'Connect'} 
                 </Button>
               </View>
             ))}
         </View>
+        <View style={{ paddingBottom: 90 }} />
       </ScrollView>
+      
     </Card>
+    <Text></Text><Text></Text>
+    <View style={{ padding: 70 }} />
     </SafeAreaView>
  
   );

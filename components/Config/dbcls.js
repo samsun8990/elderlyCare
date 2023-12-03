@@ -116,7 +116,10 @@ export const getUsersNotFollowedByCurrentUser = async (currentUser, setSuggestio
     onSnapshot(elderlyUsersCollectionRef, (querySnapshot) => {
       let temp = []
       querySnapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
-      const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id && currentUser.following && !currentUser.following.includes(user.id))
+      const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id &&
+      (!currentUser.following || !currentUser.following.includes(user.id))
+      //currentUser.following && !currentUser.following.includes(user.id)
+      )
       if (usersNotFollowed && usersNotFollowed.length > 0) {
         setSuggestionList(usersNotFollowed)
       }
@@ -149,14 +152,14 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
   const updateFollowOtherUserRef = doc(db, 'elderlyUsers', elderUser.id);
   const acceptCurrentUserRef = doc(db, 'elderlyUsers', invitation.id);
 
-  await updateDoc(acceptCurrentUserRef, {
-    followers: arrayUnion({ id: elderUser.id, status: "accepted", updatedAt: new Date() })
+  await setDoc(acceptCurrentUserRef, {
+    followers: arrayUnion({ id: elderUser.id, status: "accepted" })
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
 
-  await updateDoc(updateFollowOtherUserRef, {
-    following: arrayUnion({ id: invitation.id, status: "accepted", updatedAt:new Date() })
+  await setDoc(updateFollowOtherUserRef, {
+    following: arrayUnion({ id: invitation.id, status: "accepted" })
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
@@ -195,10 +198,6 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
           setAcceptedList()
         }
       }
-
-
-
-
     })
 
   } catch (error) {
