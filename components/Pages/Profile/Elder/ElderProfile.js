@@ -99,8 +99,8 @@ const ElderProfile = () => {
                 <Text style={{ fontSize: 16}}>
                     <Icon size={25} name="logout" color="#1B5B7D" 
                     onPress={() => {
-                        signOut()
-                        setUser(null)
+                        // signOut()
+                        // setUser(null)
                         navigation.navigate("StartPage")
                       }}/> Logout
                 </Text>
