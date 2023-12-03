@@ -41,7 +41,9 @@ const Suggestions = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-   <Card
+      <ScrollView>
+
+      <Card
       containerStyle={{ backgroundColor: "#F5F5F5" }}
       wrapperStyle={{ backgroundColor: "#F5F5F5" }}
     >
@@ -99,8 +101,9 @@ const Suggestions = () => {
       </ScrollView>
       
     </Card>
-    <Text></Text><Text></Text>
-    <View style={{ padding: 70 }} />
+      </ScrollView>
+ 
+    <View style={{ padding: 50 }} />
     </SafeAreaView>
  
   );

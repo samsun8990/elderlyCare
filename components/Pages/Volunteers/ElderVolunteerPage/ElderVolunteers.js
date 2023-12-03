@@ -75,6 +75,7 @@ const updateSearch = (search) => {
 
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
           {/* <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/> */}
@@ -178,6 +179,8 @@ const updateSearch = (search) => {
         null
       }
 
+      </ScrollView>
+      
 
     </View>
   )

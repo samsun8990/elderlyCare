@@ -34,11 +34,10 @@ const AvailableVolunteers = ({navigation}) => {
   }, []);
 
   return (
-    <>
+    <ScrollView>
     <Card>
       <Card.Title style={{ fontSize: 18 }}>
-        View All Volunteers ({avaiableList &&
-          avaiableList.length})
+        View All Volunteers ({avaiableList && avaiableList.length})
       </Card.Title>
       <Card.Divider />
       <ScrollView>
@@ -116,7 +115,7 @@ const AvailableVolunteers = ({navigation}) => {
      
     </Card>
     <View style={{ paddingBottom: 50 }} />
-    </>
+    </ScrollView>
   );
 };
 

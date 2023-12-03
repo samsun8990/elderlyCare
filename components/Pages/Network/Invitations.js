@@ -35,6 +35,7 @@ const Invitations = () => {
 
   return (
     <View style={styles.container}>
+      <ScrollView>
       <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
         <Card.Title>All({invitationList && invitationList.length})</Card.Title>
         <Card.Divider />
@@ -62,9 +63,11 @@ const Invitations = () => {
               </View>
             )
           }
-
+          <View style={{ paddingBottom: 60 }} />
         </ScrollView>
       </Card>
+      </ScrollView>
+      <View style={{ padding: 50 }} />
     </View>
 
   )
