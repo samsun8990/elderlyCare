@@ -58,10 +58,6 @@ import ViewVolnAcceptPage from "./components/Pages/Volunteers/VolunteerPage/View
 import ViewVolRequestPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolRequestPage.js";
 
 
-
-
-
-
 const Stack = createNativeStackNavigator();
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
