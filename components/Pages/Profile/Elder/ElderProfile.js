@@ -98,11 +98,11 @@ const ElderProfile = () => {
                 <Card.Divider style={{flex: 1, height: 1, backgroundColor: 'gray'}}/>
                 <Text style={{ fontSize: 16}}>
                     <Icon size={25} name="logout" color="#1B5B7D" 
-                    onPress={() => {
+                    onPress={() => 
                         // signOut()
                         // setUser(null)
                         navigation.navigate("StartPage")
-                      }}/> Logout
+                      }/> Logout
                 </Text>
             </View>
 
