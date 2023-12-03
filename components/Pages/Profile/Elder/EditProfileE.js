@@ -1,203 +1,169 @@
-import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity,ScrollView } from 'react-native';
+import React, { useContext, useEffect } from 'react'
 import { Button, Icon } from '@rneui/themed';
-import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
+import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
+import { defaultImg } from '../../../Utils/ImageCommon';
+import { useNavigation } from '@react-navigation/native';
+import { styles } from '../ProfileStyles';
 import { AuthContext } from '../../../Config/AuthContext';
 
-const EditProfileE = ({ navigation }) => {
-  const { user, signIn, signOut, elderUser, volunteerUser, setUser,updateElderUser } = useContext(AuthContext);
-  //const { updateUser, elderUser } = authContext;
-
-  // const [editedUser, setEditedUser] = useState({
-    // fullname: elderUser.fullname,
-    // phone: elderUser.phone,
-    // date: elderUser.date,
-  //   // Add other fields you want to edit
-  // })
-  
-  const editedUser = {
-    fullname: elderUser.fullname,
-    phone: elderUser.phone,
-    date: elderUser.date,
-  }
 
 
-  const handleBackPress = () => {
-    navigation.goBack();
-  };
+const ElderProfile = () => {
+    const navigation = useNavigation()
+    const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+    return (
 
-  const handleSave = () => {
-    // Update the user data using the updateUser function from context
-    updateElderUser(editedUser);
+        <SafeAreaView style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.profileContainer}>
+                <Image source={defaultImg} style={styles.profileImage} />
+                <Text>{elderUser.email}</Text>
+                <Text>{elderUser.fullname}</Text>
+                <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} 
+                onPress={()=>navigation.navigate("EditProfileE")} >
+                    <Icon name="edit" color="white" />
+                    Edit
+                </Button>
+            </View>
+            <View style={styles.personalDetailsContainer}>
+                <Text style={styles.sectionTitle}>Personal Details</Text>
+                <Text>  ──────────────</Text>
 
-    // Navigate back to ElderProfile or wherever needed
-    navigation.navigate("ElderProfile");
-  };
+                <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+                <View style={styles.detailRow}>
+                    <Icon name="mail" color="black" size={20} style={styles.icon} />
+                    <Text>{elderUser.email}</Text>
+                </View>
+                <View style={styles.detailRow}>
+                    <Icon name="lock" color="black" size={20} style={styles.icon} />
+                    <Text>*******</Text>
+                    <Button 
+                        containerStyle={{
+                            height: 30,
+                            width: 200,
+                            marginHorizontal: 50,
+                            marginVertical: 5,
+                        }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"}
+                        onPress={()=>navigation.navigate("PassChangeE")}  >
+                        Change
+                    </Button>
+                </View>
+                <View style={styles.detailRow}>
+                    <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
+                    <Text>10/10/2023{elderUser.date}</Text>
+                </View>
+               
+                <View style={styles.detailRow}>
+                    <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
+                    <Text>{elderUser.phone}</Text>
+                </View>
+            </View>
 
+            <View style={styles.cardContainer}>
+                <Text style={styles.sectionTitle}>Dashboard</Text>
+                <Text>  ──────────────</Text>
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={{marginTop:2}}></Text>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={handleBackPress}>
-          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Edit Profile</Text>
-      </View>
-      <View style={styles.profileSection}>
-        <View style={styles.profileRow}>
-          <MaterialCommunityIcons name="account" size={25} color="black" style={styles.icon} />
-          <TextInput style={styles.profileText}
-            placeholder={elderUser.fullname}></TextInput>
-        </View>
-        <View style={styles.line} />
-        <View style={styles.profileRow}>
-          <AntDesign name="contacts" size={25} color="black" style={styles.icon} />
-          <TextInput style={styles.profileText}
-            placeholder={elderUser.phone}></TextInput>
-        </View>
-        <View style={styles.line} />
-        <View style={styles.profileRow}>
-          <AntDesign name="calendar" size={25} color="black" style={styles.icon} />
-          <TextInput style={styles.profileText}
-            placeholder={elderUser.date}></TextInput>
-        </View>
-        <View style={styles.line} />
+                <View style={styles.dashboardButtons}>
+                    {/* <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
+                     onPress={()=>navigation.navigate("PaymentHistoryE")}  >
+                        Payments
+                    </Button> */}
+                    <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
+                    onPress={()=>navigation.navigate("ChatHistoryE")}>
+                        Chat History
+                    </Button>
+                    <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}
+                    onPress={()=>navigation.navigate("HealthInfo")}>
+                        Health Info
+                    </Button>
+                </View>
+            </View>
 
-      </View>
-      <View style={styles.dashboardButtons}>
-        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
-          onPress={handleSave}>
-          Edit
-        </Button>
-      </View>
-      <View style={styles.addSection}>
-        <View style={styles.addHeader}>
-          <Text style={styles.addHeaderText}>Add About/Bio</Text>
-        </View>
-        <View style={styles.line1} />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Type here"
-        />
-      </View>
-      <View style={styles.addSection}>
-        <View style={styles.addHeader}>
-          <Text style={styles.addHeaderText}>Add Hobbies/Interests</Text>
-        </View>
-        <View style={styles.line1} />
-        <TextInput
-          style={styles.textInput}
-          placeholder="Type here"
-        />
-      </View>
-      <View style={styles.dashboardButtons}>
-        <Button size="md" radius={10} type="solid" color="#ffb84d" style={styles.saveButton}
-          onPress={handleSave}>
-          Save
-        </Button>
-      </View>
-      <View style={{paddingBottom:20}}/>
-    </SafeAreaView>
-  )
-}
+            <View style={styles.accountContainer}>
+                <Text style={styles.sectionTitle}>My Account</Text>
+                <Text>  ──────────────</Text>
+              
+                <Text style={{ fontSize: 16 }}>
+                    <Icon size={30} name="logout" color="#1B5B7D" 
+                    onPress={() => {
+                        signOut()
+                        setUser(null)
+                        navigation.navigate("StartPage")
+                      }}/> Logout
+                </Text>
+                
+               
+            </View>
 
-export default EditProfileE;
+            <View style={{ paddingBottom: 90 }} />
+            </ScrollView>
+          
+        </SafeAreaView>
+    );
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#DDEBEF",
-    justifyContent: 'space-between',
+export default ElderProfile;
 
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: 10,
-    marginRight: 150,
-    marginTop: 10,
-
-  },
-
-  headerText: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#1B5B7D',
-
-
-  },
-  profileSection: {
-    marginTop: 10,
-  },
-  profileRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10
-  },
-  profileText: {
-    fontSize: 18,
-    marginRight: 10,
-  },
-  icon: {
-    marginLeft: 'left',
-    marginLeft: 50,
-
-  },
-  line: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 0.4,
-    marginVertical: 10,
-    marginLeft: 60,
-    marginRight: 60
-  },
-  line1: {
-    borderBottomColor: 'lightgrey',
-    borderBottomWidth: 1,
-    marginVertical: 5,
-    marginLeft: 60,
-    marginRight: 60
-  },
-  saveButton: {
-    alignSelf: 'center',
-    marginTop: 20,
-    width: 80,
-
-  },
-  addSection: {
-    marginTop: 10,
-  },
-  addHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  addHeaderText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1B5B7D',
-    marginLeft: 60
-
-  },
-  textInput: {
-    height: 80,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 10,
-    marginLeft: 30,
-    marginRight: 30,
-    borderRadius: 10,
-    backgroundColor: '#F2F2F2'
-  },
-  dashboardButtons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-
-
-  },
-
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 10,
-  },
-});
+// const styles = StyleSheet.create({
+//     container: {
+//         flex: 1,
+//         backgroundColor: "#DDEBEF",
+//         justifyContent: 'space-between'
+//     },
+//     profileContainer: {
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//         padding: 5,
+//         gap: 5
+//     },
+//     profileImage: {
+//         width: 100,
+//         height: 100,
+//         borderRadius: 50,
+//     },
+//     personalDetailsContainer: {
+//         flex: 1,
+//         alignItems: 'left',
+//         padding: 20,
+//     },
+//     cardContainer: {
+//         flex: 1,
+//         alignItems: 'left',
+//         padding: 10,
+//     },
+//     accountContainer: {
+//         flex: 1,
+//         alignItems: 'left',
+//         padding: 20,
+//     },
+//     sectionTitle: {
+//         fontSize: 20,
+//         fontWeight: 'bold',
+//         marginBottom: 10,
+//     },
+//     dashboardButtons: {
+//         flexDirection: 'row',
+//         justifyContent: 'space-between',
+//         marginTop: 5
+//     },
+//     line: {
+//         borderBottomColor: 'black',
+//         borderBottomWidth: 1,
+//         marginVertical: 5,
+//     },
+//     detailRow: {
+//         flexDirection: 'row',
+//         alignItems: 'center',
+       
+//     },
+//     icon: {
+//         marginRight: 10,
+//     },
+//     headerContainer: {
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         marginTop: 5,
+//     },
+// });
