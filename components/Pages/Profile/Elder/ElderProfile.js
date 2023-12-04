@@ -87,6 +87,7 @@ const ElderProfile = () => {
                     <Text>──────────────── </Text>
                     <Card.Divider style={{ flex: 1, height: 1, backgroundColor: 'gray' }} />
 
+
                     <View style={styles.dashboardButtons}>
                         {/* <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
                      onPress={()=>navigation.navigate("PaymentHistoryE")}  >
@@ -101,21 +102,24 @@ const ElderProfile = () => {
                             Health Info
                         </Button>
                     </View>
+
                 </View>
 
-                <View style={styles.accountContainer}>
-                    <Text style={styles.sectionTitle}>My Account</Text>
-                    <Text>──────────────── </Text>
-                    <Card.Divider style={{ flex: 1, height: 1, backgroundColor: 'gray' }} />
-                    <Text style={{ fontSize: 16 }}>
-                        <Icon size={25} name="logout" color="#1B5B7D"
-                            onPress={() => {
-                                signOut()
-                                setUser(null)
-                                navigation.navigate("StartPage")
-                            }} /> Logout
-                    </Text>
-                </View>
+            <View style={styles.accountContainer}>
+                <Text style={styles.sectionTitle}>My Account</Text>
+                <Text>  ──────────────</Text>
+              
+                <Text style={{ fontSize: 16 }}>
+                    <Icon size={30} name="logout" color="#1B5B7D" 
+                    onPress={() => {
+                        signOut()
+                        setUser(null)
+                        navigation.navigate("StartPage")
+                      }}/> Logout
+                </Text>
+                
+               
+            </View>
 
                 <View style={{ paddingBottom: 90 }} />
             </ScrollView>
