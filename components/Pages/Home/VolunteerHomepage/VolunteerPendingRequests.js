@@ -51,7 +51,8 @@ const VolunteerPendingRequests = ({navigation}) => {
             <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:pending.id})}>
               <Text style={styles.item}>{pending.fullname}</Text>
             </TouchableOpacity>
-            <Button buttonStyle={{
+            <Button onPress={()=>navigation.navigate("ViewVolRequestPage",{pending:pending})}
+             buttonStyle={{
                 backgroundColor: '#1B5B7D',
                 borderWidth: 2,
                 borderColor: '#1B5B7D',

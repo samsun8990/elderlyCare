@@ -32,14 +32,32 @@ const ChatUser = ({ navigation, route }) => {
   const [messages, setMessages] = useState([])
 
   const getAllMessages = async () => {
-    const messagesCollection = collection(db, 'Chats');
-   // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
-   const q = query(
-    messagesCollection,
-    where('sentBy', '==', user.id),
-    where('sentTo', '==',uid)
-    // orderBy('createdAt', 'desc')
-  );
+    let messagesCollection,q;
+    if(elderUser){
+      messagesCollection = collection(db, 'Chats');
+      // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
+       q = query(
+       messagesCollection,
+       where('sentBy', 'in', [uid, user.id]),
+    where('sentTo', 'in', [uid, user.id]),
+      //  where('sentBy', '==', uid),
+      //  where('sentTo', '==',user.id),
+       orderBy('createdAt', 'desc')
+     );
+    }
+    else if(volunteerUser){
+       messagesCollection = collection(db, 'Chats');
+      // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
+       q = query(
+       messagesCollection,
+       where('sentBy', 'in', [user.id, uid]),
+       where('sentTo', 'in', [user.id, uid]),
+      //  where('sentBy', '==', user.id),
+      //  where('sentTo', '==',uid)
+       orderBy('createdAt', 'desc')
+     );
+    }
+   
   
     try {
       const msgSnapshot = await getDocs(q);

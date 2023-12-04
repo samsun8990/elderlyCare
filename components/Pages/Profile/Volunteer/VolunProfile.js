@@ -21,11 +21,6 @@ const VolunProfile = () => {
     const milliseconds1 = timestamp_Data.seconds * 1000 + timestamp_Data.nanoseconds / 1000000;
     const joiningDate = new Date(milliseconds1).toDateString()
 
-    const dateObj = new Date(volunteerUser.dob);
-    const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getFullYear()}`;
-
-
-
     return (
         <SafeAreaView style={styles.container}>
            
@@ -62,7 +57,7 @@ const VolunProfile = () => {
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="calendar" color="black" size={25} style={styles.icon} />
-                    <Text>{formattedDate}</Text>
+                    <Text>{volunteerUser.dob}</Text>
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="contacts" color="black" size={25} style={styles.icon} />

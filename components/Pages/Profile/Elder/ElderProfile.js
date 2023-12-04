@@ -13,18 +13,15 @@ import { AuthContext } from '../../../Config/AuthContext';
 const ElderProfile = () => {
     const navigation = useNavigation()
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
-
+   
     const timestamp_Data = {
         "nanoseconds": elderUser.joinDate.nanoseconds,
         "seconds": elderUser.joinDate.seconds
     }
 
-    const milliseconds1 = timestamp_Data.seconds * 1000 + timestamp_Data.nanoseconds / 1000000;
+    const milliseconds1 = (timestamp_Data.seconds) * 1000 + (timestamp_Data.nanoseconds) / 1000000;
     const joiningDate = new Date(milliseconds1).toDateString()
-
-    const dateObj = new Date(elderUser.dob);
-    const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getFullYear()}`;
-
+   
     const uploadImage = async () => {
         const imgRef = ref(storage, fileName)
         const img = await fetch(image)
@@ -76,7 +73,7 @@ const ElderProfile = () => {
                     </View>
                     <View style={styles.detailRow}>
                         <AntDesign name="calendar" color="black" size={25} style={styles.icon} />
-                        <Text>{formattedDate}</Text>
+                        <Text>{elderUser.dob}</Text>
                     </View>
 
                     <View style={styles.detailRow}>

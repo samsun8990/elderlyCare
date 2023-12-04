@@ -16,6 +16,7 @@ import { styles } from "../VolunteerStyles.js";
 import { Picker } from "@react-native-picker/picker";
 import { Dropdown } from "react-native-element-dropdown";
 import { AuthContext } from '../../../Config/AuthContext';
+import { acceptVolunteerPendingRequest } from "../../../Config/dbcls.js";
 
 const ViewVolRequestPage = ({navigation,route}) => {
 
@@ -24,34 +25,8 @@ const ViewVolRequestPage = ({navigation,route}) => {
     const { pending } = route.params
 
     const handleAcceptRequest = async()=>{
-        const docRef = doc(db, "elderlyUsers", pending.id);
-        //doc(db, "Requests");
-        await updateDoc(docRef,{volunteers: arrayUnion({id: pending.id,status: "accepted"})},{ merge: true })
-          .then(() => {
-            console.log("Requested successfully!");
-            clear();
-            alert("Requested successfully!")
-          })
-          .catch((error) => {
-            console.log(error.message);
-          })
-    
-    
-        const elderusrRef = doc(db, "elderlyUsers", elderUser.id);
-        await setDoc(
-          elderusrRef,
-          {
-            volunteers: arrayUnion({ id: volUser.id, status: "pending", requestedAt: new Date(), details:{
-              description: description,
-              startDate: startDate,
-              endDate: endDate,
-              requestDate: new Date(),
-              activities: checkedItems,
-              amount: payment
-            } })
-          },
-          { merge: true }
-        )
+        alert("Accepted Successfully!")
+        await acceptVolunteerPendingRequest(volunteerUser,pending)
 
     }
 

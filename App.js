@@ -56,6 +56,7 @@ import UserFeedbackPage from "./components/Pages/Volunteers/VolunteerPage/UserFe
 import ForgotPassword from "./components/Pages/StartPage/ForgotPassword.js";
 import ViewVolnAcceptPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolnAcceptPage.js";
 import ViewVolRequestPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolRequestPage.js";
+import VolunteerRequestAccept from "./components/Pages/Volunteers/VolunteerPage/VolunteerRequestAccept.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -143,7 +144,7 @@ export default function App() {
       <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser, updateElderUser }}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="StartPage"
+            initialRouteName="LoginUser"
           >
 
             <Stack.Screen name="StartPage" component={StartPage} options={{
@@ -154,6 +155,9 @@ export default function App() {
 
             <Stack.Screen name='LoginUser' component={LoginUser}
               options={{
+                headerLeft: () => false,
+                headerBackTitle: false,
+                headerBackTitleVisible: false,
                 headerStyle: {
                   backgroundColor: '#E4EDF2'
                 }, headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} />, headerBackTitleVisible: false
@@ -196,7 +200,7 @@ export default function App() {
               component={ViewRequestPage} />
             <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage} />
 
-            <Stack.Screen name="ViewVolnAcceptPage" component={ViewVolnAcceptPage}
+            <Stack.Screen name="ViewVolnAcceptPage" component={VolunteerRequestAccept}
               options={{ headerTitle: (props) => <CenteredTitle title="View Accepted Requests" {...props} /> }} />
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
@@ -262,7 +266,8 @@ export default function App() {
             />
 
 
-            <Stack.Screen name="ViewVolRequestPage" component={ViewVolRequestPage} options={{ headerShown: false }} />
+            <Stack.Screen name="ViewVolRequestPage" component={ViewVolRequestPage}
+              options={{ headerTitle: (props) => <CenteredTitle title="View Request" {...props} /> }} />
 
 
 
