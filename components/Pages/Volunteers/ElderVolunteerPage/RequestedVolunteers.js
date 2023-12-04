@@ -28,7 +28,7 @@ const RequestedVolunteers = () => {
 
   return (
     <Card >
-      <Card.Title style={{ fontSize: 18 }}>View Accepted Volunteers</Card.Title>
+      <Card.Title style={{ fontSize: 18 }}>View Accepted Volunteers({acceptedVol && acceptedVol.length})</Card.Title>
       <Card.Divider />
       <ScrollView>
         {

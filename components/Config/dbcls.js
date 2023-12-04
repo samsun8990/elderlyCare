@@ -116,15 +116,15 @@ export const getUsersNotFollowedByCurrentUser = async (currentUser, setSuggestio
     onSnapshot(elderlyUsersCollectionRef, (querySnapshot) => {
       let temp = []
       querySnapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }));
-      const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id &&
-      (!currentUser.following || !currentUser.following.includes(user.id))
+      const usersNotFollowed = temp.filter((user) => user.id !== currentUser.id 
+      //&& (!currentUser.following || !currentUser.following.includes(user.id))
       )
-      // if (usersNotFollowed && usersNotFollowed.length > 0) {
-      //   setSuggestionList(usersNotFollowed)
-      // }
-      // else {
-      //   setSuggestionList()
-      // }
+      if (usersNotFollowed && usersNotFollowed.length > 0) {
+        setSuggestionList(usersNotFollowed)
+      }
+      else {
+        setSuggestionList()
+      }
 
     })
   } catch (error) {
@@ -154,7 +154,7 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
   const elderSnap = await getDoc(updateFollowOtherUserRef);
   const otherSnap = await getDoc(acceptCurrentUserRef);
     
-  let acceptedOtherUserUpdate = otherSnap.data().followers.map(follower => {
+  let acceptedOtherUserUpdate = otherSnap.data().followers && otherSnap.data().followers.map(follower => {
     if (follower.id === elderSnap.id) {
       // console.log(follower);
       follower.status = "accepted"
@@ -163,7 +163,7 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
     return follower;
   });
 
-  let acceptedUserUpdate = elderSnap.data().following.map(follower => {
+  let acceptedUserUpdate = elderSnap.data().following && elderSnap.data().following.map(follower => {
     if (follower.id === otherSnap.id) {
       // console.log(follower);
       follower.status = "accepted"
@@ -196,6 +196,8 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
     await onSnapshot(q, (snapshot) => {
       let temp = []
       snapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }))
+
+      console.log(temp);
       let getInvitedUsers = []
       let a3 = temp.flatMap((x) => { return x.following && x.following })
       if (a3.length > 0) {
@@ -260,6 +262,7 @@ export const getInvitations = async (elderUser, setinvitation) => {
 
 
   })
+  
 }
 
 export const findCreatedAt_diffDays = (invite) => {
@@ -429,7 +432,7 @@ export const removePendingRequestById = async (elderUser, inviteuser) => {
   // Remove elderUser.id from the requests array
   const inviteUserDoc = await getDoc(inviteUserRef);
   const currentRequests = inviteUserDoc.data().requests || [];
-  const updatedRequests = currentRequests.filter(requestId => requestId.id !== elderUser.id);
+  const updatedRequests = currentRequests.filter(requestId => requestId.requestedBy !== elderUser.id);
   await updateDoc(inviteUserRef, {
     requests: updatedRequests
   });
@@ -485,4 +488,44 @@ export const updateUserDetails = async (userID, password) => {
   else if (docSnap2.exists()) {
     await updateDoc(docRef2, { password: password }, { merge: true });
   }
+}
+
+
+export const acceptVolunteerPendingRequest = async (volunteerUser, pending) => {
+  const volunteerUserRef = doc(db, 'volunteerUsers', volunteerUser.id);
+  const getRequestsByElderRef = doc(db, 'elderlyUsers', pending.id);
+
+  const elderSnap = await getDoc(getRequestsByElderRef);
+  const volSnap = await getDoc(volunteerUserRef);
+    
+  let acceptedVolunteerUpdate = volSnap.data().requests && volSnap.data().requests.map(request => {
+    if (request.requestedBy === elderSnap.id) {
+      // console.log(follower);
+      request.status = "accepted"
+      return request
+    }
+    return request;
+  });
+
+  let acceptedElderUpdate = elderSnap.data().volunteers && elderSnap.data().volunteers.map(volunteer => {
+    if (volunteer.id === volSnap.id) {
+      // console.log(follower);
+      volunteer.status = "accepted"
+      return volunteer
+    }
+    return volunteer
+  });
+
+  await setDoc(volunteerUserRef, {
+    requests: acceptedVolunteerUpdate
+  }, { merge: true })
+    .then(() => console.log("Data Updated"))
+    .catch((error) => console.error('Error updating document:', error));
+
+  await setDoc(getRequestsByElderRef, {
+    volunteers: acceptedElderUpdate
+  }, { merge: true })
+    .then(() => console.log("Data Updated"))
+    .catch((error) => console.error('Error updating document:', error));
+
 }

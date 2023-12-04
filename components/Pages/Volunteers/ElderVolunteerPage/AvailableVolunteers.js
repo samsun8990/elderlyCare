@@ -96,14 +96,12 @@ const AvailableVolunteers = ({navigation}) => {
                     }}
                     onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   >
-                    {available.requests && available.requests.map((vol) => vol.status === 'pending') 
-                    ? 
-                    'Pending'
-                    :
-                    available.requests && available.requests.map((vol) => vol.status === 'accepted') 
-                    ?
-                    'Accepted'
-                     : 'Request'} 
+                      {available.requests ? available.requests.map((vol) =>
+                    vol.status == 'pending' ? 'Pending' :
+                    vol.status == 'accepted' ? 'Accepted' :
+                    'Request'
+                  ) : 'Request'}
+                  
                   </Button>
                 </View>
               </View>

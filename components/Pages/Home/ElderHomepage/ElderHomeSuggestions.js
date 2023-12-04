@@ -72,13 +72,20 @@ const ElderHomeSuggestions = () => {
                     borderColor: "#1B5B7D",
                     borderRadius: 30,
                   }}
-                  disabled={suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? true : false}
+                  disabled={
+                    suggest.followers && suggest.followers.map((follower) => follower.status === 'requested' || follower.status === 'accepted'
+                    ) ? true : false}
                   containerStyle={{
-                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 100 : 90,
+                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested'|| follower.status === 'accepted') ? 100 : 90,
                   }}
                   titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                 {suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 'Requested' : 'Connect'} 
+                
+                 {suggest.followers ? suggest.followers.map((vol) =>
+                    vol.status == 'requested' ? 'Requested' :
+                    vol.status == 'accepted' ? 'Accepted' :
+                    'Connect'
+                  ) : 'Connect'}
                 </Button>
               </View>
             ))}

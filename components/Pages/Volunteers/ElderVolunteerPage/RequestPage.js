@@ -87,7 +87,6 @@ const RequestPage = ({ route, navigation }) => {
           requestDate: new Date(),
           activities: checkedItems,
           requestedBy: elderUser.id,
-          amount: payment,
           status: "pending"
         })
       },
@@ -114,7 +113,7 @@ const RequestPage = ({ route, navigation }) => {
           endDate: endDate,
           requestDate: new Date(),
           activities: checkedItems,
-          amount: payment
+          status: "pending"
         } })
       },
       { merge: true }

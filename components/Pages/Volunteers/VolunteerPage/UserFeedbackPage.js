@@ -4,6 +4,7 @@ import { getFeedbackByUserId } from '../../../Config/volunteer_dbcls';
 import { AuthContext } from '../../../Config/AuthContext';
 import { Card, Button, Avatar } from '@rneui/themed';
 import { Rating } from 'react-native-ratings';
+import { styles } from "../VolunteerStyles.js";
 
 const UserFeedbackPage = ({ navigation, route }) => {
     
@@ -19,8 +20,9 @@ const UserFeedbackPage = ({ navigation, route }) => {
     console.log(feedbackList);
 
     return (
-        <View>
+        <View style={styles.container}>
             <ScrollView>
+                <Text></Text>
                 {
                    feedbackList && feedbackList.length > 0
                    ?
@@ -39,7 +41,7 @@ const UserFeedbackPage = ({ navigation, route }) => {
                    </Card>
                    )
                    :
-                   <Text>No feeedbacks found</Text>
+                   <Text style={{fontSize:18, textAlign:"center"}}>No feeedbacks found</Text>
                 }
             </ScrollView>
         </View>
@@ -47,5 +49,3 @@ const UserFeedbackPage = ({ navigation, route }) => {
 }
 
 export default UserFeedbackPage
-
-const styles = StyleSheet.create({})
