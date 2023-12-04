@@ -10,6 +10,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { AuthContext } from "./components/Config/AuthContext";
 import { auth, db } from "./components/Config/config";
 import { doc, setDoc, getDocs, getDoc, collection, deleteDoc, addDoc } from "firebase/firestore";
+import { defaultImg } from './components/Utils/ImageCommon.js';
 import StartPage from "./components/Pages/StartPage/StartPage";
 import LoginUser from "./components/Pages/StartPage/Login/LoginUser";
 import ElderlyRegister from "./components/Pages/StartPage/Register/ElderlyRegister";
@@ -17,7 +18,6 @@ import VolunteerRegister from "./components/Pages/StartPage/Register/VolunteerRe
 import ElderBottomTabs from "./components/Utils/BottomTabs";
 import VolunteerBottomTabs from "./components/Utils/VolunteerBottomTabs";
 import ElderHome from "./components/Pages/Home/ElderHomepage/ElderHome";
-import Notifications from "./components/Pages/Notifications/Notifications";
 import FeedbackPage from "./components/Pages/Volunteers/ElderVolunteerPage/FeedbackPage";
 import RequestedVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/RequestedVolunteers";
 import Invitations from "./components/Pages/Network/Invitations";
@@ -32,23 +32,31 @@ import ElderVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/El
 import PendingVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/PendingVolnteerLists";
 import AvailableVolunteers from "./components/Pages/Volunteers/ElderVolunteerPage/AvailableVolunteers";
 import ElderChats from "./components/Pages/Chats/ElderChats";
-
+import VolunteerChats from "./components/Pages/Chats/VolunteerChats";
 import EditProfileE from "./components/Pages/Profile/Elder/EditProfileE";
 import PaymentHistoryE from "./components/Pages/Profile/Elder/PaymentHistoryE";
 import ChatHistoryE from "./components/Pages/Profile/Elder/ChatHistoryE";
 // import ForgetPasswordE from "./components/Pages/Profile/Elder/ForgetPasswordE";
 import HealthInfo from "./components/Pages/Profile/Elder/HealthInfo";
 import PassChangeE from "./components/Pages/Profile/Elder/PassChangeE";
-
+import ChatUser from "./components/Pages/Chats/ChatUser";
 import ChatHistoryV from "./components/Pages/Profile/Volunteer/ChatHistoryV";
 import EditProfileV from "./components/Pages/Profile/Volunteer/EditProfileV";
 // import ForgetPasswordV from "./components/Pages/Profile/Volunteer/ForgetPasswordV";
 import PassChangeV from "./components/Pages/Profile/Volunteer/PassChangeV";
 import PaymentHistoryV from "./components/Pages/Profile/Volunteer/PaymentHistoryV";
-
-
-
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import ViewRequestPage from "./components/Pages/Volunteers/ElderVolunteerPage/ViewRequestPage.js";
+import ViewAcceptPage from "./components/Pages/Volunteers/ElderVolunteerPage/ViewAcceptPage.js";
+import AcceptedVolnteerLists from "./components/Pages/Volunteers/VolunteerPage/AcceptedVolnteerLists.js";
+import VolunteerPendingRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerPendingRequests.js";
+import VolunteerAcceptedRequests from "./components/Pages/Home/VolunteerHomepage/VolunteerAcceptedRequests.js";
+import UserProfile from "./components/Pages/Profile/UserProfile.js";
+import UserFeedbackPage from "./components/Pages/Volunteers/VolunteerPage/UserFeedbackPage.js";
+import ForgotPassword from "./components/Pages/StartPage/ForgotPassword.js";
+import ViewVolnAcceptPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolnAcceptPage.js";
+import ViewVolRequestPage from "./components/Pages/Volunteers/VolunteerPage/ViewVolRequestPage.js";
+import VolunteerRequestAccept from "./components/Pages/Volunteers/VolunteerPage/VolunteerRequestAccept.js";
 
 
 const Stack = createNativeStackNavigator();
@@ -102,6 +110,14 @@ export default function App() {
     }
   };
 
+  const updateElderUser = async (updatedUser) => {
+    // Implement logic to update the user in your context
+    // For example:
+    setElderUser({ ...elderUser, ...updatedUser });
+  };
+
+
+
   useEffect(() => {
     let unsubscribe = () => { }
     // Check if a user is already authenticated
@@ -124,54 +140,92 @@ export default function App() {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser }}>
+    <SafeAreaProvider style={styles.container}>
+      <AuthContext.Provider value={{ user, signIn, signOut, elderUser, volunteerUser, setUser, updateElderUser }}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="StartPage"
+            initialRouteName="LoginUser"
           >
 
-            <Stack.Screen name="StartPage" component={StartPage} options={{ headerShown: false }} />
+            <Stack.Screen name="StartPage" component={StartPage} options={{
+              headerShown: false, headerStyle: {
+                backgroundColor: '#E4EDF2'
+              }
+            }} />
 
             <Stack.Screen name='LoginUser' component={LoginUser}
-              options={{ headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} /> }} />
-
+              options={{
+                headerLeft: () => false,
+                headerBackTitle: false,
+                headerBackTitleVisible: false,
+                headerStyle: {
+                  backgroundColor: '#E4EDF2'
+                }, headerTitle: (props) => <CenteredTitle title="Signin to Elderly Care" {...props} />, headerBackTitleVisible: false
+              }} />
 
             <Stack.Screen name='ElderlyRegister' component={ElderlyRegister}
               options={{
-                headerTitle: (props) => <CenteredTitle title="Create User Account" {...props} />
+                headerStyle: {
+                  backgroundColor: '#E4EDF2'
+                },
+                headerTitle: (props) => <CenteredTitle title="Create User Account" {...props} />, headerBackTitleVisible: false
               }} />
 
             <Stack.Screen name='VolunteerRegister' component={VolunteerRegister}
               options={{
-                headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />
+                headerStyle: { backgroundColor: '#E4EDF2' },
+                headerTitle: (props) => <CenteredTitle title="Create Volunteer Account" {...props} />, headerBackTitleVisible: false
               }} />
 
-            <Stack.Screen options={{ headerShown: false }} name="elderTabs" component={ElderBottomTabs} />
+            <Stack.Screen options={{ headerShown: false, headerBackTitleVisible: false }} name="elderTabs" component={ElderBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
+            <Stack.Screen options={{ headerShown: false, headerBackTitleVisible: false }} name="volunteerTabs" component={VolunteerBottomTabs} />
 
-            <Stack.Screen options={{ headerShown: false }} name="drawer" component={DrawerTab} />
+            <Stack.Screen options={{ headerShown: false, headerBackTitleVisible: false }} name="drawer" component={DrawerTab} />
 
             {/* <Stack.Screen name="ElderHome" component={ElderHome} /> */}
 
-            <Stack.Screen name="VolunteerHome" component={VolunteerHome} />
+            {/* <Stack.Screen name="VolunteerHome" component={VolunteerHome} /> */}
 
             <Stack.Screen name="Invitations" component={Invitations} />
+            <Stack.Screen name="AvailableVolnteers" component={AvailableVolunteers} />
             <Stack.Screen name="Suggestions" component={Suggestions} />
             <Stack.Screen name="RequestedVolunteers" component={RequestedVolunteers} />
             <Stack.Screen name="Feedback" component={FeedbackPage} options={{ title: "Give Feedback" }} />
+            <Stack.Screen name="UserFeedback" component={UserFeedbackPage} options={{ title: "Feedbacks" }} />
             <Stack.Screen name="RequestPage" component={RequestPage}
               options={{ headerTitle: (props) => <CenteredTitle title="Send Request" {...props} /> }} />
-            <Stack.Screen name="Notification" component={Notifications} />
+
+            <Stack.Screen name="ViewRequestPage" options={{ headerTitle: (props) => <CenteredTitle title="View Request" {...props} /> }}
+              component={ViewRequestPage} />
+            <Stack.Screen name="ViewAcceptPage" component={ViewAcceptPage} />
+
+            <Stack.Screen name="ViewVolnAcceptPage" component={VolunteerRequestAccept}
+              options={{ headerTitle: (props) => <CenteredTitle title="View Accepted Requests" {...props} /> }} />
 
             <Stack.Screen name="ElderChats" component={ElderChats} />
+
+            <Stack.Screen name="VolunteerChats" component={VolunteerChats} />
+
+            <Stack.Screen name="VolunteerHomeAcceptedRequests" component={VolunteerAcceptedRequests} />
+            <Stack.Screen name="VolunteerHomePendingRequests" component={VolunteerPendingRequests} />
+            <Stack.Screen name="AcceptedVolnteerLists"
+              options={{ headerTitle: (props) => <CenteredTitle title="Accepted Requests" {...props} /> }}
+              component={AcceptedVolnteerLists} />
+            <Stack.Screen name="PendingVolnteerLists"
+              options={{ headerTitle: (props) => <CenteredTitle title="Pending Requests" {...props} /> }}
+              component={PendingVolnteerLists} />
+
+            <Stack.Screen name="ChatUser" component={ChatUser}
+              options={({ route }) => ({
+                title: route.params.network.fullname
+              })}
+            />
 
             <Stack.Screen name="AvailableVolunteers" component={AvailableVolunteers} />
 
             <Stack.Screen name="ElderVolunteers" component={ElderVolunteers} />
 
-            <Stack.Screen name="PendingVolnteerLists" component={PendingVolnteerLists} />
 
             <Stack.Screen options={{ headerShown: false }} name="EditProfileE" component={EditProfileE} />
 
@@ -184,7 +238,14 @@ export default function App() {
             <Stack.Screen options={{ headerShown: false }} name="HealthInfo" component={HealthInfo} />
 
             <Stack.Screen options={{ headerShown: false }} name="PassChangeE" component={PassChangeE} />
-  
+
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#E4EDF2'
+                }, headerTitle: (props) => <CenteredTitle title="Forgot Password" {...props} />, headerBackTitleVisible: false
+              }} />
+
 
             <Stack.Screen options={{ headerShown: false }} name="ChatHistoryV" component={ChatHistoryV} />
 
@@ -196,17 +257,19 @@ export default function App() {
 
             <Stack.Screen options={{ headerShown: false }} name="PaymentHistoryV" component={PaymentHistoryV} />
 
-
-
-
-
-
-
-
-
             <Stack.Screen name="ElderProfile" component={ElderProfile} options={{ headerShown: false }} />
 
             <Stack.Screen name="VolunProfile" component={VolunProfile} options={{ headerShown: false }} />
+
+            <Stack.Screen name="UserProfile" component={UserProfile}
+              options={{ title: "Profile" }}
+            />
+
+
+            <Stack.Screen name="ViewVolRequestPage" component={ViewVolRequestPage}
+              options={{ headerTitle: (props) => <CenteredTitle title="View Request" {...props} /> }} />
+
+
 
           </Stack.Navigator>
 
@@ -215,7 +278,7 @@ export default function App() {
 
         </NavigationContainer>
       </AuthContext.Provider>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -223,9 +286,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#E4EDF2",
-    justifyContent: "space-between",
-    width: windowWidth,
-    height: windowHeight,
+    //justifyContent: "space-between",
+    // width: windowWidth,
+    // height: windowHeight,
   },
   headerTitle: {
     alignItems: 'center',

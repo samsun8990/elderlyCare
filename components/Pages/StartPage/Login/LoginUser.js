@@ -8,6 +8,8 @@ import { Fontisto } from 'react-native-vector-icons'
 import { doc, setDoc, getDocs, collection, deleteDoc, addDoc } from "firebase/firestore";
 import { AuthContext } from '../../../Config/AuthContext';
 
+
+//test login : email: Sam@sam.com, password: Sam123456
 const LoginUser = ({ route, navigation }) => {
 
     const { user, signIn, signOut, elderUser, volunteerUser } = useContext(AuthContext);
@@ -38,10 +40,12 @@ const LoginUser = ({ route, navigation }) => {
             if (elderUser) {
                 // console.log(elderUser);
                 navigation.navigate("elderTabs")
+                navigation.navigate("drawer")
             }
             else if (volunteerUser) {
                 // console.log(volunteerUser);
                 navigation.navigate("volunteerTabs")
+                 navigation.navigate("drawer")
             }
 
         }
@@ -87,9 +91,10 @@ const LoginUser = ({ route, navigation }) => {
                         >
                             <Text style={styles.buttonText}>Login</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ alignItems: 'center', marginTop: 20, fontSize: 10 }}>
+                        {/* <TouchableOpacity style={{ alignItems: 'center', marginTop: 20, fontSize: 10 }}
+                        onPress={()=>navigation.navigate("ForgotPassword")}>
                             <Text style={{ fontSize: 18, color: '#1B5B7D', fontWeight: "bold" }}>Forgot password?</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
 

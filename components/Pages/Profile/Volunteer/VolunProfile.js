@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect } from 'react'
-import { Button, Icon } from '@rneui/themed';
+import { Avatar, Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons,FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
@@ -13,13 +13,21 @@ const VolunProfile = () => {
     const navigation = useNavigation()
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
+    const timestamp_Data = {
+        "nanoseconds": volunteerUser.joinDate.nanoseconds,
+        "seconds": volunteerUser.joinDate.seconds
+    }
+
+    const milliseconds1 = timestamp_Data.seconds * 1000 + timestamp_Data.nanoseconds / 1000000;
+    const joiningDate = new Date(milliseconds1).toDateString()
+
     return (
         <SafeAreaView style={styles.container}>
            
             <View style={styles.profileContainer}>
-                <Image source={defaultImg} style={styles.profileImage} />
-                <Text>Joined Date:{volunteerUser.date}</Text>
-                <Text>{volunteerUser.fullname}</Text>
+                <Avatar size={100} source={{uri:volunteerUser.avatar}} />
+                <Text style={{fontSize:18,fontWeight:"bold"}}>{volunteerUser.fullname}</Text>
+                <Text style={{fontSize:13,fontWeight:"bold"}}>Joined on: {joiningDate}</Text>
                 <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
                  onPress={()=>navigation.navigate("EditProfileV")} >
                     <Icon name="edit" color="white" />
@@ -28,13 +36,13 @@ const VolunProfile = () => {
             </View>
             <View style={styles.personalDetailsContainer}>
                 <Text style={styles.sectionTitle}>Personal Details</Text>
-                <View style={styles.line} />
+                <Text>──────────────── </Text>
                 <View style={styles.detailRow}>
-                    <Icon name="mail" color="black" size={20} style={styles.icon} />
+                    <Icon name="mail" color="black" size={25} style={styles.icon} />
                     <Text>{volunteerUser.email}</Text>
                 </View>
                 <View style={styles.detailRow}>
-                    <Icon name="lock" color="black" size={20} style={styles.icon} />
+                    <Icon name="lock" color="black" size={25} style={styles.icon} />
                     <Text>*********</Text>
                     <Button
                         containerStyle={{
@@ -48,22 +56,24 @@ const VolunProfile = () => {
                     </Button>
                 </View>
                 <View style={styles.detailRow}>
-                    <AntDesign name="calendar" color="black" size={20} style={styles.icon} />
+                    <AntDesign name="calendar" color="black" size={25} style={styles.icon} />
                     <Text>{volunteerUser.dob}</Text>
                 </View>
                 <View style={styles.detailRow}>
-                    <AntDesign name="contacts" color="black" size={20} style={styles.icon} />
+                    <AntDesign name="contacts" color="black" size={25} style={styles.icon} />
                     <Text>{volunteerUser.phone}</Text>
                 </View>
             </View>
             <View style={styles.cardContainer}>
+                <Text></Text>
+                <Text></Text>
                 <Text style={styles.sectionTitle}>Dashboard</Text>
-                <View style={styles.line} />
+                <Text>──────────────── </Text>
                 <View style={styles.dashboardButtons}>
-                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
+                    {/* <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
                      onPress={()=>navigation.navigate("PaymentHistoryV")}>
                         Payments
-                    </Button>
+                    </Button> */}
                     <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
                     onPress={()=>navigation.navigate("ChatHistoryV")}>
                         Chat History
@@ -72,11 +82,15 @@ const VolunProfile = () => {
             </View>
             <View style={styles.accountContainer}>
                 <Text style={styles.sectionTitle}>My Account</Text>
-                <View style={styles.line} />
+                <Text>──────────────── </Text>
                 {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"} > */}
                 <Text style={{ fontSize: 16 }}>
-                    <Icon size={30} name="logout" color="#1B5B7D" 
-                     onPress={()=>navigation.navigate("StartPage")}/> Logout
+                    <Icon size={25} name="logout" color="#1B5B7D" 
+                      onPress={() => {
+                        signOut()
+                        setUser(null)
+                        navigation.navigate("StartPage")
+                      }}/> Logout
                 </Text>
                 {/* </Button> */}
             </View>
@@ -106,17 +120,17 @@ const styles = StyleSheet.create({
     personalDetailsContainer: {
         flex: 1,
         alignItems: 'left',
-        padding: 20,
+        padding: 15,
     },
     cardContainer: {
         flex: 1,
         alignItems: 'left',
-        padding: 10,
+        padding: 15,
     },
     accountContainer: {
         flex: 1,
         alignItems: 'left',
-        padding: 20,
+        padding: 15,
     },
     sectionTitle: {
         fontSize: 20,

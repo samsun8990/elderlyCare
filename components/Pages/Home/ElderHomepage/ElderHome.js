@@ -1,4 +1,4 @@
-import { Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { Text, View, SafeAreaView, ScrollView, Image,StatusBar, TouchableOpacity, Dimensions } from 'react-native'
 import React, { useContext, useEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import { FontAwesome } from "react-native-vector-icons";
@@ -12,6 +12,8 @@ import ElderHomeSuggestions from './ElderHomeSuggestions';
 import { logo } from '../../../Utils/ImageCommon';
 import { DrawerActions } from '@react-navigation/drawer';
 
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 const ElderHome = ({ }) => {
 
@@ -23,21 +25,13 @@ const ElderHome = ({ }) => {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
-
         <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
+    headerBackTitle: false,
+    headerBackTitleVisible: false,
     headerRight: () => (
       <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <FontAwesome
-            name="bell"
-            color="#1B5B7D"
-            size={24}
-            style={{ marginRight: 15 }}
-
-          />
-        </TouchableOpacity>
         <TouchableOpacity>
           <FontAwesome
             name="sign-out"
@@ -70,9 +64,9 @@ const ElderHome = ({ }) => {
   }, [navigation]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={true} >
         <View
           style={{
             flex: 1,
@@ -83,14 +77,14 @@ const ElderHome = ({ }) => {
          <Welcome  />
           
        
-          <ElderHomeSuggestions />
+          <ElderHomeSuggestions navigation={navigation} />
           <Text></Text>
-          <ElderHomeAvailable />
-
-          <View style={{ paddingBottom: 90 }} />
+          <ElderHomeAvailable navigation={navigation}/>
 
         </View>
+        
       </ScrollView>
+      <View style={{ paddingBottom: 70 }} />
     </SafeAreaView>
   )
 }

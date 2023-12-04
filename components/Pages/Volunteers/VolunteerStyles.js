@@ -4,7 +4,8 @@ export const styles = StyleSheet.create({
     container: {
         // marginTop: 24,
         flex: 1, 
-        backgroundColor: '#E4EDF2'
+        backgroundColor: '#DCEDF6'
+        //'#E4EDF2'
     },
     header: {
         flexDirection: "row",
@@ -78,6 +79,11 @@ export const styles = StyleSheet.create({
         backgroundColor:"#1B5B7D",
         width:126
 
+    },
+    viewallrequestbtn:{
+        borderRadius:15,
+        backgroundColor:"#1B5B7D",
+        width:146
     },
     viewrequested:{
         borderRadius:15,

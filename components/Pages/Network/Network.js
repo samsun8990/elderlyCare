@@ -1,35 +1,32 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesome } from "react-native-vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import { headerOptions } from '../../Utils/Common';
-import { Card, Button } from '@rneui/themed';
+import { Card, Button, Avatar } from '@rneui/themed';
 import { styles } from './NetworkStyle.js';
-import { defaultImg } from '../../Utils/ImageCommon.js';
+import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { AuthContext } from '../../Config/AuthContext.js';
+import { acceptUserInvitation, findCreatedAt, findCreatedAt_diffDays, getAcceptedUsersForCurrentUsers, getInvitations, readTwoElderUsers, removeRequestById } from '../../Config/dbcls';
 
 const ElderNetwork = () => {
     const navigation = useNavigation();
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
+    const [invitationList, setInvitationList] = useState()
+
+    const [acceptedList, setAcceptedList] = useState()
 
     const headerOptions = {
         headerTitle: '',
         headerLeft: () => (
             <TouchableOpacity>
-                <Image source={require("../../../assets/logo/Elderly-Care.png")} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
+                <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
             </TouchableOpacity>
         ),
         headerRight: () => (
             <View style={{ flexDirection: "row" }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-                    <FontAwesome
-                        name="bell"
-                        color="#1B5B7D"
-                        size={24}
-                        style={{ marginRight: 15 }}
-                    />
-                </TouchableOpacity>
+
                 <TouchableOpacity>
                     <FontAwesome
                         name="sign-out"
@@ -40,7 +37,7 @@ const ElderNetwork = () => {
                             signOut()
                             setUser(null)
                             navigation.replace("LoginUser")
-                          }}
+                        }}
                     />
                 </TouchableOpacity>
             </View>
@@ -56,7 +53,21 @@ const ElderNetwork = () => {
 
     useEffect(() => {
         navigation.setOptions(headerOptions);
-    }, [navigation]);
+        if (elderUser) {
+            getInvitations(elderUser, setInvitationList)
+
+            getAcceptedUsersForCurrentUsers(elderUser, setAcceptedList)
+        }
+    }, []);
+
+    const handleAcceptRequest = async (invite) => {
+        await alert(`You accepted request from ${invite.fullname}`)
+        await acceptUserInvitation(elderUser, invite)
+    }
+
+    const handleDeclineRequest = async(elderuser,inviteuser)=>{
+        await removeRequestById(elderuser,inviteuser)
+    }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -70,94 +81,30 @@ const ElderNetwork = () => {
                     </View>
                     <Card.Divider />
                     <ScrollView>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                            <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Image source={defaultImg}
-                                    style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
-                                <View>
-                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
-                                    <Text style={{ color: "#847F7F" }}>1 day ago</Text>
+                        {
+                            invitationList && invitationList.length > 0 && invitationList.slice(0, 4).map((invite, index) =>
+                                <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
+                                    <View style={{ flexDirection: "row", gap: 10 }}>
+                                        <Avatar size={50} rounded source={{ uri: invite.avatar }} />
+                                        <View>
+                                        <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: invite.id })}>
+                                            <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>
+                                        </TouchableOpacity>
+
+                                            <Text style={{ color: "#847F7F" }}>
+                                                {/* {findCreatedAt_diffDays(invite)} */}
+                                            </Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
+                                        <FontAwesome name="check" size={30} color="#265F17" onPress={() => handleAcceptRequest(invite)} />
+                                        <FontAwesome name="times" size={30} color="#7B7979" onPress={() => handleDeclineRequest(elderUser,invite)} />
+                                    </View>
                                 </View>
-                            </View>
 
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-                                <FontAwesome name="check" size={30} color="#265F17" />
-                                <FontAwesome name="times" size={30} color="#7B7979" />
-                            </View>
-                        </View>
-                        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-                            <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Image source={defaultImg}
-                                    style={{ width: 50, height: 50, borderRadius: 30 }} resizeMode="cover" />
-                                <View>
-                                    <Text style={{ fontWeight: "600", fontSize: 16 }}>Lorem Lipsum</Text>
-                                    <Text style={{ color: "#847F7F" }}>1 day ago</Text>
-                                </View>
-                            </View>
-
-                            <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-                                <FontAwesome name="check" size={30} color="#265F17" />
-                                <FontAwesome name="times" size={30} color="#7B7979" />
-                            </View>
-                        </View>
-
-                    </ScrollView>
-                </Card>
-
-                <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
-                    <View style={styles.header}>
-                        <Text style={styles.headerTitles}>Suggestions</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("Suggestions")}>
-                            <FontAwesome name="arrow-right" size={20} color="black" />
-                        </TouchableOpacity>
-                    </View>
-                    <Card.Divider />
-                    <ScrollView>
-                        <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
-                            <View style={styles.suggestions}>
-                                <Image source={defaultImg}
-                                    style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-                                <Text>Country</Text>
-                                <Text></Text>
-                                <Button buttonStyle={{
-                                    backgroundColor: '#1B5B7D',
-                                    borderWidth: 2,
-                                    borderColor: '#1B5B7D',
-                                    borderRadius: 30,
-                                }}
-                                    size="md"
-                                    containerStyle={{
-                                        width: 120,
-                                        height: 35,
-                                    }}
-                                    titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
-
-                                >Connect</Button>
-                            </View>
-
-                            <View style={styles.suggestions}>
-                                <Image source={defaultImg}
-                                    style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-                                <Text>Country</Text>
-                                <Text></Text>
-                                <Button buttonStyle={{
-                                    backgroundColor: '#1B5B7D',
-                                    borderWidth: 2,
-                                    borderColor: '#1B5B7D',
-                                    borderRadius: 30,
-                                }}
-                                    size="md"
-                                    containerStyle={{
-                                        width: 120,
-                                        height: 35,
-                                    }}
-                                    titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
-                                >Connect</Button>
-                            </View>
-
-                        </View>
+                            )
+                        }
                     </ScrollView>
                 </Card>
 
@@ -171,49 +118,29 @@ const ElderNetwork = () => {
                     <Card.Divider />
                     <ScrollView>
                         <View style={{ flexDirection: "row", gap: 5, justifyContent: "center" }}>
-                            <View style={styles.suggestions}>
-                                <Image source={defaultImg}
-                                    style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-                                <Text>Country</Text>
-                                <Text></Text>
-                                <Button buttonStyle={{
-                                    backgroundColor: '#1B5B7D',
-                                    borderWidth: 2,
-                                    borderColor: '#1B5B7D',
-                                    borderRadius: 30,
-                                }}
-                                    size="md"
-                                    containerStyle={{
-                                        width: 120,
-                                        height: 35,
-                                    }}
-                                    titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
+                            {acceptedList && acceptedList.length > 0 && acceptedList.slice(0, 2).map((accept, index) =>
+                                <View style={styles.suggestions} key={index}>
+                                    <Avatar size={60} rounded source={{ uri: accept.avatar }} />
+                                    <Text style={{ fontWeight: "bold" }}>{accept.fullname}</Text>
+                                    <Text>{accept.gender}</Text>
+                                    <Text></Text>
+                                    <Button onPress={() => navigation.navigate("ChatUser", { network: accept })}
+                                        buttonStyle={{
+                                            backgroundColor: '#1B5B7D',
+                                            borderWidth: 2,
+                                            borderColor: '#1B5B7D',
+                                            borderRadius: 30,
+                                        }}
+                                        size="md"
+                                        containerStyle={{
+                                            width: 120,
+                                            height: 38,
+                                        }}
+                                        titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
 
-                                >View</Button>
-                            </View>
-
-                            <View style={styles.suggestions}>
-                                <Image source={defaultImg}
-                                    style={{ width: 60, height: 60, borderRadius: 30 }} resizeMode="cover" />
-                                <Text style={{ fontWeight: "bold" }}>Lorem Lipsum</Text>
-                                <Text>Country</Text>
-                                <Text></Text>
-                                <Button buttonStyle={{
-                                    backgroundColor: '#1B5B7D',
-                                    borderWidth: 2,
-                                    borderColor: '#1B5B7D',
-                                    borderRadius: 30,
-                                }}
-                                    size="md"
-                                    containerStyle={{
-                                        width: 120,
-                                        height: 35,
-                                    }}
-                                    titleStyle={{ fontWeight: 'bold', fontSize: 12, padding: 5 }}
-                                >View</Button>
-                            </View>
-
+                                    >Message</Button>
+                                </View>
+                            )}
                         </View>
                     </ScrollView>
                 </Card>

@@ -6,49 +6,55 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
-  } from "react-native";
-  import React, { useState, useEffect, useContext } from "react";
-  import { FontAwesome } from "react-native-vector-icons";
-  import { useNavigation } from "@react-navigation/native";
-  // import { headerOptions } from '../../Utils/Common';
-  import { Card, Button, CheckBox, Avatar } from "@rneui/themed";
-  import { styles } from "../VolunteerStyles.js";
-  import { Picker } from "@react-native-picker/picker";
-  import { Dropdown } from "react-native-element-dropdown";
-import { defaultImg } from "../../../Utils/ImageCommon.js";
-import { AuthContext } from "../../../Config/AuthContext.js";
-const ViewRequestPage = ({navigation,route}) => {
+} from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { FontAwesome } from "react-native-vector-icons";
+import { useNavigation } from "@react-navigation/native";
+// import { headerOptions } from '../../Utils/Common';
+import { Card, Button, CheckBox, Avatar } from "@rneui/themed";
+import { styles } from "../VolunteerStyles.js";
+import { Picker } from "@react-native-picker/picker";
+import { Dropdown } from "react-native-element-dropdown";
+import { AuthContext } from '../../../Config/AuthContext';
+import { acceptVolunteerPendingRequest } from "../../../Config/dbcls.js";
 
-  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+const ViewVolRequestPage = ({navigation,route}) => {
 
-  const { accepted } = route.params
+    const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
+    const { pending } = route.params
 
-  const getRequestsByUserId = (userObj, requestedByUserId) => {
-      const matchingRequest = userObj.requests.find(
-          (request) => request.requestedBy === requestedByUserId
-      );
-      return matchingRequest || null; // Return null if no matching request found
-  };
+    const handleAcceptRequest = async()=>{
+        alert("Accepted Successfully!")
+        await acceptVolunteerPendingRequest(volunteerUser,pending)
 
-  const requestsForUser = getRequestsByUserId(accepted, elderUser.id);
+    }
 
-  const timestamp_startData = {
-      "nanoseconds": requestsForUser.startDate.nanoseconds,
-      "seconds": requestsForUser.startDate.seconds
-  };
-  const timestamp_endData = {
-      "nanoseconds": requestsForUser.endDate.nanoseconds,
-      "seconds": requestsForUser.endDate.seconds
-  };
+    
+    const getRequestsByUserId = (userObj, requestedByUserId) => {
+        const matchingRequest = userObj.volunteers.find(
+            (request) => request.id == requestedByUserId
+        );
+        return matchingRequest.details || null; // Return null if no matching request found
+    };
 
-  const milliseconds1 = timestamp_startData.seconds * 1000 + timestamp_startData.nanoseconds / 1000000;
-  const startdate = new Date(milliseconds1).toDateString()
+    const requestsForUser = getRequestsByUserId(pending, volunteerUser.id);
+    console.log(requestsForUser);
 
-  const milliseconds2 = timestamp_endData.seconds * 1000 + timestamp_endData.nanoseconds / 1000000;
-  const enddate = new Date(milliseconds2).toDateString()
+    const timestamp_startData = {
+        "nanoseconds": requestsForUser && requestsForUser.startDate.nanoseconds,
+        "seconds": requestsForUser && requestsForUser.startDate.seconds
+    };
+    const timestamp_endData = {
+        "nanoseconds": requestsForUser.endDate.nanoseconds,
+        "seconds": requestsForUser.endDate.seconds
+    };
 
+    const milliseconds1 = timestamp_startData.seconds * 1000 + timestamp_startData.nanoseconds / 1000000;
+    const startdate = new Date(milliseconds1).toDateString()
 
+    const milliseconds2 = timestamp_endData.seconds * 1000 + timestamp_endData.nanoseconds / 1000000;
+    const enddate = new Date(milliseconds2).toDateString()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -67,13 +73,13 @@ const ViewRequestPage = ({navigation,route}) => {
                         padding: 10,
                     }}
                 >
-                    <Avatar source={{ uri: accepted.avatar }} size={60} />
+                    <Avatar source={{ uri: pending.avatar }} size={60} />
 
                     <View>
-                        <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>
-                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>{accepted.fullname}</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: pending.id })}>
+                            <Text style={{ fontWeight: "bold", fontSize: 18 }}>{pending.fullname}</Text>
                         </TouchableOpacity>
-                        <Text style={{ fontSize: 15 }}>{accepted.gender}</Text>
+                        <Text style={{ fontSize: 15 }}>{pending.gender}</Text>
                     </View>
                 </View>
                 <Text></Text>
@@ -122,17 +128,16 @@ const ViewRequestPage = ({navigation,route}) => {
                     <Card.Divider />
                     <Text></Text>
                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                        <Text style={{ fontSize: 15 }}>From: {startdate}</Text>
-                        <Text style={{ fontSize: 15 }}>To: {enddate}</Text>
+                        <Text style={{ fontSize: 15 }}>From: {requestsForUser && startdate}</Text>
+                        <Text style={{ fontSize: 15 }}>To: {requestsForUser && enddate}</Text>
                     </View>
 
                 </View>
                 <Text></Text>
-                {/* <View>
-                    <Text style={styles.requestTitle}>Payment Amount</Text>
-                    <Card.Divider />
-                    <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
-                </View> */}
+                <Button onPress={handleAcceptRequest}>
+                    Accept
+                </Button>
+
             </View>
         </Card>
     </ScrollView>
@@ -141,4 +146,4 @@ const ViewRequestPage = ({navigation,route}) => {
   )
 }
 
-export default ViewRequestPage
+export default ViewVolRequestPage

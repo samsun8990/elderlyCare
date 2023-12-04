@@ -9,8 +9,10 @@ import { doc, setDoc, getDocs, collection, deleteDoc, addDoc } from "firebase/fi
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { auth, db } from '../../../Config/config';
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { styles } from "../StartPageStyle";
 
-const VolunteerRegister = ({navigation}) => {
+
+const VolunteerRegister = ({ navigation }) => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -36,15 +38,17 @@ const VolunteerRegister = ({navigation}) => {
     setShowPicker(false)
   }
 
-  const handleVolunteerRegister =async () => {
+  const handleVolunteerRegister = async () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       if (userCredential) {
         const docRef = doc(db, "volunteerUsers", userCredential.user.uid)
 
         await setDoc(docRef,
-          { email: email, fullname: fullname, password: password, phone: phone, gender: gender, avatar: "https://static.thenounproject.com/png/5034901-200.png", role: "volunteer",
-          experience:experience,dob:dob},
+          {
+            email: email, fullname: fullname, password: password, phone: phone, gender: gender, avatar: "https://static.thenounproject.com/png/5034901-200.png", role: "volunteer", status: "available",
+            experience: experience, dob: dob,joinDate:new Date()
+          },
           { merge: true })
           .then(() => {
             console.log("User registered successfully!");
@@ -133,6 +137,7 @@ const VolunteerRegister = ({navigation}) => {
                 onChangeText={(text) => setPassword(text)}
                 style={styles.input}
                 autoCorrect={false}
+                secureTextEntry
               />
             </View>
             <View style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%', marginBottom: 20 }}>
@@ -155,7 +160,7 @@ const VolunteerRegister = ({navigation}) => {
                 autoCorrect={false}
               />
             </View>
-            
+
             <TouchableOpacity onPress={() => setShowPicker(true)} style={{ flexDirection: 'row', borderBottomWidth: 1, marginLeft: 40, paddingBottom: 4, width: '80%' }}>
               <Fontisto name="date" size={40}></Fontisto>
               <TextInput
@@ -166,7 +171,7 @@ const VolunteerRegister = ({navigation}) => {
               />
             </TouchableOpacity>
 
-            
+
             {
               showPicker &&
               <DateTimePicker mode="date" value={date} display="default" maximumDate={new Date()} onChange={handleDateChange} />
@@ -176,6 +181,7 @@ const VolunteerRegister = ({navigation}) => {
 
 
           <View style={{ marginTop: 30, alignItems: 'center' }}>
+
             <TouchableOpacity style={styles.button}
               onPress={handleVolunteerRegister}
             >
@@ -206,71 +212,3 @@ const VolunteerRegister = ({navigation}) => {
 }
 
 export default VolunteerRegister
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#E4EDF2',
-    paddingTop: StatusBar.currentHeight,
-  },
-  input: {
-    flex: 1,
-    fontSize: 20,
-
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-
-
-  },
-  inputContainer: {
-    width: '80%'
-  },
-  button: {
-    width: 240,
-    alignItems: 'center',
-    backgroundColor: '#FAB545',
-    borderRadius: 20,
-    padding: 15
-
-  },
-  buttonContainer: {
-
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 30
-
-  },
-  buttonOutLine: {
-    width: 250,
-    alignItems: 'center',
-    backgroundColor: '#FAB545',
-    borderRadius: 10,
-    padding: 15,
-    marginTop: 15,
-
-  },
-  buttonText: {
-    fontWeight: '700',
-    color: 'white',
-    fontSize: 18
-  },
-  buttonOutLineText: {
-    fontWeight: '700',
-    color: 'white',
-    fontSize: 18
-  },
-  error: {
-    color: "red",
-    fontSize: 15,
-    width: 340,
-  },
-  DateTimePicker: {
-    height: 180,
-    width: 200
-    // marginTop: -10
-  }
-
-})
