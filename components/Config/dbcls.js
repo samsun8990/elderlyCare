@@ -197,7 +197,6 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
       let temp = []
       snapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }))
 
-      console.log(temp);
       let getInvitedUsers = []
       let a3 = temp.flatMap((x) => { return x.following && x.following })
       if (a3.length > 0) {
@@ -308,7 +307,7 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
             const docSnap1 = getDoc(docRef1);
             docSnap1.then((result) => {
               getInvitedUsers.push({ id: a.id, ...result.data() })
-              //console.log(getInvitedUsers,"getacceptedUsers");
+              console.log(getInvitedUsers,"getacceptedUsers");
               setAcceptedList(getInvitedUsers)
             }
             ).catch((error) => console.log(error))
@@ -497,6 +496,8 @@ export const acceptVolunteerPendingRequest = async (volunteerUser, pending) => {
 
   const elderSnap = await getDoc(getRequestsByElderRef);
   const volSnap = await getDoc(volunteerUserRef);
+
+  const x = volSnap.data();
     
   let acceptedVolunteerUpdate = volSnap.data().requests && volSnap.data().requests.map(request => {
     if (request.requestedBy === elderSnap.id) {
@@ -517,7 +518,7 @@ export const acceptVolunteerPendingRequest = async (volunteerUser, pending) => {
   });
 
   await setDoc(volunteerUserRef, {
-    requests: acceptedVolunteerUpdate
+    requests: acceptedVolunteerUpdate, status:"unavailable"
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
@@ -527,5 +528,11 @@ export const acceptVolunteerPendingRequest = async (volunteerUser, pending) => {
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
+
+
+    // if (x && x.status) {
+    //   x.status = "unavailable"; 
+    //   await setDoc(volunteerUserRef, x, { merge: true });
+    // }
 
 }
