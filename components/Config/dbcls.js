@@ -154,7 +154,7 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
   const elderSnap = await getDoc(updateFollowOtherUserRef);
   const otherSnap = await getDoc(acceptCurrentUserRef);
     
-  let acceptedOtherUserUpdate = otherSnap.data().followers && otherSnap.data().followers.map(follower => {
+  let acceptedOtherUserUpdate = otherSnap.data().followers && otherSnap.data().followers && otherSnap.data().followers.map(follower => {
     if (follower.id === elderSnap.id) {
       // console.log(follower);
       follower.status = "accepted"
@@ -163,7 +163,7 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
     return follower;
   });
 
-  let acceptedUserUpdate = elderSnap.data().following && elderSnap.data().following.map(follower => {
+  let acceptedUserUpdate = elderSnap.data().following && elderSnap.data().following && elderSnap.data().following.map(follower => {
     if (follower.id === otherSnap.id) {
       // console.log(follower);
       follower.status = "accepted"
@@ -172,13 +172,13 @@ export const acceptUserInvitation = async (elderUser, invitation) => {
     return follower;
   });
 
-  await setDoc(acceptCurrentUserRef, {
+  await updateDoc(acceptCurrentUserRef, {
     followers: acceptedOtherUserUpdate
   }, { merge: true })
     .then(() => console.log("Data Updated"))
     .catch((error) => console.error('Error updating document:', error));
 
-  await setDoc(updateFollowOtherUserRef, {
+  await updateDoc(updateFollowOtherUserRef, {
     following: acceptedUserUpdate
   }, { merge: true })
     .then(() => console.log("Data Updated"))
@@ -307,8 +307,9 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
             const docSnap1 = getDoc(docRef1);
             docSnap1.then((result) => {
               getInvitedUsers.push({ id: a.id, ...result.data() })
-              console.log(getInvitedUsers,"getacceptedUsers");
-              setAcceptedList(getInvitedUsers)
+              //console.log(getInvitedUsers,"getacceptedUsers");
+              return getInvitedUsers
+              //setAcceptedList(getInvitedUsers)
             }
             ).catch((error) => console.log(error))
           })
