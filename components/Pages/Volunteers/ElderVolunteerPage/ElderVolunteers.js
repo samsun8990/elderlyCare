@@ -18,6 +18,7 @@ const ElderVolunteers = () => {
   const [value, setValue] = useState(null)
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
   const [search, setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([])
   
   const [viewAllChoice,setViewAllChoice] = useState(true)
   const [viewRequestedChoice,setViewRequestedChoice] = useState(false)
@@ -71,6 +72,35 @@ const updateSearch = (search) => {
   }, [navigation]);
 
 
+
+  useEffect(() => {
+    const searchByName = async () => {
+      const docRef = elderUser.fullname
+      const snapshot = await docRef
+      .where('fullname', '>=', search)
+      .where('fullname', '<=', search + '\uf8ff')
+      .get()
+
+      const results = snapshot.val()
+      
+      if(results) {
+        const data = Object.keys(results).map((key) => ({
+          id:key,
+          ...results[key]
+        }))
+        setSearchResults(data)
+      }else{
+        setSearchResults([])
+      }
+    }
+
+    if (search !== ''){
+      searchByName();
+
+    }else{
+      setSearchResults([])
+    }
+  }, [search])
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -80,8 +110,8 @@ const updateSearch = (search) => {
           Platform.OS === "ios"
           ?
           <SearchBar
-          placeholder="Search"
-          onChangeText={updateSearch}
+          placeholder="Search by name"
+          onChangeText={(text) => setSearch(text)}
           value={search}
           platform='ios'
           containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
@@ -100,7 +130,7 @@ const updateSearch = (search) => {
         :
         <SearchBar
         placeholder="Type Here..."
-        onChangeText={updateSearch}
+        onChangeText={(text) => setSearch(text)}
         value={search}
         platform='android'
         containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
@@ -133,10 +163,10 @@ const updateSearch = (search) => {
         </View>
       </View>
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
+        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested && searchResults} 
         titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true);setViewRequestedChoice(false)}}>
           View All</Button>
-        <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested} 
+        <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested && searchResults} 
         titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewRequestedChoice(true);setViewAllChoice(false)}}>
           View Accepted</Button>
       </View>

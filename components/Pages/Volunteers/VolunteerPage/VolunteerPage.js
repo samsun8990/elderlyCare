@@ -79,7 +79,7 @@ const VolunteerPage = ({navigation}) => {
           value={search}
           platform='ios'
           containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
-          inputContainerStyle={{width:350, height:35}}
+          inputContainerStyle={{width:500, height:35}}
           inputStyle={{fontSize:14}}
           leftIconContainerStyle={{}}
           rightIconContainerStyle={{}}
