@@ -28,7 +28,6 @@ const VolunteerAcceptedRequests = ({navigation}) => {
     useEffect(() => {
       if (volunteerUser) {
         readAllAcceptedElders(volunteerUser, setAcceptedList);
-      
       }
     }, [])
 
@@ -49,8 +48,11 @@ const VolunteerAcceptedRequests = ({navigation}) => {
                       acceptedList.map((accept,index)=>
                       <View key={index}>
                       <Avatar size={85} source={{uri:accept.avatar}}/>
-                      <Text style={styles.item}>{accept.fullname}</Text>
-                      <Button buttonStyle={{
+                      <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:accept.id})}>
+                        <Text style={styles.item}>{accept.fullname}</Text>
+                      </TouchableOpacity>
+                      <Button onPress={()=>navigation.navigate("ViewVolnAcceptPage",{accepted:accept})}
+                       buttonStyle={{
                           backgroundColor: '#1B5B7D',
                           borderWidth: 2,
                           borderColor: '#1B5B7D',

@@ -20,17 +20,17 @@ export const styles = StyleSheet.create({
     personalDetailsContainer: {
         flex: 1,
         alignItems: 'left',
-        padding: 20,
+        padding: 15,
     },
     cardContainer: {
         flex: 1,
         alignItems: 'left',
-        padding: 10,
+        padding: 15,
     },
     accountContainer: {
         flex: 1,
         alignItems: 'left',
-        padding: 20,
+        padding: 15,
     },
     sectionTitle: {
         fontSize: 20,

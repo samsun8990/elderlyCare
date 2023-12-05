@@ -91,9 +91,10 @@ const LoginUser = ({ route, navigation }) => {
                         >
                             <Text style={styles.buttonText}>Login</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ alignItems: 'center', marginTop: 20, fontSize: 10 }}>
+                        {/* <TouchableOpacity style={{ alignItems: 'center', marginTop: 20, fontSize: 10 }}
+                        onPress={()=>navigation.navigate("ForgotPassword")}>
                             <Text style={{ fontSize: 18, color: '#1B5B7D', fontWeight: "bold" }}>Forgot password?</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
 

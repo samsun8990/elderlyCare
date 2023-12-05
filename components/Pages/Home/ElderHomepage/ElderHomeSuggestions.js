@@ -27,8 +27,8 @@ const ElderHomeSuggestions = () => {
 
   useEffect(() => {
     if (elderUser) {
-      readAllOtherElderUsers(elderUser.fullname, setSuggestionList);
-      //getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
+      //readAllOtherElderUsers(elderUser.fullname, setSuggestionList);
+      getUsersNotFollowedByCurrentUser(elderUser, setSuggestionList)
     
     }
   }, []);
@@ -62,8 +62,9 @@ const ElderHomeSuggestions = () => {
             suggestionList.map((suggest, index) => (
               <View key={index}>
                 <Avatar size={85} rounded source={{ uri: suggest.avatar }} />
-
-                <Text style={styles.item}>{suggest.fullname}</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:suggest.id})}>
+                  <Text style={styles.item}>{suggest.fullname}</Text>
+                </TouchableOpacity>
                 <Button onPress={()=>handleFollowUser(suggest)}
                   buttonStyle={{
                     backgroundColor: "#1B5B7D",
@@ -71,13 +72,20 @@ const ElderHomeSuggestions = () => {
                     borderColor: "#1B5B7D",
                     borderRadius: 30,
                   }}
-                  disabled={suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? true : false}
+                  disabled={
+                    suggest.followers && suggest.followers.map((follower) => follower.status === 'requested' || follower.status === 'accepted'
+                    ) ? true : false}
                   containerStyle={{
-                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 100 : 90,
+                    width: suggest.followers && suggest.followers.map((follower) => follower.status === 'requested'|| follower.status === 'accepted') ? 100 : 90,
                   }}
                   titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                 {suggest.followers && suggest.followers.map((follower) => follower.status === 'requested') ? 'Requested' : 'Connect'} 
+                
+                 {suggest.followers ? suggest.followers.map((vol) =>
+                    vol.status == 'requested' ? 'Requested' :
+                    vol.status == 'accepted' ? 'Accepted' :
+                    'Connect'
+                  ) : 'Connect'}
                 </Button>
               </View>
             ))}

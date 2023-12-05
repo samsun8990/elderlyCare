@@ -25,10 +25,11 @@ const ElderHome = ({ }) => {
     headerTitle: '',
     headerLeft: () => (
       <TouchableOpacity>
-
         <Image source={logo} style={{ width: 110, height: 20, marginLeft: 15 }} resizeMode="cover" />
       </TouchableOpacity>
     ),
+    headerBackTitle: false,
+    headerBackTitleVisible: false,
     headerRight: () => (
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity>
@@ -76,9 +77,9 @@ const ElderHome = ({ }) => {
          <Welcome  />
           
        
-          <ElderHomeSuggestions />
+          <ElderHomeSuggestions navigation={navigation} />
           <Text></Text>
-          <ElderHomeAvailable />
+          <ElderHomeAvailable navigation={navigation}/>
 
         </View>
         

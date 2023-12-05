@@ -8,7 +8,7 @@ import { AuthContext } from '../../Config/AuthContext.js';
 import { defaultImg, logo } from '../../Utils/ImageCommon.js';
 import { getAcceptedUsersForCurrentUsers } from '../../Config/dbcls.js';
 
-const ElderChats = ({navigation,route}) => {
+const ElderChats = ({ navigation, route }) => {
 
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
@@ -56,38 +56,39 @@ const ElderChats = ({navigation,route}) => {
 
 
   return (
-    <Card >
-      <Card.Title style={{ fontSize: 18, }}>Chat With Connected Networks</Card.Title>
-      <Card.Divider />
-      <ScrollView>
-        {connectedNetworks && connectedNetworks.length > 0
-          ?
-          connectedNetworks.map((connect, index) =>
-            <View key={index}>
-              <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
-                <View style={{ flexDirection: "row", gap: 10 }}>
-                  <Avatar source={{uri:connect.avatar}} size={50}/>
-                  <TouchableOpacity style={{ margin: 5 }} >
-                    <Text style={{ fontWeight: "500", fontSize: 15,top:5 }}>{connect.fullname}</Text>
-                    {/* <Text style={{ color: "#847F7F" }}>1 day ago</Text> */}
-                  </TouchableOpacity>
-                </View>
-                <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-                  <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top: 10 }}>
-                    <Entypo name="chat" size={30} onPress={() => navigation.navigate("ChatUser",{network:connect})} />
-                    <MaterialCommunityIcons name="more" size={30} />
+    <View style={{flex: 1,backgroundColor: '#DCEDF6'}}>
+      <Card >
+        <Card.Title style={{ fontSize: 18, }}>Chat With Connected Networks</Card.Title>
+        <Card.Divider />
+        <ScrollView >
+          {connectedNetworks && connectedNetworks.length > 0
+            ?
+            connectedNetworks.map((connect, index) =>
+              <View key={index}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
+                  <View style={{ flexDirection: "row", gap: 10 }}>
+                    <Avatar source={{ uri: connect.avatar }} size={50} />
+                    <TouchableOpacity style={{ margin: 5 }} >
+                      <Text style={{ fontWeight: "500", fontSize: 15, top: 5 }}>{connect.fullname}</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 5, top: 10 }}>
+                      <Entypo name="chat" size={30} onPress={() => navigation.navigate("ChatUser", { network: connect })} />
+                    </View>
                   </View>
                 </View>
+                <Card.Divider />
               </View>
-              <Card.Divider />
-            </View>
-          )
-          :
-          null
-        }
-      </ScrollView>
+            )
+            :
+            null
+          }
+        </ScrollView>
 
-    </Card>
+      </Card>
+    </View>
+
   )
 }
 

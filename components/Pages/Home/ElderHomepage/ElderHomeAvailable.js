@@ -22,6 +22,20 @@ const ElderHomeAvailable = () => {
     }
   }, []);
 
+
+ const  getStatus = (available)=> available.requestes &&  available.requestes.map(follower => {
+
+return follower.status
+
+  console.log(follower,"folr");
+    // if (follower.volunteerId === vol.id) {
+    //   // console.log(follower);
+    //   follower.status = "accepted"
+    //   return follower
+    // }
+    // return follower;
+  });
+
   return (
 
     <Card
@@ -44,10 +58,12 @@ const ElderHomeAvailable = () => {
             avaiableList.map((available, index) => (
               <View key={index}>
                  <Avatar size={85} rounded source={{ uri: available.avatar }} />
+                <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:available.id})}>
+                  <Text style={styles.item}>{available.fullname}</Text>
+                </TouchableOpacity>
                 
-                <Text style={styles.item}>{available.fullname}</Text>
                 <Button 
-                 disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') ? true : false}
+                 disabled={available.requests && available.requests.map((vol) => vol.status === 'pending' || vol.status === 'accepted') ? true : false}
                   onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   buttonStyle={{
                     backgroundColor: "#BF3A3A",
@@ -61,7 +77,14 @@ const ElderHomeAvailable = () => {
                   }}
                   titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
-                  {available.requests && available.requests.map((vol) => vol.status === 'pending') ? 'Pending' : 'Request'} 
+                  {available.requests ? available.requests && available.requests.map((vol) =>
+                    vol.status == 'pending' ? 'Pending' :
+                    vol.status == 'accepted' ? 'Accepted' :
+                    'Connect'
+                  ) : 'Connect'}
+                
+                  {/* {available.requests && available.requests.map((vol) => vol.status === 'pending') ?
+                   'Pending' : 'Request'}  */}
                 </Button>
               </View>
             ))}

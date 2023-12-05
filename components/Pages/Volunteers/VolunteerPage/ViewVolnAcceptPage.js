@@ -15,44 +15,45 @@ import { Card, Button, CheckBox, Avatar } from "@rneui/themed";
 import { styles } from "../VolunteerStyles.js";
 import { Picker } from "@react-native-picker/picker";
 import { Dropdown } from "react-native-element-dropdown";
-import { defaultImg } from "../../../Utils/ImageCommon.js";
 import { AuthContext } from "../../../Config/AuthContext.js";
 
-const ViewAcceptPage = ({ navigation, route }) => {
+const ViewVolnAcceptPage = ({ navigation, route }) => {
 
     const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
     const { accepted } = route.params
 
 
+
+
     const getRequestsByUserId = (userObj, requestedByUserId) => {
-        const matchingRequest = userObj.requests.find(
-            (request) => request.requestedBy === requestedByUserId
+        const matchingRequest = userObj.volunteers.find(
+            (request) => request.id == requestedByUserId
         );
         return matchingRequest || null; // Return null if no matching request found
     };
 
-    const requestsForUser = getRequestsByUserId(accepted, elderUser.id);
+    const requestsForUser = getRequestsByUserId(accepted, volunteerUser.id);
+    console.log(requestsForUser,"req");
 
     const timestamp_startData = {
-        "nanoseconds": requestsForUser.startDate.nanoseconds,
-        "seconds": requestsForUser.startDate.seconds
+        "nanoseconds": requestsForUser && requestsForUser.startDate.nanoseconds,
+        "seconds": requestsForUser && requestsForUser.startDate.seconds
     };
-    const timestamp_endData = {
-        "nanoseconds": requestsForUser.endDate.nanoseconds,
-        "seconds": requestsForUser.endDate.seconds
-    };
+    // const timestamp_endData = {
+    //     "nanoseconds": requestsForUser.endDate.nanoseconds,
+    //     "seconds": requestsForUser.endDate.seconds
+    // };
 
-    const milliseconds1 = timestamp_startData.seconds * 1000 + timestamp_startData.nanoseconds / 1000000;
-    const startdate = new Date(milliseconds1).toDateString()
+    // const milliseconds1 = timestamp_startData.seconds * 1000 + timestamp_startData.nanoseconds / 1000000;
+    // const startdate = new Date(milliseconds1).toDateString()
 
-    const milliseconds2 = timestamp_endData.seconds * 1000 + timestamp_endData.nanoseconds / 1000000;
-    const enddate = new Date(milliseconds2).toDateString()
-
+    // const milliseconds2 = timestamp_endData.seconds * 1000 + timestamp_endData.nanoseconds / 1000000;
+    // const enddate = new Date(milliseconds2).toDateString()
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
+            {/* <ScrollView>
                 <Card
                     containerStyle={{ backgroundColor: "#fff" }}
                     wrapperStyle={{ backgroundColor: "#fff" }}
@@ -122,23 +123,19 @@ const ViewAcceptPage = ({ navigation, route }) => {
                             <Card.Divider />
                             <Text></Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                <Text style={{ fontSize: 15 }}>From: {startdate}</Text>
-                                <Text style={{ fontSize: 15 }}>To: {enddate}</Text>
+                                <Text style={{ fontSize: 15 }}>From: {requestsForUser && startdate}</Text>
+                                <Text style={{ fontSize: 15 }}>To: {requestsForUser && enddate}</Text>
                             </View>
 
                         </View>
                         <Text></Text>
-                        {/* <View>
-                            <Text style={styles.requestTitle}>Payment Amount</Text>
-                            <Card.Divider />
-                            <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
-                        </View> */}
+
                     </View>
                 </Card>
-            </ScrollView>
+            </ScrollView> */}
 
         </SafeAreaView>
     )
 }
 
-export default ViewAcceptPage
+export default ViewVolnAcceptPage

@@ -5,123 +5,119 @@ import { Card, Button } from '@rneui/themed';
 import { FontAwesome, Entypo, MaterialCommunityIcons } from "react-native-vector-icons";
 import { white } from 'color-name';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { addDoc, collection, onSnapshot, query } from 'firebase/firestore';
+import { addDoc, collection, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../../Config/config.js';
 import { useCallback } from 'react';
 import { AuthContext } from '../../Config/AuthContext.js';
 
 const ChatUser = ({ navigation, route }) => {
 
-  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
-
+  const {  signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
 
   const { network } = route.params
 
+  let user
+  let uid
+
+  if(elderUser){
+    user = elderUser
+    uid = network.id
+  }
+  else if(volunteerUser){
+    user = volunteerUser
+    uid = network.id
+  }
+  
+
   const [messages, setMessages] = useState([])
 
-  // useEffect(()=>{
-
-  //   const collectionRef = collection(db,"chats")
-  //   const q = query(collectionRef,ref =>ref.orderBy('createdAt','desc'))
-
-  //   const unsubscribe = onSnapshot(q,snapshot=>{
-  //     console.log("snapshot");
-  //     setMessages(
-  //       snapshot.docs.map(doc=>({
-  //         _id:doc.id,
-  //         createdAt:doc.data().createdAt.toDate(),
-  //         text:doc.data().text,
-  //         user:doc.data().user
-  //       }))
-  //     )
-  //   })
-  //   return ()=>unsubscribe()
-  // },[])
+  const getAllMessages = async () => {
+    let messagesCollection,q;
+    if(elderUser){
+      messagesCollection = collection(db, 'Chats');
+      // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
+       q = query(
+       messagesCollection,
+       where('sentBy', 'in', [uid, user.id]),
+    where('sentTo', 'in', [uid, user.id]),
+      //  where('sentBy', '==', uid),
+      //  where('sentTo', '==',user.id),
+       orderBy('createdAt', 'desc')
+     );
+    }
+    else if(volunteerUser){
+       messagesCollection = collection(db, 'Chats');
+      // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
+       q = query(
+       messagesCollection,
+       where('sentBy', 'in', [user.id, uid]),
+       where('sentTo', 'in', [user.id, uid]),
+      //  where('sentBy', '==', user.id),
+      //  where('sentTo', '==',uid)
+       orderBy('createdAt', 'desc')
+     );
+    }
+   
+  
+    try {
+      const msgSnapshot = await getDocs(q);
+      if(msgSnapshot.docs.length > 0){
+        const allTheMsgs = msgSnapshot.docs.map((docSnap) => {
+          const data = docSnap.data();
+          return {
+            ...data,
+            createdAt: data.createdAt.toDate(),
+          };
+        });
+        setMessages(allTheMsgs);
+      }
+      
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+    }
+  };
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ])
-  }, [])
+    getAllMessages()
+  },[])
 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages =>
-      GiftedChat.append(previousMessages, messages),
-    )
-  }, [])
-
-  const sendChat = async (newMessages = []) => {
-    let messageData
-    messageData = {
-      text: messages.text,
+  const onSend = async (msgArray) => {
+    const msg = msgArray[0];
+    const usermsg = {
+      ...msg,
+      sentBy: user.id,
+      sentTo: uid,
       createdAt: new Date(),
-      user: volunteerUser.id,
     };
 
-    const chatsRef = collection(db, 'chats');;
-
-    // Create a new chat document if it doesn't exist
-    const newChatDoc = await addDoc(chatsRef, messageData);
-    console.log('New chat document created with ID:', newChatDoc.id);
+    setMessages((previousMessages) => [...previousMessages, usermsg]);
 
 
-  }
+    try {
+      // const messagesCollection = collection(db, 'Chats', chatId, 'messages');
+      const messagesCollection = collection(db, 'Chats');
+      await addDoc(messagesCollection, {
+        ...usermsg,
+        createdAt: new Date(),
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  }; 
+
 
   return (
-    <GiftedChat
+    <>
+     <GiftedChat 
+      style={{flex: 1}}
       messages={messages}
-      onSend={messages => onSend(messages)}
-      alwaysShowSend={true}
-      user={user && elderUser? {
-        _id: elderUser.id,name:elderUser.fullname,avatar:elderUser.avatar
-      }:  {
-        _id: volunteerUser.id,name:volunteerUser.fullname,avatar:volunteerUser.avatar
+      onSend={text => onSend(text)}
+      user={{ 
+        _id: user.id,
       }}
-    />
-    // <SafeAreaView style={styles.container}>
-    //   <ScrollView showsVerticalScrollIndicator={true}>
-
-
-    //     <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
-
-    //       {/* <View>
-
-    //       <View style={{gap: 10, padding: 10, flexDirection:'column', height:500}}>
-    //         <Text style={{ marginBottom:20, borderWidth: 1,borderRadius: 8, padding: 10,backgroundColor:'white', width:'20%', textAlign:'left'}}>Hi</Text>
-    //     </View>
-
-    //       <View style={{ justifyContent: "space-around", alignItems: "center", gap: 12, padding: 5, flexDirection:'row' }}>
-
-    //         <TextInput
-    //           style={{
-    //             borderWidth: 1, borderColor: "grey", height: 60, width: 300, borderRadius: 8, backgroundColor: "#EAEAEA",
-    //             margin: 12,
-    //             padding: 10,
-    //             color:"gray"
-    //           }}
-    //           placeholder='Type a message'
-    //         />
-
-    //         <FontAwesome name="send" size={30} color="green" />
-
-
-
-    //       </View>
-
-    //     </View> */}
-
-    //     </Card>
-    //   </ScrollView>
-    // </SafeAreaView>
+      />
+    </>
+   
   )
 }
 

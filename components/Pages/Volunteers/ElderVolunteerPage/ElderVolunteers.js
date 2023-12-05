@@ -11,6 +11,7 @@ import AvailableVolunteers from './AvailableVolunteers.js';
 import RequestedVolunteers from './RequestedVolunteers.js';
 import { logo } from '../../../Utils/ImageCommon.js';
 import { AuthContext } from '../../../Config/AuthContext.js';
+import PendigVolunteer from './PendigVolunteer.js';
 
 const ElderVolunteers = () => {
   const navigation = useNavigation();
@@ -22,6 +23,7 @@ const ElderVolunteers = () => {
   
   const [viewAllChoice,setViewAllChoice] = useState(true)
   const [viewRequestedChoice,setViewRequestedChoice] = useState(false)
+  const [viewPendingChoice,setViewPendingChoice] = useState(false)
 
 
 const updateSearch = (search) => {
@@ -103,6 +105,7 @@ const updateSearch = (search) => {
   }, [search])
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View style={styles.search}>
           {/* <TextInput placeholder='Search volunteers' style={{textAlign:"center", top:10}}/> */}
@@ -162,24 +165,51 @@ const updateSearch = (search) => {
           />
         </View>
       </View>
+   
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested && searchResults} 
+        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
         titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true);setViewRequestedChoice(false)}}>
           View All</Button>
-        <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested && searchResults} 
+        <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested} 
         titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewRequestedChoice(true);setViewAllChoice(false)}}>
           View Accepted</Button>
-      </View>
+          <Text>  </Text>
+          <Button buttonStyle={viewPendingChoice ? styles.viewallrequestbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
+          setViewPendingChoice(true),setViewRequestedChoice(false);setViewAllChoice(false)}}>
+          View Pending</Button>
+</View>
+      </ScrollView>
+     
+      <View>
+      <ScrollView>
 
+      {
+        viewRequestedChoice
+        ?
+        <RequestedVolunteers navigation={navigation}/>
+        :
+        null
+      }
+      {
+         viewPendingChoice
+         ?
+         <PendigVolunteer navigation={navigation}/>
+         :
+         null
+      }
       {
         viewAllChoice
         ?
-        <AvailableVolunteers/>
+        <AvailableVolunteers navigation={navigation}/>
         :
-        <RequestedVolunteers/>
+        null
       }
 
+      </ScrollView>
+      
 
+    </View>
     </View>
   )
 }

@@ -87,7 +87,6 @@ const RequestPage = ({ route, navigation }) => {
           requestDate: new Date(),
           activities: checkedItems,
           requestedBy: elderUser.id,
-          amount: payment,
           status: "pending"
         })
       },
@@ -114,7 +113,7 @@ const RequestPage = ({ route, navigation }) => {
           endDate: endDate,
           requestDate: new Date(),
           activities: checkedItems,
-          amount: payment
+          status: "pending"
         } })
       },
       { merge: true }
@@ -235,7 +234,7 @@ const RequestPage = ({ route, navigation }) => {
             </View>
             <Text></Text>
             <Card.Divider />
-            <View>
+            {/* <View>
 
               <Text style={styles.requestTitle}>Payment Amount</Text>
               <TextInput
@@ -256,7 +255,7 @@ const RequestPage = ({ route, navigation }) => {
                 value={payment.toString()}
                 onChangeText={(text) => setPayment(text)}
               />
-            </View>
+            </View> */}
             <Text></Text>
             <Button title="Request" color="#1B5B7D" onPress={handleAddRequest} />
           </View>

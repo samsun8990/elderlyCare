@@ -5,21 +5,15 @@ import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 import { AuthContext } from '../../../Config/AuthContext';
 
 const EditProfileE = ({ navigation }) => {
-  const { user, signIn, signOut, elderUser, volunteerUser, setUser,updateElderUser } = useContext(AuthContext);
-  //const { updateUser, elderUser } = authContext;
+  const authContext = useContext(AuthContext);
+  const { updateUser, elderUser } = authContext;
 
-  // const [editedUser, setEditedUser] = useState({
-    // fullname: elderUser.fullname,
-    // phone: elderUser.phone,
-    // date: elderUser.date,
-  //   // Add other fields you want to edit
-  // })
-  
-  const editedUser = {
+  const [editedUser, setEditedUser] = useState({
     fullname: elderUser.fullname,
     phone: elderUser.phone,
     date: elderUser.date,
-  }
+    // Add other fields you want to edit
+  });
 
 
   const handleBackPress = () => {
@@ -28,7 +22,7 @@ const EditProfileE = ({ navigation }) => {
 
   const handleSave = () => {
     // Update the user data using the updateUser function from context
-    updateElderUser(editedUser);
+    updateUser(editedUser);
 
     // Navigate back to ElderProfile or wherever needed
     navigation.navigate("ElderProfile");
@@ -59,7 +53,7 @@ const EditProfileE = ({ navigation }) => {
         <View style={styles.profileRow}>
           <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
-            placeholder={elderUser.date}></TextInput>
+            placeholder={elderUser.dob}></TextInput>
         </View>
         <View style={styles.line} />
 
