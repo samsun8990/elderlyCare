@@ -39,9 +39,7 @@ const ChatUser = ({ navigation, route }) => {
        q = query(
        messagesCollection,
        where('sentBy', 'in', [uid, user.id]),
-    where('sentTo', 'in', [uid, user.id]),
-      //  where('sentBy', '==', uid),
-      //  where('sentTo', '==',user.id),
+       where('sentTo', 'in', [uid, user.id]),
        orderBy('createdAt', 'desc')
      );
     }
@@ -52,8 +50,6 @@ const ChatUser = ({ navigation, route }) => {
        messagesCollection,
        where('sentBy', 'in', [user.id, uid]),
        where('sentTo', 'in', [user.id, uid]),
-      //  where('sentBy', '==', user.id),
-      //  where('sentTo', '==',uid)
        orderBy('createdAt', 'desc')
      );
     }
