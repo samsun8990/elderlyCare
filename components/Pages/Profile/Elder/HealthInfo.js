@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
 import { MaterialCommunityIcons, FontAwesome5 } from 'react-native-vector-icons';
 import { Button } from '@rneui/themed';
 import { db } from "../../../Config/config"; // Update the path
+import { AuthContext } from '../../../Config/AuthContext';
 
 const HealthInfo = ({ navigation }) => {
+  const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
+   
   const [disease, setDisease] = useState('');
   const [description, setDescription] = useState('');
 
@@ -16,6 +19,7 @@ const HealthInfo = ({ navigation }) => {
     try {
       // Assuming you have a 'healthInfo' collection in Firestore
       await db.collection('healthInfo').add({
+        user:elderUser.id,
         disease,
         description,
       });

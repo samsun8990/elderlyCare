@@ -21,10 +21,14 @@ const RequestedVolunteers = ({searchvalue}) => {
   
 
   useEffect(()=>{
+
+    const x =() => viewAcceptedVolunteersByElder(elderUser,setAcceptedVol)
     if(elderUser){
-      viewAcceptedVolunteersByElder(elderUser,setAcceptedVol)
+     x()
     }
   },[])
+
+  // console.log(acceptedVol,"avaiableList");
 
   const searchResults =
   acceptedVol &&

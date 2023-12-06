@@ -26,11 +26,12 @@ export const readAllAcceptedElders = async(volunUser,setAcceptedList)=>{
           const docSnap1 = getDoc(docRef1);
           docSnap1.then((result) => {
             getInvitedUsers.push({id:a.id, ...result.data()})
-            setAcceptedList(getInvitedUsers)
+            
             return getInvitedUsers
           }
           ).catch((error)=>console.log(error))
         })
+        setAcceptedList(getInvitedUsers)
       }
       else{
         setAcceptedList()

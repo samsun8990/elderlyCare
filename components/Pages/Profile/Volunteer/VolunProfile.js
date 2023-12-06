@@ -68,11 +68,11 @@ const VolunProfile = () => {
                 {/* <Avatar size={100} source={{uri:volunteerUser.avatar}} onPress={handeImage} /> */}
                 <Text style={{fontSize:18,fontWeight:"bold"}}>{volunteerUser.fullname}</Text>
                 <Text style={{fontSize:13,fontWeight:"bold"}}>Joined on: {joiningDate}</Text>
-                <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
+                {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
                  onPress={()=>navigation.navigate("EditProfileV")} >
                     <Icon name="edit" color="white" />
                     Edit
-                </Button>
+                </Button> */}
             </View>
             <View style={styles.personalDetailsContainer}>
                 <Text style={styles.sectionTitle}>Personal Details</Text>
@@ -84,7 +84,7 @@ const VolunProfile = () => {
                 <View style={styles.detailRow}>
                     <Icon name="lock" color="black" size={25} style={styles.icon} />
                     <Text>*********</Text>
-                    <Button
+                    {/* <Button
                         containerStyle={{
                             height: 30,
                             width: 200,
@@ -93,7 +93,7 @@ const VolunProfile = () => {
                         }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"} 
                         onPress={()=>navigation.navigate("PassChangeV")}>
                         Change
-                    </Button>
+                    </Button> */}
                 </View>
                 <View style={styles.detailRow}>
                     <AntDesign name="calendar" color="black" size={25} style={styles.icon} />

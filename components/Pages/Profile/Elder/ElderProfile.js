@@ -72,11 +72,11 @@ const ElderProfile = () => {
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>{elderUser.fullname}</Text>
                     <Text style={{ fontSize: 14, fontWeight: "bold" }}>{elderUser.gender}</Text>
                     <Text style={{ fontSize: 13, fontWeight: "bold" }}>Joined on: {joiningDate}</Text>
-                    <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
+                    {/* <Button size={"md"} radius={10} type="solid" color={"#1B5B7D"}
                         onPress={() => navigation.navigate("EditProfileE")} >
                         <Icon name="edit" color="white" />
                         Edit
-                    </Button>
+                    </Button> */}
                 </View>
                 <View style={styles.personalDetailsContainer}>
                     <Text style={styles.sectionTitle}>Personal Details</Text>
@@ -89,7 +89,7 @@ const ElderProfile = () => {
                     <View style={styles.detailRow}>
                         <Icon name="lock" color="black" size={25} style={styles.icon} />
                         <Text>*******</Text>
-                        <Button
+                        {/* <Button
                             containerStyle={{
                                 height: 30,
                                 width: 200,
@@ -98,7 +98,7 @@ const ElderProfile = () => {
                             }} size={"sm"} radius={5} type="clear" color={"#1B5B7D"}
                             onPress={() => navigation.navigate("PassChangeE")}  >
                             Change
-                        </Button>
+                        </Button> */}
                     </View>
                     <View style={styles.detailRow}>
                         <AntDesign name="calendar" color="black" size={25} style={styles.icon} />

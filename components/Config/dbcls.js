@@ -196,46 +196,20 @@ export const getAcceptedUsersForCurrentUsers = async (elderUser, setAcceptedList
     const getAcceptedUsers = followingElders.filter(fl => fl.status === "accepted")
     console.log(getAcceptedUsers, "followingElders");
     let getInvitedUsers = []
-    getAcceptedUsers.forEach(a => {
-      const docRef1 = doc(db, 'elderlyUsers', a.id);
-      const docSnap1 = getDoc(docRef1);
-      docSnap1.then((result) => {
-        //console.log(result.data());
-        getInvitedUsers.push({ id: a.id, ...result.data() })
-        //console.log(getInvitedUsers,"getacceptedUsers");
-        setAcceptedList(getInvitedUsers)
-        return getInvitedUsers
+    if(getAcceptedUsers && getAcceptedUsers.length > 0){
+      getAcceptedUsers.forEach(a => {
+        const docRef1 = doc(db, 'elderlyUsers', a.id);
+        const docSnap1 = getDoc(docRef1);
+        docSnap1.then((result) => {
+          //console.log(result.data());
+          getInvitedUsers.push({ id: a.id, ...result.data() })
+          //console.log(getInvitedUsers,"getacceptedUsers");
+          setAcceptedList(getInvitedUsers)
+          return getInvitedUsers
+        })
       })
-    })
-
-    //const q = query(collection(db, "elderlyUsers"), where("fullname", "==", elderUser.fullname));
-    // await onSnapshot(q, (snapshot) => {
-    //   let temp = []
-    //   snapshot.forEach((doc) => temp.push({ id: doc.id, ...doc.data() }))
-
-    //   let getInvitedUsers = []
-    //   let a3 = temp.flatMap((x) => { return x.following && x.following })
-    //   if (a3.length > 0) {
-
-    //     let check = a3.filter((follower) => follower && follower.status === "accepted")
-    //     if (check.length > 0) {
-    //       check.forEach(a => {
-    //         const docRef1 = doc(db, 'elderlyUsers', a.id);
-    //         const docSnap1 = getDoc(docRef1);
-    //         docSnap1.then((result) => {
-    //           //console.log(result.data());
-    //           getInvitedUsers.push({ id: a.id, ...result.data() })
-    //           //console.log(getInvitedUsers,"getacceptedUsers");
-    //           setAcceptedList(getInvitedUsers)
-    //         }
-    //         ).catch((error) => console.log(error))
-    //       })
-    //     }
-    //     else {
-    //       setAcceptedList()
-    //     }
-    //   }
-    // })
+    }
+ 
 
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -252,7 +226,6 @@ export const getInvitations = async (elderUser, setinvitation) => {
     let getInvitedUsers = []
     let a3 = temp.flatMap((x) => { return x.followers && x.followers })
     if (a3.length > 0) {
-
       let check = a3.filter(fl => fl.status === "requested")
       if ( check && check.length > 0) {
 
@@ -260,8 +233,9 @@ export const getInvitations = async (elderUser, setinvitation) => {
           const docRef1 = doc(db, 'elderlyUsers', a.id);
           const docSnap1 = getDoc(docRef1);
           docSnap1.then((result) => {
-            getInvitedUsers.push({ id: a.id, ...result.data() })
+            getInvitedUsers.push({ id: result.id, ...result.data() })
             setinvitation(getInvitedUsers)
+            return getInvitedUsers
           }
           ).catch((error) => console.log(error))
         })
@@ -316,14 +290,15 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
       let a3 = temp.flatMap((x) => { return x.volunteers && x.volunteers })
       if (a3.length > 0) {
         let checkElders = a3.filter((vol) => vol && vol.status === "accepted")
-        if (checkElders.length > 0) {
+        if (checkElders && checkElders.length > 0) {
 
           checkElders.forEach(a => {
             const docRef1 = doc(db, 'volunteerUsers', a.id);
             const docSnap1 = getDoc(docRef1);
             docSnap1.then((result) => {
-              getInvitedUsers.push({ id: a.id, ...result.data() })
-              console.log(getInvitedUsers,"getacceptedUsers");
+              // console.log(result.id,"res");
+              getInvitedUsers.push({ id: result.id, ...result.data() })
+              
               setAcceptedList(getInvitedUsers)
               return getInvitedUsers
             }
@@ -361,7 +336,7 @@ export const viewPendingVolunteersByElder = async(elderUser, setAcceptedList)=>{
 
         let checkElders = a3.filter((vol) => vol && vol.status === "pending")
         console.log(checkElders, "chleld");
-        if (checkElders.length > 0) {
+        if (checkElders && checkElders.length > 0) {
 
           checkElders.forEach(a => {
             const docRef1 = doc(db, 'volunteerUsers', a.id);
