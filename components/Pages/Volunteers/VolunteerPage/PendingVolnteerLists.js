@@ -56,7 +56,7 @@ pendingList && pendingList.length > 0
     <View key={index}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" ,bottom:5, padding:5}}>
         <View style={{ flexDirection: "row", gap: 10 , alignItems:"center"}}>
-          <Avatar source={{uri:pending.avatar}} size={50}/>
+          <Avatar rounded source={{uri:pending.avatar}} size={50}/>
           <TouchableOpacity style={{margin:5}}>
             <Text style={{ fontWeight: "600", fontSize: 16 }}>{pending.fullname}</Text>
             {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
@@ -79,7 +79,7 @@ pendingList && pendingList.length > 0
   <View key={index}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" ,bottom:5, padding:5}}>
         <View style={{ flexDirection: "row", gap: 10 , alignItems:"center"}}>
-          <Avatar source={{uri:pending.avatar}} size={50}/>
+          <Avatar rounded source={{uri:pending.avatar}} size={50}/>
           <TouchableOpacity style={{margin:5}}>
             <Text style={{ fontWeight: "600", fontSize: 16 }}>{pending.fullname}</Text>
             {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}

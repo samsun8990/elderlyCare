@@ -92,7 +92,7 @@ const DrawerNetworkpage = () => {
                     invitationList && invitationList.length > 0 && invitationList.slice(0, 4).map((invite, index) =>
                         (<View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
                             <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Avatar size={50} rounded source={{ uri: invite.avatar }} />
+                                <Avatar rounded size={50} source={{ uri: invite.avatar }} />
                                 <View>
                                 <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: invite.id })}>
                                     <Text style={{ fontWeight: "600", fontSize: 16 }}>{invite.fullname}</Text>

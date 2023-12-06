@@ -47,7 +47,7 @@ const VolunteerAcceptedRequests = ({navigation}) => {
                       ?
                       acceptedList.map((accept,index)=>
                       <View key={index}>
-                      <Avatar size={85} source={{uri:accept.avatar}}/>
+                      <Avatar rounded size={85} source={{uri:accept.avatar}}/>
                       <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:accept.id})}>
                         <Text style={styles.item}>{accept.fullname}</Text>
                       </TouchableOpacity>

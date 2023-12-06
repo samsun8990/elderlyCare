@@ -51,7 +51,7 @@ const RequestedVolunteers = ({searchvalue}) => {
               <View key={index}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5,gap:15 }}>
          <View style={{ flexDirection: "row", gap: 10 }}>
-           <Avatar size={50} source={{uri:accept.avatar}}/>
+           <Avatar rounded size={50} source={{uri:accept.avatar}}/>
           
            <TouchableOpacity style={{ margin: 5 }} onPress={() => navigation.navigate("RequestPage")}>
            <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accept.id })}>
@@ -77,7 +77,7 @@ const RequestedVolunteers = ({searchvalue}) => {
               <View key={index}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5,gap:15 }}>
          <View style={{ flexDirection: "row", gap: 10 }}>
-           <Avatar size={50} source={{uri:accept.avatar}}/>
+           <Avatar rounded size={50} source={{uri:accept.avatar}}/>
           
            <TouchableOpacity style={{ margin: 5 }} onPress={() => navigation.navigate("RequestPage")}>
            <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accept.id })}>
