@@ -67,7 +67,7 @@ const ElderChats = ({ navigation, route }) => {
               <View key={index}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
                   <View style={{ flexDirection: "row", gap: 10 }}>
-                    <Avatar source={{ uri: connect.avatar }} size={50} />
+                    <Avatar rounded source={{ uri: connect.avatar }} size={50} />
                     <TouchableOpacity style={{ margin: 5 }} >
                       <Text style={{ fontWeight: "500", fontSize: 15, top: 5 }}>{connect.fullname}</Text>
                     </TouchableOpacity>

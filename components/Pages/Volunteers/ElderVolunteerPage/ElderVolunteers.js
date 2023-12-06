@@ -72,6 +72,9 @@ const updateSearch = (search) => {
     navigation.setOptions(headerOptions);
   }, [navigation]);
 
+  
+
+
 
   return (
     <View style={styles.container}>
@@ -121,19 +124,7 @@ const updateSearch = (search) => {
       />
           }
         </View>
-        <View style={styles.dropdown}>
-          <Dropdown data={data}
-            labelField="label"
-            valueField="value"
-            maxHeight={'70%'}
-            // search
-            placeholder="Filter"
-            selectedTextStyle={{ fontSize: 13 }}
-            onChange={item => setValue(item.value)}
-            value={value}
-            style={{ fontSize: 18, padding: 5,color:"grey", }}
-          />
-        </View>
+     
       </View>
    
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
@@ -160,21 +151,21 @@ const updateSearch = (search) => {
       {
         viewRequestedChoice
         ?
-        <RequestedVolunteers navigation={navigation}/>
+        <RequestedVolunteers navigation={navigation} searchvalue={search}/>
         :
         null
       }
       {
          viewPendingChoice
          ?
-         <PendigVolunteer navigation={navigation}/>
+         <PendigVolunteer navigation={navigation} searchvalue={search}/>
          :
          null
       }
       {
         viewAllChoice
         ?
-        <AvailableVolunteers navigation={navigation}/>
+        <AvailableVolunteers navigation={navigation} searchvalue={search}/>
         :
         null
       }

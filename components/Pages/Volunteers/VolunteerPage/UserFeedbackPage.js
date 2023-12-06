@@ -29,7 +29,7 @@ const UserFeedbackPage = ({ navigation, route }) => {
                    feedbackList.map((feedback,index)=>
                    <Card key={index}>
                     <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Avatar size={50} source={{uri:feedback.avatar}}/>
+                        <Avatar rounded size={50} source={{uri:feedback.avatar}}/>
                         <Text>{feedback.acceptName}</Text>
                     </View>
                     <Card.Divider/>

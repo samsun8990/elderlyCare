@@ -21,11 +21,11 @@ const ChatUser = ({ navigation, route }) => {
 
   if(elderUser){
     user = elderUser
-    uid = network.id
+    uid = network && network.id
   }
   else if(volunteerUser){
     user = volunteerUser
-    uid = network.id
+    uid = network && network.id
   }
   
 
@@ -33,15 +33,13 @@ const ChatUser = ({ navigation, route }) => {
 
   const getAllMessages = async () => {
     let messagesCollection,q;
-    if(elderUser){
+    if(elderUser && network &&network.id){
       messagesCollection = collection(db, 'Chats');
       // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
        q = query(
        messagesCollection,
        where('sentBy', 'in', [uid, user.id]),
-    where('sentTo', 'in', [uid, user.id]),
-      //  where('sentBy', '==', uid),
-      //  where('sentTo', '==',user.id),
+       where('sentTo', 'in', [uid, user.id]),
        orderBy('createdAt', 'desc')
      );
     }
@@ -52,8 +50,6 @@ const ChatUser = ({ navigation, route }) => {
        messagesCollection,
        where('sentBy', 'in', [user.id, uid]),
        where('sentTo', 'in', [user.id, uid]),
-      //  where('sentBy', '==', user.id),
-      //  where('sentTo', '==',uid)
        orderBy('createdAt', 'desc')
      );
     }

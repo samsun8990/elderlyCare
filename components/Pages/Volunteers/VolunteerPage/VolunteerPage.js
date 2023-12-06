@@ -85,7 +85,7 @@ const VolunteerPage = ({navigation}) => {
           value={search}
           platform='ios'
           containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
-          inputContainerStyle={{width:350, height:35}}
+          inputContainerStyle={{width:500, height:35}}
           inputStyle={{fontSize:14}}
           leftIconContainerStyle={{}}
           rightIconContainerStyle={{}}
@@ -118,19 +118,7 @@ const VolunteerPage = ({navigation}) => {
       />
           }
         </View>
-      <View style={styles.dropdown}>
-        <Dropdown data={data}
-          labelField="label"
-          valueField="value"
-          maxHeight={'70%'}
-          // search
-          placeholder="Filter"
-          selectedTextStyle={{ fontSize: 30 }}
-          onChange={item => setValue(item.value)}
-          value={value}
-          style={{ fontSize: 18, padding: 5,color:"grey", }}
-        />
-      </View>
+
     </View>
     <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
         <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
@@ -143,9 +131,9 @@ const VolunteerPage = ({navigation}) => {
     {
       viewAllChoice
       ?
-      <AcceptedVolnteerLists navigation={navigation}/>
+      <AcceptedVolnteerLists navigation={navigation} searchvalue = {search}/>
       :
-      <PendingVolnteerLists navigation={navigation}/>
+      <PendingVolnteerLists navigation={navigation}  searchvalue = {search}/>
     }
 
 

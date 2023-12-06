@@ -73,7 +73,7 @@ const ViewVolRequestPage = ({navigation,route}) => {
                         padding: 10,
                     }}
                 >
-                    <Avatar source={{ uri: pending.avatar }} size={60} />
+                    <Avatar rounded source={{ uri: pending.avatar }} size={60} />
 
                     <View>
                         <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: pending.id })}>

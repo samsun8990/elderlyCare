@@ -25,8 +25,9 @@ export const readAllAcceptedElders = async(volunUser,setAcceptedList)=>{
           const docRef1 = doc(db, 'elderlyUsers', a.requestedBy);
           const docSnap1 = getDoc(docRef1);
           docSnap1.then((result) => {
-            getInvitedUsers.push({id:result.id, ...result.data()})
+            getInvitedUsers.push({id:a.id, ...result.data()})
             setAcceptedList(getInvitedUsers)
+            return getInvitedUsers
           }
           ).catch((error)=>console.log(error))
         })
@@ -62,8 +63,9 @@ export const readAllPendingElders = async(volunUser,setAcceptedList)=>{
           const docRef1 = doc(db, 'elderlyUsers', a.requestedBy);
           const docSnap1 = getDoc(docRef1);
           docSnap1.then((result) => {
-            getInvitedUsers.push({id:result.id, ...result.data()})
+            getInvitedUsers.push({id:a.id, ...result.data()})
             setAcceptedList(getInvitedUsers)
+            return getInvitedUsers
           }
           ).catch((error)=>console.log(error))
         })

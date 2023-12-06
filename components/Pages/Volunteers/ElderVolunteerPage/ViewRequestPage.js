@@ -67,7 +67,7 @@ const ViewRequestPage = ({navigation,route}) => {
                         padding: 10,
                     }}
                 >
-                    <Avatar source={{ uri: accepted.avatar }} size={60} />
+                    <Avatar rounded source={{ uri: accepted.avatar }} size={60} />
 
                     <View>
                         <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>
@@ -128,11 +128,6 @@ const ViewRequestPage = ({navigation,route}) => {
 
                 </View>
                 <Text></Text>
-                {/* <View>
-                    <Text style={styles.requestTitle}>Payment Amount</Text>
-                    <Card.Divider />
-                    <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
-                </View> */}
             </View>
         </Card>
     </ScrollView>

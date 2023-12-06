@@ -1,12 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import { Avatar, Button, Card, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, FontAwesome, AntDesign, Ionicons } from 'react-native-vector-icons';
 import { defaultImg } from '../../../Utils/ImageCommon';
 import { useNavigation } from '@react-navigation/native';
 import { styles } from '../ProfileStyles';
 import { AuthContext } from '../../../Config/AuthContext';
+import * as ImagePicker from 'expo-image-picker';
+import {ref,uploadBytesResumable , getDownloadURL} from 'firebase/storage'
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db,storage } from '../../../Config/config';
+
 
 
 
@@ -21,14 +26,34 @@ const ElderProfile = () => {
 
     const milliseconds1 = (timestamp_Data.seconds) * 1000 + (timestamp_Data.nanoseconds) / 1000000;
     const joiningDate = new Date(milliseconds1).toDateString()
-   
-    const uploadImage = async () => {
-        const imgRef = ref(storage, fileName)
-        const img = await fetch(image)
-        const bytes = await img.blob()
-        await uploadBytesResumable(imgRef, bytes)
-        await getDownloadURL(imgRef).then((x) => { setUrl(x) })
-        .catch((e) => alert(e.message)) 
+
+
+    const [url,setUrl] = useState()
+    const [image,setImage] = useState()
+
+    const handeImage  = async()=>{
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+        });
+        if (!result.canceled) {
+            setImage(result.assets[0].uri)
+
+            let fileName = result.assets[0].uri.split('ImagePicker/')[1]
+
+            const imgRef = ref(storage, fileName)
+            const img = await fetch(result.assets[0].uri)
+            const bytes = await img.blob()
+            await uploadBytesResumable(imgRef, bytes)
+            await getDownloadURL(imgRef).then((x) =>  setUrl(x) )
+            .catch((e) => alert(e.message))
+
+            const docRef2 = doc(db, "elderlyUsers", elderUser.id);
+            const docSnap2 = await getDoc(docRef2);
+            if(docSnap2.exists())
+            await updateDoc(docRef2, { avatar: url }, { merge: true })
+        .then(() => console.log(" Profile Updated"))
+        }
+
     }
     
 
@@ -37,9 +62,13 @@ const ElderProfile = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.profileContainer}>
-                    {/* <Image src='./assets/profile.png' onclick={pickImage} ></Image> */}
-                    {/* <Avatar onPress={pickImage} size={100} rounded source={{ uri: elderUser.avatar }}    /> */}
-                    <Image source={{ uri: elderUser.avatar }} style={{ width: 100, height: 100 }} />
+                {
+        url 
+        ? 
+        <Avatar size={100} rounded source={{uri:url}} onPress={handeImage} />
+        :
+        <Avatar rounded size={100} source={{uri:elderUser.avatar}} onPress={handeImage} />
+      }
                     <Text style={{ fontSize: 18, fontWeight: "bold" }}>{elderUser.fullname}</Text>
                     <Text style={{ fontSize: 14, fontWeight: "bold" }}>{elderUser.gender}</Text>
                     <Text style={{ fontSize: 13, fontWeight: "bold" }}>Joined on: {joiningDate}</Text>
@@ -93,10 +122,10 @@ const ElderProfile = () => {
                      onPress={()=>navigation.navigate("PaymentHistoryE")}  >
                         Payments
                     </Button> */}
-                        <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
+                        {/* <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
                             onPress={() => navigation.navigate("ChatHistoryE")}>
                             Chat History
-                        </Button>
+                        </Button> */}
                         <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}
                             onPress={() => navigation.navigate("HealthInfo")}>
                             Health Info

@@ -72,7 +72,7 @@ const VolunteerRequestAccept = ({navigation,route}) => {
                         padding: 10,
                     }}
                 >
-                    <Avatar source={{ uri: accepted.avatar }} size={60} />
+                    <Avatar rounded source={{ uri: accepted.avatar }} size={60} />
 
                     <View>
                         <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: accepted.id })}>

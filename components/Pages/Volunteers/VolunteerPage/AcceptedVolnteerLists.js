@@ -11,7 +11,7 @@ import { defaultImg } from '../../../Utils/ImageCommon.js';
 import { AuthContext } from '../../../Config/AuthContext.js';
 import { readAllAcceptedElders } from '../../../Config/volunteer_dbcls.js';
 
-const AcceptedVolnteerLists = ({route}) => {
+const AcceptedVolnteerLists = ({ route, searchvalue }) => {
 
   const navigation = useNavigation()
 
@@ -23,50 +23,85 @@ const AcceptedVolnteerLists = ({route}) => {
   useEffect(() => {
     if (volunteerUser) {
       readAllAcceptedElders(volunteerUser, setAcceptedList);
-    
+
     }
   }, [])
 
+  const searchResults =
+    acceptedList &&
+    acceptedList.filter((data) => {
+      if (data.fullname === searchvalue) {
+        return data;
+      }
+    });
+
+
   return (
     <Card >
-    <Card.Title style={{fontSize:18}}>View Accepted Requests</Card.Title>
-    <Card.Divider />
-    <ScrollView>
-      {
-        acceptedList && acceptedList.length > 0
-        ?
-        acceptedList.map((accept,index)=>
-        <View key={index}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between" ,bottom:5, padding:5}}>
-        <View style={{ flexDirection: "row", gap: 10,alignItems:"center"}}>
-          <Avatar size={50} source={{uri:accept.avatar}}/>
-          <TouchableOpacity style={{margin:5}} >
-            <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
-            {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
-          </TouchableOpacity>
-        </View>
-        <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
-          <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10, top:10 }}> 
-            <Entypo name="eye" size={30} onPress={()=>navigation.navigate("ViewVolnAcceptPage",{accepted:accept})}/>
-            <MaterialIcons name="feedback" size={30} onPress={()=> navigation.navigate("UserFeedback", { accepted: accept })}/>
-            <Entypo name="chat" size={30} onPress={()=> navigation.navigate("ChatUser", { network: accept })}/>
-          
-          </View>
-        </View>
-      </View>
-      <Card.Divider/>
-        </View>
-        )
-        :
-        null
-      }
-      
-     
-     
-     
-    </ScrollView>
+      <Card.Title style={{ fontSize: 18 }}>View Accepted Requests</Card.Title>
+      <Card.Divider />
+      <ScrollView>
+        {
 
-  </Card>
+          acceptedList && acceptedList.length > 0
+          ?
+            (searchvalue
+              ?
+              searchResults.map((accept, index) => (
+                <View key={index}>
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
+                    <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                      <Avatar rounded size={50} source={{ uri: accept.avatar }} />
+                      <TouchableOpacity style={{ margin: 5 }} >
+                        <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
+                        {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10, top: 10 }}>
+                        <Entypo name="eye" size={30} onPress={() => navigation.navigate("ViewVolnAcceptPage", { accepted: accept })} />
+                        <MaterialIcons name="feedback" size={30} onPress={() => navigation.navigate("UserFeedback", { accepted: accept })} />
+                        <Entypo name="chat" size={30} onPress={() => navigation.navigate("ChatUser", { network: accept })} />
+
+                      </View>
+                    </View>
+                  </View>
+                  <Card.Divider />
+                </View>
+              ))
+              :
+              acceptedList && acceptedList.map((accept, index) =>
+                <View key={index}>
+                  <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
+                    <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
+                      <Avatar rounded size={50} source={{ uri: accept.avatar }} />
+                      <TouchableOpacity style={{ margin: 5 }} >
+                        <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
+                        {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", justifyContent: "flex-end", gap: 5 }}>
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10, top: 10 }}>
+                        <Entypo name="eye" size={30} onPress={() => navigation.navigate("ViewVolnAcceptPage", { accepted: accept })} />
+                        <MaterialIcons name="feedback" size={30} onPress={() => navigation.navigate("UserFeedback", { accepted: accept })} />
+                        <Entypo name="chat" size={30} onPress={() => navigation.navigate("ChatUser", { network: accept })} />
+
+                      </View>
+                    </View>
+                  </View>
+                  <Card.Divider />
+                </View>
+              ))
+            :
+            null}
+
+
+
+
+
+      </ScrollView>
+
+    </Card>
   )
 }
 

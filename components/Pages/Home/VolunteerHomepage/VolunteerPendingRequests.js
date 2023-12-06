@@ -47,7 +47,7 @@ const VolunteerPendingRequests = ({navigation}) => {
             ?
             pendingList.map((pending,index)=>
             <View key={index}>
-            <Avatar size={85} source={{uri:pending.avatar}}/>
+            <Avatar rounded size={85} source={{uri:pending.avatar}}/>
             <TouchableOpacity onPress={()=>navigation.navigate("UserProfile",{userid:pending.id})}>
               <Text style={styles.item}>{pending.fullname}</Text>
             </TouchableOpacity>
@@ -62,7 +62,13 @@ const VolunteerPendingRequests = ({navigation}) => {
                     width: 90
                 }}
                 titleStyle={{ fontWeight: 'bold', fontSize:15 }}
-            >Accept</Button>
+            >
+               {pending.requests ? pending.requests.map((vol) =>
+                    vol.status == 'pending' ? 'Pending' :
+                    vol.status == 'accepted' ? 'Accepted' :
+                    'Accept'
+                  ) : 'Accept'}
+            </Button>
         </View>
             )
             :
