@@ -75,7 +75,7 @@ const ElderNetwork = () => {
         await removeRequestById(elderuser,inviteuser)
     }
 
-    //console.log(acceptedList,"lis");
+    console.log(acceptedList,"lis");
 
     return (
         <SafeAreaView style={styles.container}>

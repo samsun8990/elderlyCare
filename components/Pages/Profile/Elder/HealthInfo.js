@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { MaterialCommunityIcons, FontAwesome5 } from 'react-native-vector-icons';
 import { Button } from '@rneui/themed';
 import { db } from "../../../Config/config"; // Update the path
 import { AuthContext } from '../../../Config/AuthContext';
+import { arrayUnion, doc, setDoc } from 'firebase/firestore';
 
 const HealthInfo = ({ navigation }) => {
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
-   
+
   const [disease, setDisease] = useState('');
   const [description, setDescription] = useState('');
 
@@ -17,59 +18,80 @@ const HealthInfo = ({ navigation }) => {
 
   const handleSave = async () => {
     try {
-      // Assuming you have a 'healthInfo' collection in Firestore
-      await db.collection('healthInfo').add({
-        user:elderUser.id,
-        disease,
-        description,
-      });
 
-      // Navigate to ElderProfile after saving
-      navigation.navigate('ElderProfile');
-    } catch (error) {
-      console.error('Error saving health information:', error);
+      const followCurrentUserRef = doc(db, 'elderlyUsers', elderUser.id);
+
+      setDoc(followCurrentUserRef, {
+        healthInfo: arrayUnion({ id: elderUser.id, disease: disease, description: description })
+      }, { merge: true }).then(() => {
+        console.log("Data updated")
+        alert("Updated")
+    
+    setDisease()
+  setDescription()})
+      // Assuming you have a 'healthInfo' collection in Firestore
     }
-  };
+    catch (error) {
+      console.log(error);
+    }
+  }
+
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={handleBackPress}>
-          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Health Information</Text>
-      </View>
-      <View style={styles.contentContainer}>
-        <View style={styles.passwordItem}>
-          <FontAwesome5 name="first-aid" size={24} color="black" />
-          <TextInput
-            placeholder='Disease'
-            value={disease}
-            onChangeText={(text) => setDisease(text)}
-          />
+
+    <KeyboardAvoidingView style={styles.container}>
+      <Text></Text>
+      <Text></Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={handleBackPress}>
+            <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.headerText}>Health Information</Text>
         </View>
-        <View style={styles.line} />
-        <View style={styles.passwordItem}>
-          <FontAwesome5 name="notes-medical" size={24} color="black" />
-          <TextInput
-            placeholder='Description'
-            value={description}
-            onChangeText={(text) => setDescription(text)}
-          />
+        <Text></Text>
+        <Text></Text>
+        <View style={styles.contentContainer}>
+          <View style={styles.passwordItem}>
+            <FontAwesome5 name="first-aid" size={24} color="black" />
+            <TextInput
+              placeholder='Disease'
+              value={disease}
+              onChangeText={(text) => setDisease(text)}
+            />
+          </View>
+          <View style={styles.line} />
+          <View style={styles.passwordItem}>
+            <FontAwesome5 name="notes-medical" size={24} color="black" />
+            <TextInput
+              placeholder='Description'
+              value={description}
+              onChangeText={(text) => setDescription(text)}
+            />
+          </View>
+          <View style={styles.line} />
+          <Button
+            size="md"
+            radius={10}
+            type="solid"
+            color="#ffb84d"
+            style={styles.saveButton}
+            onPress={handleSave}
+          >
+            Save
+          </Button>
         </View>
-        <View style={styles.line} />
-        <Button
-          size="md"
-          radius={10}
-          type="solid"
-          color="#ffb84d"
-          style={styles.saveButton}
-          onPress={handleSave}
-        >
-          Save
-        </Button>
-      </View>
-    </SafeAreaView>
+
+      </ScrollView>
+
+
+    </KeyboardAvoidingView>
+
+    // <SafeAreaView style={styles.container}>
+    //  <Text></Text>
+    //  <Text></Text>
+
+    // </SafeAreaView>
   );
 };
 

@@ -27,6 +27,8 @@ const AcceptedVolnteerLists = ({ route, searchvalue }) => {
     }
   }, [])
 
+  console.log(acceptedList);
+
   const searchResults =
     acceptedList &&
     acceptedList.filter((data) => {

@@ -26,6 +26,8 @@ const PendingVolnteerLists = ({navigation,searchvalue}) => {
     }
   }, []);
 
+  console.log(pendingList);
+
   const handleDeclineRequest = async(inviteuser)=>{
     alert("Deleted Request")
     await removeVolRequestById(volunteerUser,inviteuser)
@@ -34,7 +36,7 @@ const PendingVolnteerLists = ({navigation,searchvalue}) => {
 const searchResults =
 pendingList &&
 pendingList.filter((data) => {
-    if (data.fullname.toLowerCase().includes(searchvalue.toLowerCase())) {
+    if (data.fullname === searchvalue) {
       return data;
     }
   });
