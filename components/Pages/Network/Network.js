@@ -63,11 +63,19 @@ const ElderNetwork = () => {
     const handleAcceptRequest = async (invite) => {
         await alert(`You accepted request from ${invite.fullname}`)
         await acceptUserInvitation(elderUser, invite)
+        let temp =[...invitationList]
+        
+        let getInfo = temp.filter((std) => std.id !== invite.id);
+        //getInfo.favourite = !getInfo.favourite;
+        setInvitationList(getInfo);
+
     }
 
     const handleDeclineRequest = async(elderuser,inviteuser)=>{
         await removeRequestById(elderuser,inviteuser)
     }
+
+    //console.log(acceptedList,"lis");
 
     return (
         <SafeAreaView style={styles.container}>
@@ -83,7 +91,7 @@ const ElderNetwork = () => {
                     <ScrollView>
                         {
                             invitationList && invitationList.length > 0 && invitationList.slice(0, 4).map((invite, index) =>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
+                                (<View style={{ flexDirection: "row", justifyContent: "space-between" }} key={index}>
                                     <View style={{ flexDirection: "row", gap: 10 }}>
                                         <Avatar size={50} rounded source={{ uri: invite.avatar }} />
                                         <View>
@@ -102,6 +110,7 @@ const ElderNetwork = () => {
                                         <FontAwesome name="times" size={30} color="#7B7979" onPress={() => handleDeclineRequest(elderUser,invite)} />
                                     </View>
                                 </View>
+                            )
 
                             )
                         }
@@ -110,7 +119,7 @@ const ElderNetwork = () => {
 
                 <Card containerStyle={{ backgroundColor: "#F5F5F5" }} wrapperStyle={{ backgroundColor: "#F5F5F5" }}>
                     <View style={styles.header}>
-                        <Text style={styles.headerTitles}>Connections</Text>
+                        <Text style={styles.headerTitles}>Following Users</Text>
                         <TouchableOpacity onPress={() => navigation.navigate("ElderChats")}>
                             <FontAwesome name="arrow-right" size={20} color="black" />
                         </TouchableOpacity>

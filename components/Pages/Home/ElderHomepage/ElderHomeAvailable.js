@@ -18,23 +18,9 @@ const ElderHomeAvailable = () => {
 
   useEffect(() => {
     if (elderUser) {
-      readAllAvailableVolunteers("available", setAvailableList);
+      readAllAvailableVolunteers("available", setAvailableList,elderUser);
     }
   }, []);
-
-
- const  getStatus = (available)=> available.requestes &&  available.requestes.map(follower => {
-
-return follower.status
-
-  console.log(follower,"folr");
-    // if (follower.volunteerId === vol.id) {
-    //   // console.log(follower);
-    //   follower.status = "accepted"
-    //   return follower
-    // }
-    // return follower;
-  });
 
   return (
 

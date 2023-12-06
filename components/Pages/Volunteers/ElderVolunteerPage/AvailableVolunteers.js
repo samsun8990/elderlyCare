@@ -18,7 +18,7 @@ import { defaultImg } from "../../../Utils/ImageCommon.js";
 import { AuthContext } from "../../../Config/AuthContext.js";
 import { readAllAvailableVolunteers } from "../../../Config/dbcls.js";
 
-const AvailableVolunteers = ({navigation}) => {  
+const AvailableVolunteers = ({navigation,searchvalue}) => {  
   
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } =
     useContext(AuthContext);
@@ -33,6 +33,15 @@ const AvailableVolunteers = ({navigation}) => {
     }
   }, []);
 
+  const searchResults =
+  avaiableList &&
+  avaiableList.filter((data) => {
+      if (data.fullname.toLowerCase().includes(searchvalue.toLowerCase())) {
+        return data;
+      }
+    });
+
+
   return (
     <ScrollView>
     <Card>
@@ -41,10 +50,10 @@ const AvailableVolunteers = ({navigation}) => {
       </Card.Title>
       <Card.Divider />
       <ScrollView>
-        {avaiableList &&
-          avaiableList.length > 0 &&
-          avaiableList.map((available, index) => (
-            <View key={index}>
+      {avaiableList &&
+          (searchvalue
+            ? searchResults.map((available, index) => (
+              <View key={index}>
               <View
                 style={{
                   flexDirection: "row",
@@ -71,9 +80,7 @@ const AvailableVolunteers = ({navigation}) => {
                 >
                   <Button
                     disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') 
-                    ? 
-                    true
-                    :
+                   ||
                     available.requests && available.requests.map((vol) => vol.status === 'accepted') 
                     ?
                     true
@@ -96,7 +103,7 @@ const AvailableVolunteers = ({navigation}) => {
                     }}
                     onPress={() => navigation.navigate("RequestPage",{volUser:available})}
                   >
-                      {available.requests ? available.requests.map((vol) =>
+                      {available.requests && available.requests.length > 0 ? available.requests.map((vol) =>
                     vol.status == 'pending' ? 'Pending' :
                     vol.status == 'accepted' ? 'Accepted' :
                     'Request'
@@ -107,7 +114,79 @@ const AvailableVolunteers = ({navigation}) => {
               </View>
               <Card.Divider />
             </View>
-          ))}
+              ))
+            :    avaiableList &&
+              avaiableList.length > 0 &&
+              avaiableList.map((available, index) => (
+                <View key={index}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <View style={{ flexDirection: "row", gap: 10 }}>
+                    <Avatar size={48} rounded source={{ uri: available.avatar }} />
+                     
+                      <View style={{ margin: 5 }}>
+                      <TouchableOpacity onPress={() => navigation.navigate("UserProfile", { userid: available.id })}>
+                          <Text style={{ fontWeight: "600", fontSize: 16}}>{available.fullname}</Text>
+                      </TouchableOpacity>
+                        <Text style={{ color: "#847F7F" }}>{available.gender}</Text>
+                      </View>
+                    </View>
+    
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "flex-end",
+                        gap: 5,
+                      }}
+                    >
+                      <Button
+                        disabled={available.requests && available.requests.map((vol) => vol.status === 'pending') 
+                       ||
+                        available.requests && available.requests.map((vol) => vol.status === 'accepted') 
+                        ?
+                        true
+                         : false} 
+                        buttonStyle={{
+                          backgroundColor: "#BF3A3A",
+                          borderWidth: 2,
+                          borderColor: "#BF3A3A",
+                          borderRadius: 30,
+                        }}
+                        size="md"
+                        containerStyle={{
+                          width: 120,
+                          height: 38,
+                        }}
+                        titleStyle={{
+                          fontWeight: "bold",
+                          fontSize: 13,
+                          padding: 5,
+                        }}
+                        onPress={() => navigation.navigate("RequestPage",{volUser:available})}
+                      >
+                          {available.requests && available.requests.length > 0 ? available.requests.map((vol) =>
+                        vol.status == 'pending' ? 'Pending' :
+                        vol.status == 'accepted' ? 'Accepted' :
+                        'Request'
+                      ) : 'Request'}
+                      
+                      </Button>
+                    </View>
+                  </View>
+                  <Card.Divider />
+                </View>
+              ))
+              )
+              
+              }
+
+
+
+    
            <View style={{ paddingBottom: 20 }} />
       </ScrollView>
      

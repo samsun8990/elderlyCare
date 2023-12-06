@@ -12,6 +12,9 @@ import { Button } from 'react-native';
 import { useContext } from 'react';
 import { AuthContext } from '../Config/AuthContext';
 import VolunteerBottomTabs from './VolunteerBottomTabs';
+import ElderProfile from '../Pages/Profile/Elder/ElderProfile';
+import VolunProfile from '../Pages/Profile/Volunteer/VolunProfile';
+import VolunteerPage from '../Pages/Volunteers/VolunteerPage/VolunteerPage';
 
 const Drawer = createDrawerNavigator();
 
@@ -51,6 +54,11 @@ const DrawerTab = () => {
                   component={ElderNetwork}
                   options={{ drawerLabel: 'Network' }}
                 />
+                 <Drawer.Screen
+                  name="ElderlyProfile"
+                  component={ElderProfile}
+                  options={{ drawerLabel: 'My Profile' }}
+                />
                 {/* <Drawer.Screen
                   name="Logout"
                   component={signout}
@@ -68,9 +76,15 @@ const DrawerTab = () => {
               />
         
                 <Drawer.Screen
-                  name="ElderlyNetwork"
-                  component={ElderNetwork}
-                  options={{ drawerLabel: 'Network' }}
+                  name="Views requests"
+                  component={VolunteerPage}
+                  optio
+                  ns={{ drawerLabel: 'Network' }}
+                />
+                <Drawer.Screen
+                  name="VoluntrProfile"
+                  component={VolunProfile}
+                  options={{ drawerLabel: 'My Profile' }}
                 />
                 {/* <Drawer.Screen
                   name="Logout"
