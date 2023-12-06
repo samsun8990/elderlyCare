@@ -3,16 +3,17 @@ import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, TextInput } fro
 import { Button, Icon } from '@rneui/themed';
 import { MaterialCommunityIcons, AntDesign } from 'react-native-vector-icons';
 import { AuthContext } from '../../../Config/AuthContext';
+import { doc } from 'firebase/firestore';
+import { db } from '../../../Config/config';
 
 const EditProfileE = ({ navigation }) => {
   const authContext = useContext(AuthContext);
-  const { updateUser, elderUser } = authContext;
+  const { updateUser, elderUser,updateElderUser } = authContext;
 
   const [editedUser, setEditedUser] = useState({
     fullname: elderUser.fullname,
     phone: elderUser.phone,
-    date: elderUser.date,
-    // Add other fields you want to edit
+    ...elderUser
   });
 
 
@@ -20,9 +21,20 @@ const EditProfileE = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const handleSave = () => {
+  const handleSave = async() => {
     // Update the user data using the updateUser function from context
-    updateUser(editedUser);
+    //updateUser(editedUser);
+    updateElderUser(editedUser)
+
+    const getRequestsByElderRef = doc(db, 'elderlyUsers', elderUser.id);
+
+  await setDoc(getRequestsByElderRef, {
+    fullname: acceptedVolunteerUpdate, status:"unavailable"
+  }, { merge: true })
+    .then(() => console.log("Data Updated"))
+    .catch((error) => console.error('Error updating document:', error));
+
+
 
     // Navigate back to ElderProfile or wherever needed
     navigation.navigate("ElderProfile");
@@ -50,12 +62,12 @@ const EditProfileE = ({ navigation }) => {
             placeholder={elderUser.phone}></TextInput>
         </View>
         <View style={styles.line} />
-        <View style={styles.profileRow}>
+        {/* <View style={styles.profileRow}>
           <AntDesign name="calendar" size={20} color="black" style={styles.icon} />
           <TextInput style={styles.profileText}
             placeholder={elderUser.dob}></TextInput>
         </View>
-        <View style={styles.line} />
+        <View style={styles.line} /> */}
 
       </View>
       <View style={styles.dashboardButtons}>

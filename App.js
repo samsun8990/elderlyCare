@@ -111,8 +111,7 @@ export default function App() {
   };
 
   const updateElderUser = async (updatedUser) => {
-    // Implement logic to update the user in your context
-    // For example:
+
     setElderUser({ ...elderUser, ...updatedUser });
   };
 
