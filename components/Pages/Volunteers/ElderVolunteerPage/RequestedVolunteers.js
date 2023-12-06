@@ -48,7 +48,7 @@ const RequestedVolunteers = ({searchvalue}) => {
           acceptedVol &&
           (searchvalue
             ? searchResults.map((accept, index) => (
-              <View key={accept.id}>
+              <View key={index}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5,gap:15 }}>
          <View style={{ flexDirection: "row", gap: 10 }}>
            <Avatar size={50} source={{uri:accept.avatar}}/>
@@ -74,7 +74,7 @@ const RequestedVolunteers = ({searchvalue}) => {
 
             )):
             acceptedVol && acceptedVol.map((accept,index)=>(
-              <View key={accept.id}>
+              <View key={index}>
               <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5,gap:15 }}>
          <View style={{ flexDirection: "row", gap: 10 }}>
            <Avatar size={50} source={{uri:accept.avatar}}/>

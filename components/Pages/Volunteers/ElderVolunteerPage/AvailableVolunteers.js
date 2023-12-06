@@ -19,6 +19,8 @@ import { AuthContext } from "../../../Config/AuthContext.js";
 import { readAllAvailableVolunteers } from "../../../Config/dbcls.js";
 
 const AvailableVolunteers = ({navigation,searchvalue}) => {  
+
+  console.log(searchvalue);
   
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } =
     useContext(AuthContext);
@@ -26,21 +28,18 @@ const AvailableVolunteers = ({navigation,searchvalue}) => {
 
   useEffect(() => {
     if (elderUser ) {
-
       readAllAvailableVolunteers("available", setAvailableList);
-
-
     }
   }, []);
 
-  const searchResults =
-  avaiableList &&
-  avaiableList.filter((data) => {
-      if (data.fullname.toLowerCase().includes(searchvalue.toLowerCase())) {
-        return data;
-      }
-    });
+  
 
+  const searchResults = avaiableList && avaiableList.length > 0 &&
+  avaiableList.filter((data) => {
+    if (data.fullname === searchvalue) {
+      return data;
+    }
+    });
 
   return (
     <ScrollView>

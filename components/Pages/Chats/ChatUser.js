@@ -21,11 +21,11 @@ const ChatUser = ({ navigation, route }) => {
 
   if(elderUser){
     user = elderUser
-    uid = network.id
+    uid = network && network.id
   }
   else if(volunteerUser){
     user = volunteerUser
-    uid = network.id
+    uid = network && network.id
   }
   
 
@@ -33,7 +33,7 @@ const ChatUser = ({ navigation, route }) => {
 
   const getAllMessages = async () => {
     let messagesCollection,q;
-    if(elderUser){
+    if(elderUser && network &&network.id){
       messagesCollection = collection(db, 'Chats');
       // const q = query(messagesCollection, orderBy('createdAt', 'desc'));
        q = query(
