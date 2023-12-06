@@ -51,7 +51,7 @@ const AcceptedVolnteerLists = ({ route, searchvalue }) => {
                 <View key={index}>
                   <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
                     <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-                      <Avatar size={50} source={{ uri: accept.avatar }} />
+                      <Avatar rounded size={50} source={{ uri: accept.avatar }} />
                       <TouchableOpacity style={{ margin: 5 }} >
                         <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
                         {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}
@@ -74,7 +74,7 @@ const AcceptedVolnteerLists = ({ route, searchvalue }) => {
                 <View key={index}>
                   <View style={{ flexDirection: "row", justifyContent: "space-between", bottom: 5, padding: 5 }}>
                     <View style={{ flexDirection: "row", gap: 10, alignItems: "center" }}>
-                      <Avatar size={50} source={{ uri: accept.avatar }} />
+                      <Avatar rounded size={50} source={{ uri: accept.avatar }} />
                       <TouchableOpacity style={{ margin: 5 }} >
                         <Text style={{ fontWeight: "600", fontSize: 16 }}>{accept.fullname}</Text>
                         {/* <Text style={{ color: "#847F7F" }}>Country</Text> */}

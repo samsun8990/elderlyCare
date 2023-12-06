@@ -48,7 +48,7 @@ const FeedbackPage = ({ navigation, route }) => {
       <Card containerStyle={{ backgroundColor: "#fff" }} wrapperStyle={{ backgroundColor: "#fff" }}>
         <View>
           <View style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 10, padding: 10 }}>
-            <Avatar size={60} source={{ uri: accepted.avatar }} />
+            <Avatar rounded size={60} source={{ uri: accepted.avatar }} />
             <Text style={{ fontWeight: "bold" }}>{accepted.fullname}</Text>
           </View>
           <Card.Divider />
