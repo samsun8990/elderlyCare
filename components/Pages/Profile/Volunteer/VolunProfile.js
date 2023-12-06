@@ -64,22 +64,22 @@ const VolunProfile = () => {
                     <Text>{volunteerUser.phone}</Text>
                 </View>
             </View>
-            <View style={styles.cardContainer}>
+            {/* <View style={styles.cardContainer}>
                 <Text></Text>
                 <Text></Text>
                 <Text style={styles.sectionTitle}>Dashboard</Text>
                 <Text>──────────────── </Text>
                 <View style={styles.dashboardButtons}>
-                    {/* <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
+                    <Button size={"md"} radius={20} type="solid" color={"#8FDC97"}
                      onPress={()=>navigation.navigate("PaymentHistoryV")}>
                         Payments
-                    </Button> */}
+                    </Button>
                     <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
                     onPress={()=>navigation.navigate("ChatHistoryV")}>
                         Chat History
                     </Button>
                 </View>
-            </View>
+            </View> */}
             <View style={styles.accountContainer}>
                 <Text style={styles.sectionTitle}>My Account</Text>
                 <Text>──────────────── </Text>

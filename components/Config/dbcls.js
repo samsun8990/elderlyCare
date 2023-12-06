@@ -253,8 +253,8 @@ export const getInvitations = async (elderUser, setinvitation) => {
     let a3 = temp.flatMap((x) => { return x.followers && x.followers })
     if (a3.length > 0) {
 
-      let check = a3.filter((follower) => follower && follower.status === "requested")
-      if (check.length > 0) {
+      let check = a3.filter(fl => fl.status === "requested")
+      if ( check && check.length > 0) {
 
         check.forEach(a => {
           const docRef1 = doc(db, 'elderlyUsers', a.id);
@@ -323,7 +323,7 @@ export const viewAcceptedVolunteersByElder = async (elderUser, setAcceptedList) 
             const docSnap1 = getDoc(docRef1);
             docSnap1.then((result) => {
               getInvitedUsers.push({ id: a.id, ...result.data() })
-              //console.log(getInvitedUsers,"getacceptedUsers");
+              console.log(getInvitedUsers,"getacceptedUsers");
               setAcceptedList(getInvitedUsers)
               return getInvitedUsers
             }
@@ -367,7 +367,7 @@ export const viewPendingVolunteersByElder = async(elderUser, setAcceptedList)=>{
             const docRef1 = doc(db, 'volunteerUsers', a.id);
             const docSnap1 = getDoc(docRef1);
             docSnap1.then((result) => {
-              getInvitedUsers.push({ id: a.id, ...result.data() })
+              getInvitedUsers.push({ id: result.id, ...result.data() })
               //console.log(getInvitedUsers,"getacceptedUsers");
               setAcceptedList(getInvitedUsers)
             }

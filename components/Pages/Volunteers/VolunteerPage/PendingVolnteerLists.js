@@ -49,6 +49,7 @@ pendingList.filter((data) => {
     {
 
 pendingList && pendingList.length > 0
+?
 (searchvalue
   ? 
   searchResults.map((pending, index) => (
@@ -95,7 +96,9 @@ pendingList && pendingList.length > 0
       <Card.Divider/>
      
       </View>
-  ))}
+  ))
+:
+null}
       
      
      

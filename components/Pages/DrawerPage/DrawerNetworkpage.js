@@ -68,7 +68,6 @@ const DrawerNetworkpage = () => {
         let temp =[...invitationList]
         
         let getInfo = temp.filter((std) => std.id !== invite.id);
-        //getInfo.favourite = !getInfo.favourite;
         setInvitationList(getInfo);
 
     }

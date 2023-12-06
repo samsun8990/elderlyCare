@@ -93,10 +93,10 @@ const ElderProfile = () => {
                      onPress={()=>navigation.navigate("PaymentHistoryE")}  >
                         Payments
                     </Button> */}
-                        <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
+                        {/* <Button size={"md"} radius={20} type="solid" color={"#FFD699"}
                             onPress={() => navigation.navigate("ChatHistoryE")}>
                             Chat History
-                        </Button>
+                        </Button> */}
                         <Button size={"md"} radius={20} type="solid" color={"#FFB3B3"}
                             onPress={() => navigation.navigate("HealthInfo")}>
                             Health Info
