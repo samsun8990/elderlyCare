@@ -181,14 +181,15 @@ const VolunteerRegister = ({ navigation }) => {
 
 
           <View style={{ marginTop: 30, alignItems: 'center' }}>
-
+          <Text style={styles.error}>{userError}</Text>
+            <Text style={styles.error}>{passwordError}</Text>
+            <Text></Text>
             <TouchableOpacity style={styles.button}
               onPress={handleVolunteerRegister}
             >
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
-            <Text style={styles.error}>{userError}</Text>
-            <Text style={styles.error}>{passwordError}</Text>
+           
           </View>
         </View>
         <View>

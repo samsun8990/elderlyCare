@@ -19,7 +19,6 @@ const ElderVolunteers = () => {
   const [value, setValue] = useState(null)
   const { user, signIn, signOut, elderUser, volunteerUser, setUser } = useContext(AuthContext);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([])
   
   const [viewAllChoice,setViewAllChoice] = useState(true)
   const [viewRequestedChoice,setViewRequestedChoice] = useState(false)
@@ -73,36 +72,10 @@ const updateSearch = (search) => {
     navigation.setOptions(headerOptions);
   }, [navigation]);
 
+  
 
 
-  useEffect(() => {
-    const searchByName = async () => {
-      const docRef = elderUser.fullname
-      const snapshot = await docRef
-      .where('fullname', '>=', search)
-      .where('fullname', '<=', search + '\uf8ff')
-      .get()
 
-      const results = snapshot.val()
-      
-      if(results) {
-        const data = Object.keys(results).map((key) => ({
-          id:key,
-          ...results[key]
-        }))
-        setSearchResults(data)
-      }else{
-        setSearchResults([])
-      }
-    }
-
-    if (search !== ''){
-      searchByName();
-
-    }else{
-      setSearchResults([])
-    }
-  }, [search])
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -113,8 +86,8 @@ const updateSearch = (search) => {
           Platform.OS === "ios"
           ?
           <SearchBar
-          placeholder="Search by name"
-          onChangeText={(text) => setSearch(text)}
+          placeholder="Search"
+          onChangeText={updateSearch}
           value={search}
           platform='ios'
           containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
@@ -133,7 +106,7 @@ const updateSearch = (search) => {
         :
         <SearchBar
         placeholder="Type Here..."
-        onChangeText={(text) => setSearch(text)}
+        onChangeText={updateSearch}
         value={search}
         platform='android'
         containerStyle={{backgroundColor:"#E4EDF2",width:144, height:35}}
@@ -151,57 +124,48 @@ const updateSearch = (search) => {
       />
           }
         </View>
-        <View style={styles.dropdown}>
-          <Dropdown data={data}
-            labelField="label"
-            valueField="value"
-            maxHeight={'70%'}
-            // search
-            placeholder="Filter"
-            selectedTextStyle={{ fontSize: 13 }}
-            onChange={item => setValue(item.value)}
-            value={value}
-            style={{ fontSize: 18, padding: 5,color:"grey", }}
-          />
-        </View>
+     
       </View>
    
       <View style={{ flexDirection: "row", gap: 20, margin: 5 }}>
-        <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
-        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewAllChoice(true);setViewRequestedChoice(false)}}>
+      <ScrollView horizontal >
+      <Button buttonStyle={viewAllChoice ? styles.viewallbtn : styles.viewrequested} 
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
+          setViewPendingChoice(false),setViewAllChoice(true);setViewRequestedChoice(false)}}>
           View All</Button>
+          <Text>  </Text>
         <Button buttonStyle={viewRequestedChoice ? styles.viewallrequestbtn : styles.viewrequested} 
-        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{setViewRequestedChoice(true);setViewAllChoice(false)}}>
+        titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
+          setViewPendingChoice(false),setViewRequestedChoice(true);setViewAllChoice(false)}}>
           View Accepted</Button>
           <Text>  </Text>
           <Button buttonStyle={viewPendingChoice ? styles.viewallrequestbtn : styles.viewrequested} 
         titleStyle={{fontSize:15, fontWeight:"600"}} onPress={()=>{
           setViewPendingChoice(true),setViewRequestedChoice(false);setViewAllChoice(false)}}>
           View Pending</Button>
-</View>
+
       </ScrollView>
      
-      <View>
-      <ScrollView>
+      </View>
 
       {
         viewRequestedChoice
         ?
-        <RequestedVolunteers navigation={navigation}/>
+        <RequestedVolunteers navigation={navigation} searchvalue={search}/>
         :
         null
       }
       {
          viewPendingChoice
          ?
-         <PendigVolunteer navigation={navigation}/>
+         <PendigVolunteer navigation={navigation} searchvalue={search}/>
          :
          null
       }
       {
         viewAllChoice
         ?
-        <AvailableVolunteers navigation={navigation}/>
+        <AvailableVolunteers navigation={navigation} searchvalue={search}/>
         :
         null
       }
@@ -209,7 +173,6 @@ const updateSearch = (search) => {
       </ScrollView>
       
 
-    </View>
     </View>
   )
 }

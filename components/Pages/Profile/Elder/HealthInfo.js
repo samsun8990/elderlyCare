@@ -11,6 +11,7 @@ const HealthInfo = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Text></Text>
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={handleBackPress}>
                     <MaterialCommunityIcons name="arrow-left" size={24} color="black" />

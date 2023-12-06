@@ -128,11 +128,6 @@ const ViewRequestPage = ({navigation,route}) => {
 
                 </View>
                 <Text></Text>
-                {/* <View>
-                    <Text style={styles.requestTitle}>Payment Amount</Text>
-                    <Card.Divider />
-                    <Text style={{ fontSize: 15 }}>QR {requestsForUser.amount}</Text>
-                </View> */}
             </View>
         </Card>
     </ScrollView>
