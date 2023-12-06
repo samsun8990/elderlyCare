@@ -53,6 +53,7 @@ const ElderChats = ({ navigation, route }) => {
   }, [navigation]);
 
 
+  console.log(connectedNetworks,"cnn");
 
 
   return (

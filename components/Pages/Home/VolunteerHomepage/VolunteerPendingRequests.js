@@ -63,11 +63,11 @@ const VolunteerPendingRequests = ({navigation}) => {
                 }}
                 titleStyle={{ fontWeight: 'bold', fontSize:15 }}
             >
-               {pending.requests ? pending.requests.map((vol) =>
+               {pending.requests && pending.requests.length >=1 ? pending.requests.map((vol) =>
                     vol.status == 'pending' ? 'Pending' :
                     vol.status == 'accepted' ? 'Accepted' :
-                    'Accept'
-                  ) : 'Accept'}
+                    'Connect'
+                  ) : 'Connect'}
             </Button>
         </View>
             )

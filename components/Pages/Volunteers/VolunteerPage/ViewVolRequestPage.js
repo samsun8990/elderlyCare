@@ -25,10 +25,16 @@ const ViewVolRequestPage = ({navigation,route}) => {
     const { pending } = route.params
 
     const handleAcceptRequest = async()=>{
+        console.log(pending,volunteerUser)
+        
         alert("Accepted Successfully!")
         await acceptVolunteerPendingRequest(volunteerUser,pending)
+        console.log("accepted");
 
+        
     }
+
+ 
 
     
     const getRequestsByUserId = (userObj, requestedByUserId) => {

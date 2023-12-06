@@ -81,7 +81,7 @@ const ElderHomeSuggestions = () => {
                   titleStyle={{ fontWeight: "bold", fontSize: 13 }}
                 >
                 
-                 {suggest.followers ? suggest.followers.map((vol) =>
+                 {suggest.followers && suggest.followers.length>0 ? suggest.followers.map((vol) =>
                     vol.status == 'requested' ? 'Requested' :
                     vol.status == 'accepted' ? 'Accepted' :
                     'Connect'
